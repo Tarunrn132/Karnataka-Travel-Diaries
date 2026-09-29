@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Karnataka Travel Diaries | Discover Karnataka. Create Your Story.</title>
+  <meta name="description" content="Explore the Soul of Karnataka. Discover hill stations, heritage cities, beaches, wildlife sanctuaries and hidden gems across Karnataka with smart trip planning and Google Maps directions.">
+  <link rel="icon" href="images/hero/karnataka-fallback.jpg" type="image/jpeg">
+
+  <!-- Technical SEO & Canonical -->
+  <link rel="canonical" href="https://YOUR-PRODUCTION-DOMAIN.com/">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph / Facebook / WhatsApp -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Karnataka Travel Diaries">
+  <meta property="og:title" content="Karnataka Travel Diaries | Discover Karnataka. Create Your Story.">
+  <meta property="og:description" content="Explore Karnataka's top destinations: Coorg, Hampi, Gokarna, Mysore, Chikmagalur, Western Ghats, and coastal beaches with AI itineraries and interactive maps.">
+  <meta property="og:image" content="https://YOUR-PRODUCTION-DOMAIN.com/images/hero/karnataka-hero.jpg">
+  <meta property="og:url" content="https://YOUR-PRODUCTION-DOMAIN.com/">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Karnataka Travel Diaries | Discover Karnataka">
+  <meta name="twitter:description" content="Explore Karnataka's top destinations with AI itineraries and interactive maps.">
+  <meta name="twitter:image" content="https://YOUR-PRODUCTION-DOMAIN.com/images/hero/karnataka-hero.jpg">
+
+  <!-- Schema.org JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://YOUR-PRODUCTION-DOMAIN.com/#website",
+        "url": "https://YOUR-PRODUCTION-DOMAIN.com/",
+        "name": "Karnataka Travel Diaries",
+        "description": "Comprehensive Karnataka travel guide, AI itinerary planner, and destination discovery platform.",
+        "inLanguage": "en-IN"
+      },
+      {
+        "@type": "TravelAgency",
+        "@id": "https://YOUR-PRODUCTION-DOMAIN.com/#organization",
+        "name": "Karnataka Travel Diaries",
+        "url": "https://YOUR-PRODUCTION-DOMAIN.com/",
+        "logo": "https://YOUR-PRODUCTION-DOMAIN.com/images/hero/karnataka-fallback.jpg",
+        "areaServed": {
+          "@type": "AdministrativeArea",
+          "name": "Karnataka, India"
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Core Styles -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/ai.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <!-- Leaflet CSS for Map Preview -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+</head>
+<body>
+
+  <!-- 1. HEADER & NAVIGATION -->
+  <header class="site-header">
+    <div class="container header-container">
+      <!-- Brand Logo -->
+      <a href="index.html" class="brand-logo">
+        <div class="brand-icon-box">🧭</div>
+        <div>
+          <div class="brand-title">Karnataka<span>Diaries</span></div>
+          <span class="brand-tagline">Discover • Plan • Explore</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="desktop-nav">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="explore.html" class="nav-link">Explore</a>
+        <a href="map.html" class="nav-link">Interactive Map</a>
+        <a href="ai-planner.html" class="nav-link">AI Planner ✨</a>
+        <a href="trips.html" class="nav-link">Trips</a>
+        <a href="diary.html" class="nav-link">Travel Diary</a>
+      </nav>
+
+      <!-- Right Actions: Wishlist & User Menu -->
+      <div class="header-actions">
+        <a href="favorites.html" class="fav-nav-btn" title="Saved Wishlist" aria-label="Saved Places">
+          <span>❤️</span>
+          <span class="fav-badge" style="display:none;">0</span>
+        </a>
+
+        <div id="headerAuthContainer">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <a href="login.html" class="btn btn-secondary btn-sm" style="border:none;">Log In</a>
+            <a href="register.html" class="btn btn-primary btn-sm">Sign Up</a>
+          </div>
+        </div>
+
+        <button class="mobile-hamburger" id="mobileHamburgerBtn" aria-label="Open Menu">
+          ☰
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Sheet -->
+    <div class="mobile-drawer" id="mobileDrawer">
+      <nav style="display:flex; flex-direction:column; gap:4px;">
+        <a href="index.html" class="nav-link active">Home <span>🏠</span></a>
+        <a href="explore.html" class="nav-link">Explore Destinations <span>🧭</span></a>
+        <a href="map.html" class="nav-link">Interactive Map <span>🗺️</span></a>
+        <a href="ai-planner.html" class="nav-link">AI Travel Planner <span>✨</span></a>
+        <a href="trips.html" class="nav-link">Trip Itineraries <span>📅</span></a>
+        <a href="diary.html" class="nav-link">Travel Diary <span>📖</span></a>
+        <a href="favorites.html" class="nav-link">Saved Places <span>❤️</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- 2. HERO SECTION -->
+    <section class="hero-section">
+      <div class="container">
+        <div class="hero-banner">
+          <div class="hero-overlay"></div>
+          <div class="hero-overlay-bottom"></div>
+
+          <!-- Hero Content Block -->
+          <div class="hero-content">
+            <div class="hero-badge">
+              <span>✨</span>
+              <span>Official Karnataka Discovery Companion</span>
+            </div>
+
+            <h1 class="hero-heading">
+              Explore the Soul of <span class="karnataka-text">Karnataka</span>
+            </h1>
+
+            <p class="hero-subtitle">
+              Discover unforgettable places, plan meaningful journeys, navigate with real-time GPS directions, and create your own Karnataka travel diary.
+            </p>
+
+            <!-- Search Component -->
+            <div class="search-box-wrap">
+              <div class="hero-search-bar">
+                <span class="search-icon">🔍</span>
+                <input 
+                  type="text" 
+                  id="heroSearchInput" 
+                  placeholder="Where do you want to go? (e.g. Coorg, Hampi, Gokarna...)" 
+                  autocomplete="off"
+                />
+                <button type="button" class="btn-search" onclick="handleHeroSearchSubmit()">
+                  Search
+                </button>
+              </div>
+
+              <!-- Suggestions Dropdown -->
+              <div class="search-suggestions-box" id="heroSuggestionsBox"></div>
+
+              <!-- Quick Search Filter Tags -->
+              <div class="quick-tags">
+                <span style="opacity:0.8; font-weight:600;">Popular:</span>
+                <a href="explore.html?search=Coorg" class="quick-tag-pill">Coorg</a>
+                <a href="explore.html?search=Hampi" class="quick-tag-pill">Hampi</a>
+                <a href="explore.html?search=Gokarna" class="quick-tag-pill">Gokarna</a>
+                <a href="explore.html?search=Chikmagalur" class="quick-tag-pill">Chikmagalur</a>
+                <a href="explore.html?search=Mysore" class="quick-tag-pill">Mysore</a>
+              </div>
+            </div>
+
+            <!-- Hero Action Buttons -->
+            <div class="hero-actions">
+              <a href="explore.html" class="btn btn-primary">
+                🧭 Explore Destinations
+              </a>
+              <a href="trips.html" class="btn btn-ghost-white">
+                📅 Plan My Trip
+              </a>
+            </div>
+          </div>
+
+          <!-- Bottom Stat Strip -->
+          <div class="hero-stats">
+            <div class="hero-stat-item">
+              <h4>21+</h4>
+              <p>Destinations</p>
+            </div>
+            <div class="hero-stat-item">
+              <h4>Live GPS</h4>
+              <p>Turn-by-turn Navigation</p>
+            </div>
+            <div class="hero-stat-item">
+              <h4>30+</h4>
+              <p>Districts</p>
+            </div>
+            <div class="hero-stat-item">
+              <h4>Trip Planner</h4>
+              <p>&amp; Personal Diary</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. CURATED LANDSCAPE EXPERIENCES -->
+    <section style="padding: 40px 0 20px;">
+      <div class="container">
+        <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:24px;">
+          <div>
+            <div class="section-tag">🌄 Curated Experiences</div>
+            <h2 class="section-title">Explore by Karnataka Landscape</h2>
+          </div>
+          <a href="explore.html" style="font-size:13px; font-weight:700; color:var(--primary-brand);">
+            View all categories →
+          </a>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:20px;">
+          <a href="explore.html?category=Hill+Stations" class="destination-card" style="min-height:220px; aspect-ratio:auto;">
+            <div class="card-media" style="aspect-ratio:16/10;">
+              <img src="images/destinations/chikmagalur.jpg" alt="Misty Hills of Karnataka" onerror="this.src='images/hero/karnataka-hero.jpg'">
+              <div class="card-image-overlay"></div>
+              <div class="card-media-bottom" style="flex-direction:column; align-items:flex-start;">
+                <h3 style="font-size:18px; font-weight:800; color:#fff;">Misty Hills</h3>
+                <span style="font-size:11px; opacity:0.85;">Coorg, Chikmagalur, Sakleshpur</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="explore.html?category=Beaches" class="destination-card" style="min-height:220px; aspect-ratio:auto;">
+            <div class="card-media" style="aspect-ratio:16/10;">
+              <img src="images/destinations/gokarna.jpg" alt="Coastal Shores of Karnataka" onerror="this.src='images/hero/karnataka-hero.jpg'">
+              <div class="card-image-overlay"></div>
+              <div class="card-media-bottom" style="flex-direction:column; align-items:flex-start;">
+                <h3 style="font-size:18px; font-weight:800; color:#fff;">Coastal Shores</h3>
+                <span style="font-size:11px; opacity:0.85;">Gokarna, Udupi, Karwar</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="explore.html?category=Heritage" class="destination-card" style="min-height:220px; aspect-ratio:auto;">
+            <div class="card-media" style="aspect-ratio:16/10;">
+              <img src="images/destinations/mysore.jpg" alt="Royal Heritage of Karnataka" onerror="this.src='images/hero/karnataka-hero.jpg'">
+              <div class="card-image-overlay"></div>
+              <div class="card-media-bottom" style="flex-direction:column; align-items:flex-start;">
+                <h3 style="font-size:18px; font-weight:800; color:#fff;">Royal Heritage</h3>
+                <span style="font-size:11px; opacity:0.85;">Hampi, Mysuru, Badami, Belur</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="explore.html?category=Wildlife" class="destination-card" style="min-height:220px; aspect-ratio:auto;">
+            <div class="card-media" style="aspect-ratio:16/10;">
+              <img src="images/destinations/bandipur.jpg" alt="Untamed Wildlife of Karnataka" onerror="this.src='images/hero/karnataka-hero.jpg'">
+              <div class="card-image-overlay"></div>
+              <div class="card-media-bottom" style="flex-direction:column; align-items:flex-start;">
+                <h3 style="font-size:18px; font-weight:800; color:#fff;">Untamed Wildlife</h3>
+                <span style="font-size:11px; opacity:0.85;">Bandipur, Nagarhole, Kabini</span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3.5. AI TRAVEL COPILOT HOMEPAGE SPOTLIGHT -->
+    <section style="padding: 30px 0 20px;">
+      <div class="container">
+        <div style="position:relative; background: linear-gradient(135deg, #1e1b4b 0%, #31104b 50%, #1e293b 100%); border-radius:var(--radius-xl); padding:40px 32px; color:white; overflow:hidden; box-shadow:var(--shadow-premium); border:1px solid rgba(255,255,255,0.12);">
+          <div style="position:absolute; right:-40px; top:-40px; width:260px; height:260px; background:radial-gradient(circle, rgba(147, 51, 234, 0.25) 0%, transparent 70%); pointer-events:none;"></div>
+          
+          <div style="max-width:680px; position:relative; z-index:2;">
+            <div style="display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,0.15); padding:4px 12px; border-radius:14px; font-size:11px; font-weight:700; color:#c4b5fd; margin-bottom:12px; letter-spacing:0.5px;">
+              <span>✨</span>
+              <span>INTRODUCING</span>
+            </div>
+
+            <h2 style="font-size:32px; font-weight:800; line-height:1.2; margin-bottom:12px; color:#ffffff;">
+              Karnataka AI Travel Copilot
+            </h2>
+
+            <p style="font-size:15px; color:#cbd5e1; line-height:1.6; margin-bottom:16px;">
+              Tell us your budget, available days and interests. We'll help create a personalized Karnataka journey.
+            </p>
+
+            <div style="background:rgba(255,255,255,0.1); border-left:3px solid #fde047; padding:10px 14px; border-radius:8px; font-size:13px; font-style:italic; color:#f1f5f9; margin-bottom:24px;">
+              &ldquo;I have 3 days, ₹7,000 and love waterfalls.&rdquo;
+            </div>
+
+            <div style="display:flex; gap:12px; flex-wrap:wrap;">
+              <a href="ai-planner.html" class="btn btn-primary" style="padding:12px 24px; font-size:14px;">
+                ✨ Plan With AI
+              </a>
+              <button type="button" class="btn btn-ghost-white" onclick="AIChat.openDrawer()">
+                💬 Ask Copilot Anything
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. FEATURED DESTINATIONS (8 Destinations from data.js) -->
+    <section style="padding: 40px 0;">
+      <div class="container">
+        <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-end; gap:12px; margin-bottom:28px;">
+          <div>
+            <div class="section-tag">⭐ Handpicked Gems</div>
+            <h2 class="section-title">Featured Karnataka Destinations</h2>
+            <p class="section-desc">
+              Authentic places with their own verified local photographs, heritage details and direct GPS navigation.
+            </p>
+          </div>
+          <a href="explore.html" class="btn btn-secondary btn-sm">
+            Explore All 21 Destinations →
+          </a>
+        </div>
+
+        <div class="destinations-grid" id="featuredDestinationsContainer">
+          <!-- Dynamically populated via js/destinations.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. INTERACTIVE MAP PREVIEW SECTION (FIXED WITH LIVE LEAFLET) -->
+    <section style="padding: 30px 0;">
+      <div class="container">
+        <div style="background: linear-gradient(135deg, #1e1b4b 0%, #1e293b 100%); border-radius:var(--radius-xl); padding:32px; color:white; box-shadow:var(--shadow-float); border:1px solid rgba(255,255,255,0.1);">
+          <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:20px; margin-bottom:20px;">
+            <div style="max-width:560px;">
+              <div class="section-tag" style="color:#a5b4fc;">🗺️ Interactive Live Map</div>
+              <h2 style="font-size:26px; font-weight:800; line-height:1.25; margin-bottom:8px;">
+                Explore Karnataka on the Map
+              </h2>
+              <p style="font-size:13px; color:#cbd5e1; line-height:1.6;">
+                Click any destination pinpoint on the map below to preview attractions, calculate driving distances, and launch Google Maps turn-by-turn directions.
+              </p>
+            </div>
+            <div>
+              <a href="map.html" class="btn btn-primary btn-sm">
+                Launch Full-Screen Map ↗
+              </a>
+            </div>
+          </div>
+
+          <!-- Embedded Leaflet Interactive Map Container -->
+          <div style="position:relative; width:100%; height:360px; border-radius:18px; overflow:hidden; border:2px solid rgba(255,255,255,0.15); box-shadow:0 10px 25px rgba(0,0,0,0.3);">
+            <div id="homeMapPreview" style="width:100%; height:100%;"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. POPULAR WEEKEND GETAWAYS FROM BENGALURU -->
+    <section style="padding: 40px 0;">
+      <div class="container">
+        <div style="margin-bottom:24px;">
+          <div class="section-tag">🚗 Quick Escapes</div>
+          <h2 class="section-title">Popular Weekend Getaways</h2>
+          <p class="section-desc">
+            Exciting road trips within easy driving range from Bengaluru.
+          </p>
+        </div>
+
+        <div class="weekend-grid" id="weekendGetawaysContainer">
+          <!-- Dynamically populated via data.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. TRAVEL STORIES PREVIEWS -->
+    <section style="padding: 40px 0;">
+      <div class="container">
+        <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:24px;">
+          <div>
+            <div class="section-tag">📖 Community Voices</div>
+            <h2 class="section-title">Real Karnataka Travel Stories</h2>
+            <p class="section-desc">
+              Moments, photographs, and memories penned down in travelers&apos; diaries.
+            </p>
+          </div>
+          <a href="diary.html" class="btn btn-secondary btn-sm">
+            Read Diary Stories →
+          </a>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:24px;" id="homeDiaryStoriesContainer">
+          <!-- Populated from Diary -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. WHY KARNATAKA TRAVEL DIARIES -->
+    <section style="padding: 40px 0;">
+      <div class="container">
+        <div style="text-align:center; max-width:620px; margin:0 auto 36px;">
+          <div class="section-tag">💡 Built For Modern Travelers</div>
+          <h2 class="section-title">Why Karnataka Travel Diaries?</h2>
+          <p class="section-desc" style="margin:6px auto 0;">
+            A complete platform built to explore the soul of Karnataka from discovery to navigation.
+          </p>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:24px;">
+          <div style="background:#ffffff; padding:28px; border-radius:24px; border:1px solid #eef0f3; box-shadow:var(--shadow-card);">
+            <div style="font-size:32px; margin-bottom:12px;">🧭</div>
+            <h3 style="font-size:18px; font-weight:800; color:var(--dark-text); margin-bottom:6px;">1. Discover</h3>
+            <p style="font-size:13px; color:#64748b; line-height:1.6;">
+              21+ authentic destinations categorized by hills, beaches, heritage, and wildlife based on Trawell references.
+            </p>
+          </div>
+
+          <div style="background:#ffffff; padding:28px; border-radius:24px; border:1px solid #eef0f3; box-shadow:var(--shadow-card);">
+            <div style="font-size:32px; margin-bottom:12px;">📅</div>
+            <h3 style="font-size:18px; font-weight:800; color:var(--dark-text); margin-bottom:6px;">2. Plan</h3>
+            <p style="font-size:13px; color:#64748b; line-height:1.6;">
+              Build multi-day road trip itineraries, organize daily stops, and view timeline driving routes effortlessly.
+            </p>
+          </div>
+
+          <div style="background:#ffffff; padding:28px; border-radius:24px; border:1px solid #eef0f3; box-shadow:var(--shadow-card);">
+            <div style="font-size:32px; margin-bottom:12px;">🚗</div>
+            <h3 style="font-size:18px; font-weight:800; color:var(--dark-text); margin-bottom:6px;">3. Navigate</h3>
+            <p style="font-size:13px; color:#64748b; line-height:1.6;">
+              Acquire current GPS coordinates and open Google Maps driving navigation with exact origin and destination coordinates.
+            </p>
+          </div>
+
+          <div style="background:#ffffff; padding:28px; border-radius:24px; border:1px solid #eef0f3; box-shadow:var(--shadow-card);">
+            <div style="font-size:32px; margin-bottom:12px;">📖</div>
+            <h3 style="font-size:18px; font-weight:800; color:var(--dark-text); margin-bottom:6px;">4. Remember</h3>
+            <p style="font-size:13px; color:#64748b; line-height:1.6;">
+              Keep a personal travel diary with photographs, notes, and ratings to cherish your lifelong Karnataka journey.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. CALL TO ACTION -->
+    <section style="padding: 40px 0 60px;">
+      <div class="container">
+        <div style="background:linear-gradient(135deg, var(--primary-brand) 0%, var(--secondary-brand) 100%); border-radius:var(--radius-xl); padding:48px 32px; text-align:center; color:white; box-shadow:var(--shadow-premium);">
+          <h2 style="font-size:32px; font-weight:800; margin-bottom:12px; letter-spacing:-0.5px;">
+            Your Next Karnataka Story Starts Here
+          </h2>
+          <p style="font-size:15px; color:rgba(255,255,255,0.9); max-width:600px; margin:0 auto 28px; line-height:1.6;">
+            Save your favorite places, map your custom road trips, and join fellow explorers discovering the cultural heart of South India.
+          </p>
+          <div style="display:flex; justify-content:center; gap:12px; flex-wrap:wrap;">
+            <a href="explore.html" class="btn" style="background:#ffffff; color:var(--primary-brand); font-weight:700;">
+              Explore Karnataka ↗
+            </a>
+            <a href="register.html" class="btn btn-ghost-white">
+              Create Free Account
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 10. SITE FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="brand-logo" style="color:#ffffff; margin-bottom:14px;">
+            <div class="brand-icon-box">🧭</div>
+            <div>
+              <div class="brand-title">Karnataka<span style="color:#a5b4fc;">Diaries</span></div>
+              <span class="brand-tagline" style="color:#94a3b8;">Discover • Plan • Explore</span>
+            </div>
+          </div>
+          <p style="font-size:13px; color:#94a3b8; line-height:1.6; max-width:320px;">
+            Explore the Soul of Karnataka. Discover hill stations, heritage cities, beaches, and wildlife sanctuaries across Karnataka.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="explore.html">All Destinations</a></li>
+            <li><a href="map.html">Interactive Map</a></li>
+            <li><a href="trips.html">Trip Planner</a></li>
+            <li><a href="diary.html">Travel Diary</a></li>
+            <li><a href="explore.html?category=Hill+Stations">Western Ghats Hills</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Top Places</h4>
+          <ul>
+            <li><a href="destination.html?id=coorg">Coorg (Madikeri)</a></li>
+            <li><a href="destination.html?id=hampi">Hampi Ruins</a></li>
+            <li><a href="destination.html?id=mysore">Mysore Palace</a></li>
+            <li><a href="destination.html?id=gokarna">Gokarna Beaches</a></li>
+            <li><a href="destination.html?id=chikmagalur">Chikmagalur Coffee</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Platform</h4>
+          <ul>
+            <li><a href="favorites.html">Saved Wishlist</a></li>
+            <li><a href="login.html">Traveler Login</a></li>
+            <li><a href="register.html">Sign Up</a></li>
+            <li><a href="profile.html">Traveler Profile</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2026 Karnataka Travel Diaries. Discover Karnataka. Create Your Story.</div>
+        <div>Made with ❤️ for Karnataka Tourism</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 11. MOBILE BOTTOM APP BAR -->
+  <nav class="mobile-bottom-nav">
+    <a href="index.html" class="bottom-nav-item active">
+      <span>🏠</span>
+      <span>Home</span>
+    </a>
+    <a href="explore.html" class="bottom-nav-item">
+      <span>🧭</span>
+      <span>Explore</span>
+    </a>
+    <a href="ai-planner.html" class="bottom-nav-item">
+      <span>✨</span>
+      <span>AI Planner</span>
+    </a>
+    <a href="map.html" class="bottom-nav-item">
+      <span>🗺️</span>
+      <span>Map</span>
+    </a>
+    <a href="profile.html" class="bottom-nav-item">
+      <span>👤</span>
+      <span>Profile</span>
+    </a>
+  </nav>
+
+  <!-- Leaflet JS for Map -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <!-- Vanilla JS Modules -->
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/favorites.js"></script>
+  <script src="js/destinations.js"></script>
+  <script src="js/maps.js"></script>
+  <script src="js/trips.js"></script>
+  <script src="js/diary.js"></script>
+  <script src="js/reviews.js"></script>
+  <script src="js/ai-chat.js"></script>
+  <script src="js/ai-search.js"></script>
+  <script src="js/app.js"></script>
+
+  <!-- Homepage Dynamic Data Loader Script -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const allDests = window.karnatakaDestinations || [];
+
+      // 1. Initialize search bar autocomplete
+      try {
+        if (window.Destinations && Destinations.initSearchBar) {
+          Destinations.initSearchBar("heroSearchInput", "heroSuggestionsBox");
+        }
+      } catch (err) {
+        console.error("Error initializing hero search bar:", err);
+      }
+
+      // 2. Render Featured Destinations (Top 8)
+      try {
+        let featured = allDests.filter(d => d.featured);
+        if (featured.length < 8) {
+          featured = allDests.slice(0, 8);
+        } else {
+          featured = featured.slice(0, 8);
+        }
+        const featuredContainer = document.getElementById("featuredDestinationsContainer");
+        if (featuredContainer && featured.length > 0) {
+          featuredContainer.innerHTML = featured.map(d => Destinations.renderCard(d)).join("");
+        }
+      } catch (err) {
+        console.error("Error rendering featured destinations:", err);
+      }
+
+      // 3. Render Weekend Getaways
+      try {
+        let weekend = allDests
+          .filter(d => d.distanceFromBangalore && d.distanceFromBangalore <= 300)
+          .sort((a, b) => a.distanceFromBangalore - b.distanceFromBangalore)
+          .slice(0, 4);
+
+        if (weekend.length === 0) {
+          weekend = allDests.slice(0, 4);
+        }
+
+        const weekendContainer = document.getElementById("weekendGetawaysContainer");
+        if (weekendContainer && weekend.length > 0) {
+          weekendContainer.innerHTML = weekend.map(d => `
+            <div class="weekend-card">
+              <div class="weekend-thumb">
+                <img src="${d.image || 'images/hero/karnataka-hero.jpg'}" alt="${d.alt || d.name}" onerror="this.onerror=null; this.src='images/hero/karnataka-hero.jpg';" />
+                <div class="weekend-badge">${(window.TravelDistance||TravelDistance).getDisplayDistance(d)} km from BLR</div>
+              </div>
+              <div class="weekend-body">
+                <h4>${d.name}</h4>
+                <p>${d.district}${d.taluk ? ` (${d.taluk})` : ''} • ${d.recommendedDays || '2 Days'}</p>
+                <div style="display:flex; gap:6px; margin-top:10px;">
+                  <a href="destination.html?id=${d.slug || d.id}" class="btn-card-explore" style="flex:1;">View</a>
+                  <button type="button" class="btn-card-directions" onclick="Destinations.getDirections(${d.latitude}, ${d.longitude}, '${(d.name || '').replace(/'/g, "\\'")}')" style="flex:1;">Directions</button>
+                </div>
+              </div>
+            </div>
+          `).join("");
+        }
+      } catch (err) {
+        console.error("Error rendering weekend getaways:", err);
+      }
+
+      // 4. Render Travel Stories Previews
+      try {
+        if (window.Diary && (!window.Diary.entries || window.Diary.entries.length === 0)) {
+          try { window.Diary.init(); } catch (e) {}
+        }
+        let stories = (window.Diary && Array.isArray(window.Diary.entries) && window.Diary.entries.length > 0)
+          ? window.Diary.entries.slice(0, 3)
+          : [];
+
+        if (stories.length === 0) {
+          stories = [
+            {
+              id: "diary-1",
+              destinationId: "coorg",
+              title: "Monsoon Whispers in the Coffee Valleys of Coorg",
+              visitDate: "2026-08-15",
+              content: "Waking up to the aroma of freshly roasted Arabica beans and rain drumming gently against the plantation roof was unforgettable. We took an early morning walk to Abbey Falls where the roaring torrent sent mist all the way to our faces."
+            },
+            {
+              id: "diary-2",
+              destinationId: "hampi",
+              title: "Golden Sunrise Over the Stone Chariot in Hampi",
+              visitDate: "2026-09-02",
+              content: "Cycling through the ancient bazaars of the Vijayanagara Empire during dawn was like stepping 600 years back in time. The boulder hills glowing amber in the morning light left us speechless."
+            },
+            {
+              id: "diary-3",
+              destinationId: "gokarna",
+              title: "Trekking the Coastal Cliffs of Gokarna",
+              visitDate: "2026-09-18",
+              content: "The cliff trail connecting Kudle, Om Beach, and Paradise Beach offered panoramic Arabian Sea horizons. An evening sunset with fresh tender coconut was pure bliss."
+            }
+          ];
+        }
+
+        const storiesContainer = document.getElementById("homeDiaryStoriesContainer");
+        if (storiesContainer) {
+          storiesContainer.innerHTML = stories.map(s => {
+            const dest = allDests.find(d => (d.slug === s.destinationId || d.id === s.destinationId)) || { name: s.destinationId || "Karnataka" };
+            return `
+              <div style="background:#ffffff; border-radius:24px; padding:24px; border:1px solid #eef0f3; box-shadow:var(--shadow-card); display:flex; flex-direction:column; justify-content:space-between;">
+                <div>
+                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                    <span style="font-size:11px; font-weight:700; color:var(--primary-brand); background:#ede9fe; padding:3px 8px; border-radius:6px;">
+                      📍 ${dest.name}
+                    </span>
+                    <span style="font-size:11px; color:#94a3b8;">📅 ${s.visitDate}</span>
+                  </div>
+                  <h3 style="font-size:16px; font-weight:800; color:var(--dark-text); margin-bottom:8px; line-height:1.4;">${s.title}</h3>
+                  <p style="font-size:12px; color:#64748b; line-height:1.6; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;">
+                    &ldquo;${s.content}&rdquo;
+                  </p>
+                </div>
+                <div style="padding-top:14px; border-top:1px solid #f1f5f9; margin-top:14px;">
+                  <a href="diary.html" style="font-size:12px; font-weight:700; color:var(--primary-brand);">
+                    Read more in Diary →
+                  </a>
+                </div>
+              </div>
+            `;
+          }).join("");
+        }
+      } catch (err) {
+        console.error("Error rendering travel stories preview:", err);
+      }
+
+      // 5. Initialize Homepage Interactive Map Preview (Leaflet)
+      try {
+        if (window.KarnatakaMap && typeof L !== "undefined") {
+          KarnatakaMap.create("homeMapPreview", {
+            compact: true,
+            scrollWheelZoom: false,
+            zoomControl: true,
+            destinations: allDests
+          });
+        }
+      } catch (err) {
+        console.error("Error initializing home map preview:", err);
+      }
+    });
+
+    function handleHeroSearchSubmit() {
+      const q = document.getElementById("heroSearchInput").value.trim();
+      if (q) {
+        window.location.href = `explore.html?search=${encodeURIComponent(q)}`;
+      }
+    }
+  </script>
+</body>
+</html>

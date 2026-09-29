@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Karnataka Tourism Map | Karnataka Travel Diaries</title>
+  <meta name="description" content="Explore Karnataka with an interactive geographic map featuring 25 destinations across 31 districts, live GPS driving directions, and regional travel clusters.">
+  <link rel="icon" href="images/hero/karnataka-fallback.jpg" type="image/jpeg">
+
+  <!-- Technical SEO & Canonical -->
+  <link rel="canonical" href="https://YOUR-PRODUCTION-DOMAIN.com/map.html">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Karnataka Travel Diaries">
+  <meta property="og:title" content="Interactive Karnataka Tourism Map | Karnataka Travel Diaries">
+  <meta property="og:description" content="Interactive geographic map of Karnataka with 25 destinations, district borders, and distance calculation.">
+  <meta property="og:image" content="https://YOUR-PRODUCTION-DOMAIN.com/images/hero/karnataka-hero.jpg">
+  <meta property="og:url" content="https://YOUR-PRODUCTION-DOMAIN.com/map.html">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Interactive Karnataka Tourism Map">
+  <meta name="twitter:description" content="Interactive map of Karnataka featuring 25 destinations with live routes.">
+  <meta name="twitter:image" content="https://YOUR-PRODUCTION-DOMAIN.com/images/hero/karnataka-hero.jpg">
+
+  <!-- Schema.org JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Interactive Karnataka Tourism Map",
+    "description": "Geographic interactive map highlighting destinations and routes across Karnataka.",
+    "url": "https://YOUR-PRODUCTION-DOMAIN.com/map.html",
+    "hasPart": {
+      "@type": "Map",
+      "mapType": "VenueMap",
+      "url": "https://YOUR-PRODUCTION-DOMAIN.com/map.html"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/ai.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+</head>
+<body style="overflow:hidden;">
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container header-container">
+      <a href="index.html" class="brand-logo">
+        <div class="brand-icon-box">🧭</div>
+        <div>
+          <div class="brand-title">Karnataka<span>Diaries</span></div>
+          <span class="brand-tagline">Discover • Plan • Explore</span>
+        </div>
+      </a>
+
+      <nav class="desktop-nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="explore.html" class="nav-link">Explore</a>
+        <a href="map.html" class="nav-link active">Interactive Map</a>
+        <a href="ai-planner.html" class="nav-link">AI Planner ✨</a>
+        <a href="trips.html" class="nav-link">Trips</a>
+        <a href="diary.html" class="nav-link">Travel Diary</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="favorites.html" class="fav-nav-btn" title="Saved Wishlist">
+          <span>❤️</span>
+          <span class="fav-badge" style="display:none;">0</span>
+        </a>
+        <div id="headerAuthContainer"></div>
+        <button class="mobile-hamburger" id="mobileHamburgerBtn">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Full-Screen Interactive Map Layout -->
+  <div class="map-page-wrapper">
+    <!-- Sidebar Controls -->
+    <div class="map-sidebar">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <h2 style="font-size:18px; font-weight:800; color:var(--dark-text);">Karnataka Map</h2>
+          <span id="mapDestCount" style="font-size:11px; color:#64748b;">Loading Destinations...</span>
+        </div>
+        <button type="button" onclick="KarnatakaMap.locateUser()" class="btn btn-secondary btn-sm" title="Locate with GPS">
+          📍 Locate Me
+        </button>
+      </div>
+
+      <!-- Search on Map -->
+      <div style="position:relative;">
+        <input 
+          type="text" 
+          id="mapSearchInput" 
+          placeholder="Filter map places..." 
+          style="width:100%; padding:8px 12px 8px 32px; border-radius:10px; border:1px solid #cbd5e1; font-size:12px; outline:none;"
+        />
+        <span style="position:absolute; left:10px; top:50%; transform:translateY(-50%); color:#94a3b8; font-size:12px;">🔍</span>
+      </div>
+
+      <!-- Category Filter Pills -->
+      <div style="display:flex; gap:6px; overflow-x:auto; padding-bottom:4px;" id="mapCatPills">
+        <button type="button" class="btn btn-primary btn-sm map-cat-btn" data-cat="All" style="font-size:11px; padding:4px 10px;">All</button>
+        <button type="button" class="btn btn-secondary btn-sm map-cat-btn" data-cat="Hill Stations" style="font-size:11px; padding:4px 10px;">Hills</button>
+        <button type="button" class="btn btn-secondary btn-sm map-cat-btn" data-cat="Beaches" style="font-size:11px; padding:4px 10px;">Beaches</button>
+        <button type="button" class="btn btn-secondary btn-sm map-cat-btn" data-cat="Heritage" style="font-size:11px; padding:4px 10px;">Heritage</button>
+        <button type="button" class="btn btn-secondary btn-sm map-cat-btn" data-cat="Wildlife" style="font-size:11px; padding:4px 10px;">Wildlife</button>
+        <button type="button" class="btn btn-secondary btn-sm map-cat-btn" data-cat="Religious" style="font-size:11px; padding:4px 10px;">Religious</button>
+      </div>
+
+      <!-- Destination Quick List -->
+      <div style="display:flex; flex-direction:column; gap:8px; overflow-y:auto; flex:1;" id="mapSidebarList">
+        <!-- Rendered by JavaScript -->
+      </div>
+    </div>
+
+    <!-- Main Leaflet Map View -->
+    <div id="karnatakaMap"></div>
+  </div>
+
+  <!-- Mobile Bottom App Bar -->
+  <nav class="mobile-bottom-nav">
+    <a href="index.html" class="bottom-nav-item">
+      <span>🏠</span>
+      <span>Home</span>
+    </a>
+    <a href="explore.html" class="bottom-nav-item">
+      <span>🧭</span>
+      <span>Explore</span>
+    </a>
+    <a href="ai-planner.html" class="bottom-nav-item">
+      <span>✨</span>
+      <span>AI Planner</span>
+    </a>
+    <a href="map.html" class="bottom-nav-item active">
+      <span>🗺️</span>
+      <span>Map</span>
+    </a>
+    <a href="profile.html" class="bottom-nav-item">
+      <span>👤</span>
+      <span>Profile</span>
+    </a>
+  </nav>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <!-- Vanilla JS Modules -->
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/favorites.js"></script>
+  <script src="js/destinations.js"></script>
+  <script src="js/maps.js"></script>
+  <script src="js/ai-chat.js"></script>
+  <script src="js/app.js"></script>
+
+  <script>
+    let activeMapCategory = "All";
+
+    document.addEventListener("DOMContentLoaded", () => {
+      KarnatakaMap.init("karnatakaMap");
+      renderMapSidebarList();
+
+      // Category Pill Click Handlers
+      document.querySelectorAll(".map-cat-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll(".map-cat-btn").forEach(b => {
+            b.classList.remove("btn-primary");
+            b.classList.add("btn-secondary");
+          });
+          btn.classList.remove("btn-secondary");
+          btn.classList.add("btn-primary");
+
+          activeMapCategory = btn.getAttribute("data-cat");
+          const searchVal = document.getElementById("mapSearchInput").value;
+          KarnatakaMap.renderMarkers(activeMapCategory, searchVal);
+          renderMapSidebarList();
+        });
+      });
+
+      // Search input on Map
+      document.getElementById("mapSearchInput").addEventListener("input", (e) => {
+        KarnatakaMap.renderMarkers(activeMapCategory, e.target.value);
+        renderMapSidebarList();
+      });
+    });
+
+    function renderMapSidebarList() {
+      const container = document.getElementById("mapSidebarList");
+      if (!container) return;
+      const searchVal = (document.getElementById("mapSearchInput")?.value || "").toLowerCase().trim();
+
+      const allDests = (window.karnatakaDestinations || []).filter(d => 
+        window.isValidCoordinate ? window.isValidCoordinate(d.latitude, d.longitude) : true
+      );
+
+      const filtered = allDests.filter(d => {
+        const matchCat = activeMapCategory === "All" || 
+          d.category === activeMapCategory || 
+          (Array.isArray(d.categories) && d.categories.includes(activeMapCategory));
+        const matchSearch = !searchVal || 
+          (d.name && d.name.toLowerCase().includes(searchVal)) || 
+          (d.district && d.district.toLowerCase().includes(searchVal)) ||
+          (d.taluk && d.taluk.toLowerCase().includes(searchVal));
+        return matchCat && matchSearch;
+      });
+
+      const countEl = document.getElementById("mapDestCount");
+      if (countEl) {
+        countEl.textContent = `${filtered.length} Destinations Marked`;
+      }
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div style="padding:20px 10px; text-align:center; color:#94a3b8; font-size:12px;">
+            No destinations found for filter.
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(d => {
+        const lat = Number(d.latitude);
+        const lng = Number(d.longitude);
+        const safeName = (d.name || '').replace(/'/g, "\\'");
+        return `
+          <div onclick="flyToPlace(${lat}, ${lng}, '${safeName}')" style="display:flex; align-items:center; gap:10px; padding:8px 10px; background:#f8fafc; border-radius:12px; border:1px solid #e2e8f0; cursor:pointer; transition:all 0.2s;">
+            <img src="${d.image || 'images/hero/karnataka-hero.jpg'}" alt="${d.alt || d.name}" style="width:38px; height:38px; border-radius:8px; object-fit:cover;" onerror="this.onerror=null; this.src='images/hero/karnataka-hero.jpg'" />
+            <div style="flex:1; min-width:0;">
+              <div style="font-size:12px; font-weight:700; color:var(--dark-text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${d.name}</div>
+              <div style="font-size:10px; color:#64748b;">${d.district}${d.taluk ? ` • ${d.taluk}` : ''} • ${d.category}</div>
+            </div>
+            <span style="font-size:11px; color:#f59e0b; font-weight:700; white-space:nowrap;">★ ${(d.averageRating || 4.8).toFixed(1)}</span>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function flyToPlace(lat, lng, name) {
+      if (KarnatakaMap.map) {
+        KarnatakaMap.map.flyTo([lat, lng], 10, { duration: 1.2 });
+        // Find and open popup if marker matches
+        setTimeout(() => {
+          if (KarnatakaMap.markers) {
+            const match = KarnatakaMap.markers.find(m => {
+              const pos = m.getLatLng();
+              return Math.abs(pos.lat - lat) < 0.001 && Math.abs(pos.lng - lng) < 0.001;
+            });
+            if (match) match.openPopup();
+          }
+        }, 1250);
+      }
+    }
+  </script>
+</body>
+</html>

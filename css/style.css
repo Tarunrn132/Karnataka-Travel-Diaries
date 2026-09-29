@@ -1,0 +1,331 @@
+/* ==========================================================================
+   Karnataka Travel Diaries - Core Styling & Design Tokens
+   Preserving Travelia Visual Philosophy: Clean, Modern, Premium Travel UI
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  /* Brand color tokens from Travelia Style Guide */
+  --primary-brand: hsl(249, 95%, 63%);     /* #5c4fe5 */
+  --primary-hover: hsl(249, 95%, 58%);
+  --secondary-brand: hsl(249, 63%, 54%);   /* #4c3ec8 */
+  --dark-text: hsl(209, 40%, 14%);         /* #16202c */
+  --light-gray: hsl(0, 0%, 85%);           /* #d9d9d9 */
+  
+  /* Cultural Karnataka Accents */
+  --karnataka-gold: #f59e0b;
+  --karnataka-red: #dc2626;
+  --karnataka-emerald: #059669;
+  
+  /* Surfaces & Backgrounds */
+  --bg-body: #fcfcfd;
+  --bg-card: #ffffff;
+  --bg-muted: #f3f4f6;
+  --border-light: rgba(22, 32, 44, 0.08);
+  --border-card: #eef0f3;
+  
+  /* Shadows */
+  --shadow-xs: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-card: 0 4px 20px -2px rgba(22, 32, 44, 0.06);
+  --shadow-float: 0 20px 40px -15px rgba(22, 32, 44, 0.12);
+  --shadow-premium: 0 10px 30px -5px rgba(92, 79, 229, 0.15);
+  
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-full: 9999px;
+  
+  /* Transitions */
+  --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-normal: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-slow: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Base Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: 'Poppins', 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--dark-text);
+  background-color: var(--bg-body);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  padding-bottom: 70px; /* Space for mobile bottom bar */
+}
+
+@media (min-width: 768px) {
+  body {
+    padding-bottom: 0;
+  }
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+input, textarea, select {
+  font-family: inherit;
+  font-size: 14px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: 1240px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/* Section Header Typography */
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--primary-brand);
+  margin-bottom: 6px;
+}
+
+.section-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--dark-text);
+  letter-spacing: -0.5px;
+  line-height: 1.25;
+}
+
+.section-desc {
+  font-size: 14px;
+  color: #64748b;
+  margin-top: 6px;
+  max-width: 600px;
+}
+
+@media (min-width: 768px) {
+  .section-title {
+    font-size: 34px;
+  }
+  .section-desc {
+    font-size: 15px;
+  }
+}
+
+/* ==========================================================================
+   HOMEPAGE HERO SECTION — FIX THIS EXACTLY AS SPECIFIED
+   Heading: Explore the Soul of Karnataka
+   Background: images/hero/karnataka-hero.jpg
+   Cover, center, dark gradient overlay
+   ========================================================================== */
+
+.hero-section {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.hero-banner {
+  position: relative;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background-image: url('../images/hero/karnataka-hero.jpg');
+  background-size: cover;
+  background-position: center;
+  min-height: 580px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 40px 24px;
+  box-shadow: 0 20px 45px rgba(22, 32, 44, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+@media (min-width: 768px) {
+  .hero-banner {
+    padding: 60px 48px 48px;
+    min-height: 640px;
+  }
+}
+
+/* Dark Gradient Overlay for readability */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(14, 20, 32, 0.88) 0%,
+    rgba(14, 20, 32, 0.65) 50%,
+    rgba(14, 20, 32, 0.45) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Soft bottom vignette overlay */
+.hero-overlay-bottom {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(10, 15, 25, 0.92) 0%,
+    transparent 60%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 720px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  margin-bottom: 24px;
+}
+
+.hero-heading {
+  font-size: 36px;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.15;
+  letter-spacing: -0.8px;
+  margin-bottom: 18px;
+  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.6);
+}
+
+.hero-heading span.karnataka-text {
+  background: linear-gradient(135deg, #a5b4fc 0%, #fde68a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@media (min-width: 640px) {
+  .hero-heading {
+    font-size: 48px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-heading {
+    font-size: 58px;
+  }
+}
+
+.hero-subtitle {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.92);
+  line-height: 1.6;
+  margin-bottom: 30px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  max-width: 620px;
+}
+
+@media (min-width: 768px) {
+  .hero-subtitle {
+    font-size: 17px;
+  }
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+/* Hero Stats Strip at bottom */
+.hero-stats {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  padding-top: 32px;
+  margin-top: 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+@media (min-width: 640px) {
+  .hero-stats {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.hero-stat-item h4 {
+  font-size: 26px;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1;
+}
+
+.hero-stat-item:nth-child(1) h4 { color: #a5b4fc; }
+.hero-stat-item:nth-child(2) h4 { color: #fde68a; }
+.hero-stat-item:nth-child(3) h4 { color: #6ee7b7; }
+.hero-stat-item:nth-child(4) h4 { color: #f472b6; }
+
+.hero-stat-item p {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.75);
+  margin-top: 4px;
+}

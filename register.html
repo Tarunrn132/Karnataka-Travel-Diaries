@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Your Account | Karnataka Travel Diaries</title>
+  <meta name="description" content="Sign up for Karnataka Travel Diaries to plan road trips, bookmark heritage sites, build custom itineraries, and share travel memories.">
+  <link rel="icon" href="images/hero/karnataka-fallback.jpg">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/auth.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body class="auth-page">
+  <!-- Minimal Header -->
+  <header class="auth-header">
+    <div class="auth-header-container">
+      <a href="index.html" class="brand-logo" style="text-decoration: none;">
+        <div class="brand-icon-box">🐘</div>
+        <div class="brand-title">Karnataka <span>Diaries</span></div>
+      </a>
+      <a href="index.html" class="btn btn-secondary btn-sm" style="text-decoration: none;">← Back to Home</a>
+    </div>
+  </header>
+
+  <main class="auth-wrapper">
+    <div class="auth-card" id="authCard">
+      
+      <div style="text-align: center; margin-bottom: 24px;">
+        <span class="auth-badge">Karnataka Travel Diaries</span>
+        <h1 class="auth-title">Create Your Account</h1>
+        <p class="auth-subtitle">Join thousands of explorers uncovering the heritage, hills, and coastlines of Karnataka</p>
+      </div>
+
+      <!-- Segmented Navigation Tabs -->
+      <div class="auth-tabs" role="tablist">
+        <button type="button" class="auth-tab-btn active" id="tabEmail" onclick="switchMethod('email')">
+          👤 Account
+        </button>
+        <button type="button" class="auth-tab-btn" id="tabPhone" onclick="switchMethod('phone')">
+          📱 Phone OTP
+        </button>
+        <button type="button" class="auth-tab-btn" id="tabWhatsApp" onclick="switchMethod('whatsapp')">
+          💬 WhatsApp
+        </button>
+      </div>
+
+      <!-- Status Alerts -->
+      <div id="authAlert" class="auth-alert" role="alert"></div>
+
+      <!-- ========================================== -->
+      <!-- 1. USERNAME + PASSWORD REGISTRATION FORM   -->
+      <!-- ========================================== -->
+      <form id="emailRegisterForm">
+        <div class="auth-form-group">
+          <label class="auth-label" for="regName">Full Name</label>
+          <div class="auth-input-wrapper">
+            <span class="auth-input-icon">👤</span>
+            <input type="text" id="regName" class="auth-input" placeholder="" required autocomplete="name">
+          </div>
+          <div class="auth-field-error" id="errName">Please enter your full name.</div>
+        </div>
+
+        <div class="auth-form-group">
+          <label class="auth-label" for="regUsername">Username</label>
+          <div class="auth-input-wrapper">
+            <span class="auth-input-icon">@</span>
+            <input type="text" id="regUsername" class="auth-input" placeholder="" required autocomplete="username">
+          </div>
+          <div class="auth-field-error" id="errUsername">3-30 letters, numbers, underscores, or hyphens.</div>
+        </div>
+
+        <div class="auth-form-group">
+          <label class="auth-label" for="regEmail">Email Address</label>
+          <div class="auth-input-wrapper">
+            <span class="auth-input-icon">✉️</span>
+            <input type="email" id="regEmail" class="auth-input" placeholder="" required autocomplete="email">
+          </div>
+          <div class="auth-field-error" id="errEmail">Please enter a valid email address.</div>
+        </div>
+
+        <div class="auth-form-group">
+          <label class="auth-label" for="regPhone">Phone Number <span style="font-weight: 400; color: #64748b; font-size: 0.8rem;">(Indian +91)</span></label>
+          <div class="auth-input-wrapper">
+            <span class="auth-input-icon">🇮🇳</span>
+            <input type="tel" id="regPhone" class="auth-input" placeholder="" required autocomplete="tel">
+          </div>
+          <div class="auth-field-error" id="errPhone">Enter a valid 10-digit Indian mobile number.</div>
+        </div>
+
+        <div class="auth-form-group">
+          <label class="auth-label" for="regPassword">Password</label>
+          <div class="auth-input-wrapper">
+            <span class="auth-input-icon">🔒</span>
+            <input type="password" id="regPassword" class="auth-input" placeholder="Minimum 8 characters" required autocomplete="new-password">
+            <button type="button" class="auth-toggle-pwd" onclick="togglePasswordVisibility('regPassword', this)" aria-label="Toggle password view">👁️</button>
+          </div>
+          <!-- Strength Meter -->
+          <div class="pwd-strength-container" id="pwdStrengthBox">
+            <div class="pwd-strength-bars">
+              <div class="pwd-strength-bar" id="bar1"></div>
+              <div class="pwd-strength-bar" id="bar2"></div>
+              <div class="pwd-strength-bar" id="bar3"></div>
+              <div class="pwd-strength-bar" id="bar4"></div>
+            </div>
+            <div class="pwd-strength-text">
+              <span id="pwdStrengthLabel">Strength: Enter password</span>
+              <span style="font-size: 0.72rem; color: #94a3b8;">Min 8 chars, 1 uppercase, 1 digit, 1 symbol</span>
+            </div>
+          </div>
+          <div class="auth-field-error" id="errPassword">Must contain uppercase, lowercase, digit, and symbol.</div>
+        </div>
+
+        <div class="auth-form-group">
+          <label class="auth-label" for="regConfirmPassword">Confirm Password</label>
+          <div class="auth-input-wrapper">
+            <span class="auth-input-icon">🔒</span>
+            <input type="password" id="regConfirmPassword" class="auth-input" placeholder="Repeat your password" required autocomplete="new-password">
+            <button type="button" class="auth-toggle-pwd" onclick="togglePasswordVisibility('regConfirmPassword', this)" aria-label="Toggle confirm password view">👁️</button>
+          </div>
+          <div class="auth-field-error" id="errConfirmPassword">Passwords do not match.</div>
+        </div>
+
+        <button type="submit" id="btnSubmitAccount" class="auth-submit-btn">
+          <span>Create Account</span> →
+        </button>
+      </form>
+
+      <!-- ========================================== -->
+      <!-- 2. PHONE NUMBER REGISTRATION FORM (SMS)    -->
+      <!-- ========================================== -->
+      <div id="phoneRegisterView" style="display: none;">
+        <!-- Step 1: Input Phone -->
+        <div id="phoneStepInput">
+          <div class="auth-form-group">
+            <label class="auth-label" for="phoneInput">Mobile Phone Number</label>
+            <div class="auth-input-wrapper">
+              <span class="auth-input-icon">🇮🇳</span>
+              <input type="tel" id="phoneInput" class="auth-input" placeholder="" autocomplete="tel">
+            </div>
+            <p style="font-size: 0.8rem; color: #64748b; margin-top: 6px;">We will send a 6-digit security code via SMS.</p>
+          </div>
+
+          <div id="recaptcha-container" style="margin: 12px 0;"></div>
+
+          <button type="button" id="btnSendPhoneOtp" class="auth-submit-btn" onclick="handleSendPhoneOtp()">
+            Send Verification Code
+          </button>
+        </div>
+
+        <!-- Step 2: Verify OTP -->
+        <div id="phoneStepVerify" style="display: none;">
+          <div style="text-align: center; margin-bottom: 16px;">
+            <p style="font-size: 0.9rem; color: #475569;">Enter the 6-digit code sent to <strong id="phoneDisplayTarget"></strong></p>
+          </div>
+
+          <div class="otp-container" id="phoneOtpDigits">
+            <input type="text" maxlength="1" class="otp-digit" data-idx="0" inputmode="numeric">
+            <input type="text" maxlength="1" class="otp-digit" data-idx="1" inputmode="numeric">
+            <input type="text" maxlength="1" class="otp-digit" data-idx="2" inputmode="numeric">
+            <input type="text" maxlength="1" class="otp-digit" data-idx="3" inputmode="numeric">
+            <input type="text" maxlength="1" class="otp-digit" data-idx="4" inputmode="numeric">
+            <input type="text" maxlength="1" class="otp-digit" data-idx="5" inputmode="numeric">
+          </div>
+
+          <div class="auth-form-group" style="margin-top: 16px;">
+            <label class="auth-label" for="phoneProfileName">Your Name</label>
+            <div class="auth-input-wrapper">
+              <span class="auth-input-icon">👤</span>
+              <input type="text" id="phoneProfileName" class="auth-input" placeholder="">
+            </div>
+          </div>
+
+          <button type="button" id="btnVerifyPhoneOtp" class="auth-submit-btn" onclick="handleVerifyPhoneOtp()">
+            Verify & Create Account
+          </button>
+
+          <div class="otp-resend-wrap">
+            <button type="button" class="otp-resend-btn" id="btnResendPhoneOtp" onclick="handleSendPhoneOtp()" disabled>
+              Resend Code
+            </button>
+            <span id="phoneCooldownTimer" style="font-size: 0.8rem; color: #94a3b8;"></span>
+          </div>
+          <div style="text-align: center; margin-top: 12px;">
+            <a href="#" onclick="backToPhoneInput(); return false;" style="font-size: 0.82rem; color: #64748b;">← Change mobile number</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- 3. WHATSAPP REGISTRATION FORM              -->
+      <!-- ========================================== -->
+      <div id="whatsappRegisterView" style="display: none;">
+        <!-- Step 1: Input WhatsApp Number -->
+        <div id="waStepInput">
+          <div class="auth-form-group">
+            <label class="auth-label" for="waInput">WhatsApp Mobile Number</label>
+            <div class="auth-input-wrapper">
+              <span class="auth-input-icon">💬</span>
+              <input type="tel" id="waInput" class="auth-input" placeholder="" autocomplete="tel">
+            </div>
+            <p style="font-size: 0.8rem; color: #64748b; margin-top: 6px;">We will send an encrypted verification code directly to your WhatsApp.</p>
+          </div>
+
+          <button type="button" id="btnSendWaOtp" class="auth-submit-btn" style="background: #25D366; color: #ffffff;" onclick="handleSendWaOtp()">
+            Send WhatsApp Code
+          </button>
+        </div>
+
+        <!-- Step 2: Verify WhatsApp OTP -->
+        <div id="waStepVerify" style="display: none;">
+          <div style="text-align: center; margin-bottom: 16px;">
+            <p style="font-size: 0.9rem; color: #475569;">Enter the 6-digit WhatsApp code sent to <strong id="waDisplayTarget"></strong></p>
+          </div>
+
+          <div class="otp-container" id="waOtpDigits">
+            <input type="text" maxlength="1" class="otp-digit" data-idx="0" inputmode="numeric">
+            <input type="text" maxlength="1" class="otp-digit" data-idx="1" inputmode="numeric">
+            <input type="text" maxlength="1" class="otp-digit" data-idx="2" inputmode="numeric">
+            <input type="text" maxlength="1" class="otp-digit" data-idx="3" inputmode="numeric">
+            <input type="text" maxlength="1" class="otp-digit" data-idx="4" inputmode="numeric">
+            <input type="text" maxlength="1" class="otp-digit" data-idx="5" inputmode="numeric">
+          </div>
+
+          <div class="auth-form-group" style="margin-top: 16px;">
+            <label class="auth-label" for="waProfileName">Your Name</label>
+            <div class="auth-input-wrapper">
+              <span class="auth-input-icon">👤</span>
+              <input type="text" id="waProfileName" class="auth-input" placeholder="">
+            </div>
+          </div>
+
+          <button type="button" id="btnVerifyWaOtp" class="auth-submit-btn" style="background: #25D366; color: #ffffff;" onclick="handleVerifyWaOtp()">
+            Verify WhatsApp & Create Account
+          </button>
+
+          <div class="otp-resend-wrap">
+            <button type="button" class="otp-resend-btn" id="btnResendWaOtp" onclick="handleSendWaOtp()" disabled>
+              Resend WhatsApp Code
+            </button>
+            <span id="waCooldownTimer" style="font-size: 0.8rem; color: #94a3b8;"></span>
+          </div>
+          <div style="text-align: center; margin-top: 12px;">
+            <a href="#" onclick="backToWaInput(); return false;" style="font-size: 0.82rem; color: #64748b;">← Change WhatsApp number</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div class="auth-divider">OR</div>
+
+      <!-- Alternative Methods -->
+      <div class="auth-alt-buttons">
+        <button type="button" class="auth-alt-btn google-btn" id="btnContinueGoogle" onclick="handleGoogleRegister()">
+          <svg width="18" height="18" viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+          </svg>
+          Continue with Google
+        </button>
+
+        <button type="button" class="auth-alt-btn phone-btn" onclick="switchMethod('phone')">
+          <span>📱</span> Continue with Phone
+        </button>
+
+        <button type="button" class="auth-alt-btn whatsapp-btn" onclick="switchMethod('whatsapp')">
+          <span>💬</span> Continue with WhatsApp
+        </button>
+      </div>
+
+      <div class="auth-footer">
+        Already have an account? <a href="login.html">Sign In</a>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="js/auth.js"></script>
+  <script>
+    // State & Timer controllers
+    let phoneCooldownInterval = null;
+    let waCooldownInterval = null;
+
+    function showAlert(msg, type = 'error') {
+      const alertBox = document.getElementById('authAlert');
+      alertBox.className = `auth-alert ${type}`;
+      alertBox.innerText = msg;
+      alertBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function clearAlert() {
+      const alertBox = document.getElementById('authAlert');
+      alertBox.className = 'auth-alert';
+      alertBox.innerText = '';
+    }
+
+    function switchMethod(method) {
+      clearAlert();
+      document.getElementById('tabEmail').classList.toggle('active', method === 'email');
+      document.getElementById('tabPhone').classList.toggle('active', method === 'phone');
+      document.getElementById('tabWhatsApp').classList.toggle('active', method === 'whatsapp');
+
+      document.getElementById('emailRegisterForm').style.display = method === 'email' ? 'block' : 'none';
+      document.getElementById('phoneRegisterView').style.display = method === 'phone' ? 'block' : 'none';
+      document.getElementById('whatsappRegisterView').style.display = method === 'whatsapp' ? 'block' : 'none';
+    }
+
+    function togglePasswordVisibility(fieldId, btn) {
+      const field = document.getElementById(fieldId);
+      if (field.type === 'password') {
+        field.type = 'text';
+        btn.innerText = '🙈';
+      } else {
+        field.type = 'password';
+        btn.innerText = '👁️';
+      }
+    }
+
+    // Password strength check
+    document.getElementById('regPassword').addEventListener('input', function() {
+      const val = this.value;
+      let score = 0;
+      if (val.length >= 8) score++;
+      if (/[A-Z]/.test(val)) score++;
+      if (/[0-9]/.test(val)) score++;
+      if (/[^A-Za-z0-9]/.test(val)) score++;
+
+      const b1 = document.getElementById('bar1');
+      const b2 = document.getElementById('bar2');
+      const b3 = document.getElementById('bar3');
+      const b4 = document.getElementById('bar4');
+      const label = document.getElementById('pwdStrengthLabel');
+
+      [b1, b2, b3, b4].forEach(b => b.className = 'pwd-strength-bar');
+
+      if (val.length === 0) {
+        label.innerText = 'Strength: Enter password';
+      } else if (score <= 1) {
+        b1.className = 'pwd-strength-bar weak';
+        label.innerText = 'Strength: Weak (add capital letter, digit & symbol)';
+      } else if (score === 2) {
+        b1.className = 'pwd-strength-bar fair';
+        b2.className = 'pwd-strength-bar fair';
+        label.innerText = 'Strength: Fair';
+      } else if (score === 3) {
+        b1.className = 'pwd-strength-bar good';
+        b2.className = 'pwd-strength-bar good';
+        b3.className = 'pwd-strength-bar good';
+        label.innerText = 'Strength: Good';
+      } else {
+        b1.className = 'pwd-strength-bar strong';
+        b2.className = 'pwd-strength-bar strong';
+        b3.className = 'pwd-strength-bar strong';
+        b4.className = 'pwd-strength-bar strong';
+        label.innerText = 'Strength: Strong! 🔒';
+      }
+    });
+
+    // Setup multi-digit OTP inputs
+    function setupOtpInputs(containerId) {
+      const container = document.getElementById(containerId);
+      const inputs = container.querySelectorAll('.otp-digit');
+
+      inputs.forEach((input, index) => {
+        input.addEventListener('input', (e) => {
+          const val = e.target.value;
+          if (val.length > 0 && index < inputs.length - 1) {
+            inputs[index + 1].focus();
+          }
+        });
+        input.addEventListener('keydown', (e) => {
+          if (e.key === 'Backspace' && !e.target.value && index > 0) {
+            inputs[index - 1].focus();
+          }
+        });
+        input.addEventListener('paste', (e) => {
+          e.preventDefault();
+          const pasteData = (e.clipboardData || window.clipboardData).getData('text').trim();
+          if (/^\d{6}$/.test(pasteData)) {
+            pasteData.split('').forEach((char, i) => {
+              if (inputs[i]) inputs[i].value = char;
+            });
+            inputs[5].focus();
+          }
+        });
+      });
+    }
+
+    setupOtpInputs('phoneOtpDigits');
+    setupOtpInputs('waOtpDigits');
+
+    function getOtpCode(containerId) {
+      const inputs = document.getElementById(containerId).querySelectorAll('.otp-digit');
+      return Array.from(inputs).map(inp => inp.value).join('');
+    }
+
+    // ==========================================
+    // EMAIL + USERNAME SUBMIT HANDLER
+    // ==========================================
+    document.getElementById('emailRegisterForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      clearAlert();
+
+      const name = document.getElementById('regName').value.trim();
+      const username = document.getElementById('regUsername').value.trim();
+      const email = document.getElementById('regEmail').value.trim();
+      const phoneNumber = document.getElementById('regPhone').value.trim();
+      const password = document.getElementById('regPassword').value;
+      const confirmPassword = document.getElementById('regConfirmPassword').value;
+      const btn = document.getElementById('btnSubmitAccount');
+
+      // Client validation
+      if (password !== confirmPassword) {
+        document.getElementById('errConfirmPassword').classList.add('visible');
+        showAlert('Passwords do not match.', 'error');
+        return;
+      }
+      document.getElementById('errConfirmPassword').classList.remove('visible');
+
+      btn.disabled = true;
+      btn.innerHTML = '<span>Creating Account...</span>';
+
+      const result = await Auth.register({ name, username, email, phoneNumber, password, confirmPassword });
+      if (result.success) {
+        showAlert('✓ Account created successfully! Redirecting...', 'success');
+        setTimeout(() => {
+          const redirect = new URLSearchParams(window.location.search).get('redirect') || 'profile.html';
+          window.location.href = redirect;
+        }, 800);
+      } else {
+        showAlert(result.error || 'Failed to create account.', 'error');
+        btn.disabled = false;
+        btn.innerHTML = '<span>Create Account</span> →';
+      }
+    });
+
+    // ==========================================
+    // GOOGLE REGISTRATION HANDLER
+    // ==========================================
+    async function handleGoogleRegister() {
+      clearAlert();
+      const btn = document.getElementById('btnContinueGoogle');
+      if (btn) btn.disabled = true;
+
+      const result = await Auth.loginWithGoogle();
+      if (result.success) {
+        showAlert('✓ Google authentication successful! Redirecting...', 'success');
+        setTimeout(() => {
+          const redirect = new URLSearchParams(window.location.search).get('redirect') || 'profile.html';
+          window.location.href = redirect;
+        }, 700);
+      } else {
+        showAlert(result.error || 'Google registration was not completed.', 'error');
+        if (btn) btn.disabled = false;
+      }
+    }
+
+    // ==========================================
+    // PHONE OTP HANDLERS (FIREBASE PHONE AUTH)
+    // ==========================================
+    async function handleSendPhoneOtp() {
+      clearAlert();
+      const phoneInput = document.getElementById('phoneInput');
+      const phoneNumber = phoneInput.value.trim();
+      const btn = document.getElementById('btnSendPhoneOtp');
+
+      if (!phoneNumber) {
+        showAlert('Please enter your 10-digit Indian phone number.', 'error');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerText = 'Sending Code...';
+
+      const result = await Auth.sendPhoneOtp(phoneNumber, 'recaptcha-container');
+      if (result.success) {
+        showAlert('✓ Verification code sent to ' + phoneNumber, 'success');
+        document.getElementById('phoneStepInput').style.display = 'none';
+        document.getElementById('phoneStepVerify').style.display = 'block';
+        document.getElementById('phoneDisplayTarget').innerText = phoneNumber;
+        startCooldown('phone', result.cooldownSeconds || 60);
+      } else {
+        showAlert(result.error || 'Failed to send OTP.', 'error');
+        btn.disabled = false;
+        btn.innerText = 'Send Verification Code';
+      }
+    }
+
+    async function handleVerifyPhoneOtp() {
+      clearAlert();
+      const otp = getOtpCode('phoneOtpDigits');
+      const name = document.getElementById('phoneProfileName').value.trim();
+      const btn = document.getElementById('btnVerifyPhoneOtp');
+
+      if (otp.length < 6) {
+        showAlert('Please enter the complete 6-digit code.', 'error');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerText = 'Verifying...';
+
+      const result = await Auth.verifyPhoneOtp(otp, { name });
+      if (result.success) {
+        showAlert('✓ Phone verified! Welcome to Karnataka Travel Diaries.', 'success');
+        setTimeout(() => {
+          const redirect = new URLSearchParams(window.location.search).get('redirect') || 'profile.html';
+          window.location.href = redirect;
+        }, 800);
+      } else {
+        showAlert(result.error || 'Verification failed.', 'error');
+        btn.disabled = false;
+        btn.innerText = 'Verify & Create Account';
+      }
+    }
+
+    function backToPhoneInput() {
+      document.getElementById('phoneStepInput').style.display = 'block';
+      document.getElementById('phoneStepVerify').style.display = 'none';
+      document.getElementById('btnSendPhoneOtp').disabled = false;
+      document.getElementById('btnSendPhoneOtp').innerText = 'Send Verification Code';
+    }
+
+    // ==========================================
+    // WHATSAPP OTP HANDLERS
+    // ==========================================
+    async function handleSendWaOtp() {
+      clearAlert();
+      const waInput = document.getElementById('waInput');
+      const whatsappNumber = waInput.value.trim();
+      const btn = document.getElementById('btnSendWaOtp');
+
+      if (!whatsappNumber) {
+        showAlert('Please enter your WhatsApp mobile number.', 'error');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerText = 'Sending WhatsApp Code...';
+
+      const result = await Auth.sendWhatsAppOtp(whatsappNumber);
+      if (result.success) {
+        showAlert('✓ Verification code sent to WhatsApp: ' + whatsappNumber, 'success');
+        document.getElementById('waStepInput').style.display = 'none';
+        document.getElementById('waStepVerify').style.display = 'block';
+        document.getElementById('waDisplayTarget').innerText = whatsappNumber;
+        startCooldown('wa', result.cooldownSeconds || 60);
+      } else {
+        showAlert(result.error || 'Failed to send WhatsApp verification.', 'error');
+        btn.disabled = false;
+        btn.innerText = 'Send WhatsApp Code';
+      }
+    }
+
+    async function handleVerifyWaOtp() {
+      clearAlert();
+      const whatsappNumber = document.getElementById('waInput').value.trim();
+      const otp = getOtpCode('waOtpDigits');
+      const name = document.getElementById('waProfileName').value.trim();
+      const btn = document.getElementById('btnVerifyWaOtp');
+
+      if (otp.length < 6) {
+        showAlert('Please enter the complete 6-digit WhatsApp code.', 'error');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerText = 'Verifying WhatsApp Code...';
+
+      const result = await Auth.verifyWhatsAppOtp({ whatsappNumber, otp, name });
+      if (result.success) {
+        showAlert('✓ WhatsApp verified! Welcome to Karnataka Travel Diaries.', 'success');
+        setTimeout(() => {
+          const redirect = new URLSearchParams(window.location.search).get('redirect') || 'profile.html';
+          window.location.href = redirect;
+        }, 800);
+      } else {
+        showAlert(result.error || 'WhatsApp verification failed.', 'error');
+        btn.disabled = false;
+        btn.innerText = 'Verify WhatsApp & Create Account';
+      }
+    }
+
+    function backToWaInput() {
+      document.getElementById('waStepInput').style.display = 'block';
+      document.getElementById('waStepVerify').style.display = 'none';
+      document.getElementById('btnSendWaOtp').disabled = false;
+      document.getElementById('btnSendWaOtp').innerText = 'Send WhatsApp Code';
+    }
+
+    // Cooldown timer utility
+    function startCooldown(type, seconds) {
+      let remaining = seconds;
+      const btn = document.getElementById(type === 'phone' ? 'btnResendPhoneOtp' : 'btnResendWaOtp');
+      const timer = document.getElementById(type === 'phone' ? 'phoneCooldownTimer' : 'waCooldownTimer');
+
+      btn.disabled = true;
+      timer.innerText = `(Resend in ${remaining}s)`;
+
+      const interval = setInterval(() => {
+        remaining--;
+        if (remaining <= 0) {
+          clearInterval(interval);
+          btn.disabled = false;
+          timer.innerText = '';
+        } else {
+          timer.innerText = `(Resend in ${remaining}s)`;
+        }
+      }, 1000);
+
+      if (type === 'phone') phoneCooldownInterval = interval;
+      else waCooldownInterval = interval;
+    }
+
+    // Auto-redirect if already logged in
+    document.addEventListener('DOMContentLoaded', () => {
+      if (Auth.isLoggedIn()) {
+        window.location.href = 'profile.html';
+      }
+    });
+  </script>
+</body>
+</html>

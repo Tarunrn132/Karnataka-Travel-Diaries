@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trip Itinerary Planner | Karnataka Travel Diaries</title>
+  <meta name="description" content="Plan custom multi-day road trips across Karnataka with day-by-day stops and Google Maps driving navigation.">
+  <link rel="icon" href="images/hero/karnataka-fallback.jpg" type="image/jpeg">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/ai.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container header-container">
+      <a href="index.html" class="brand-logo">
+        <div class="brand-icon-box">🧭</div>
+        <div>
+          <div class="brand-title">Karnataka<span>Diaries</span></div>
+          <span class="brand-tagline">Discover • Plan • Explore</span>
+        </div>
+      </a>
+
+      <nav class="desktop-nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="explore.html" class="nav-link">Explore</a>
+        <a href="map.html" class="nav-link">Interactive Map</a>
+        <a href="ai-planner.html" class="nav-link">AI Planner ✨</a>
+        <a href="trips.html" class="nav-link active">Trips</a>
+        <a href="diary.html" class="nav-link">Travel Diary</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="favorites.html" class="fav-nav-btn" title="Saved Wishlist">
+          <span>❤️</span>
+          <span class="fav-badge" style="display:none;">0</span>
+        </a>
+        <div id="headerAuthContainer"></div>
+        <button class="mobile-hamburger" id="mobileHamburgerBtn">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main style="padding: 40px 0 60px;">
+    <div class="container" style="max-width:960px;">
+      <!-- Page Header -->
+      <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-end; gap:16px; margin-bottom:28px; border-bottom:1px solid #f1f5f9; padding-bottom:18px;">
+        <div>
+          <div class="section-tag">📅 Trip Planner</div>
+          <h1 class="section-title">My Karnataka Road Trips</h1>
+          <p class="section-desc">
+            Design custom itineraries, arrange daily stops, and calculate Google Maps driving routes across Karnataka.
+          </p>
+        </div>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <a href="ai-planner.html" class="btn btn-primary btn-sm">
+            ✨ Generate with AI
+          </a>
+          <button type="button" onclick="document.getElementById('createTripModal').classList.add('open')" class="btn btn-secondary btn-sm">
+            ➕ Manual Trip
+          </button>
+        </div>
+      </div>
+
+      <!-- Trips List Container -->
+      <div id="tripsListContainer">
+        <!-- Rendered by js/trips.js -->
+      </div>
+    </div>
+  </main>
+
+  <!-- Create Trip Modal -->
+  <div class="modal-backdrop" id="createTripModal">
+    <div class="modal-card">
+      <span class="modal-close-btn" onclick="document.getElementById('createTripModal').classList.remove('open')">&times;</span>
+      <h3 style="font-size:20px; font-weight:800; color:var(--dark-text); margin-bottom:4px;">Plan a New Trip</h3>
+      <p style="font-size:12px; color:#64748b; margin-bottom:18px;">Create a multi-day itinerary across Karnataka</p>
+
+      <form id="newTripForm" onsubmit="handleCreateTripSubmit(event)">
+        <div style="margin-bottom:12px;">
+          <label style="font-size:12px; font-weight:700; display:block; margin-bottom:4px;">Trip Title *</label>
+          <input type="text" id="tripNameInput" placeholder="e.g. Western Ghats Monsoon Roadtrip" style="width:100%; padding:10px; border-radius:10px; border:1px solid #cbd5e1; outline:none;" required />
+        </div>
+
+        <div style="margin-bottom:12px;">
+          <label style="font-size:12px; font-weight:700; display:block; margin-bottom:4px;">Description / Trip Notes</label>
+          <textarea id="tripDescInput" rows="2" placeholder="Road trip highlights, homestay booking details..." style="width:100%; padding:10px; border-radius:10px; border:1px solid #cbd5e1; outline:none;"></textarea>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px;">
+          <div>
+            <label style="font-size:12px; font-weight:700; display:block; margin-bottom:4px;">Start Date</label>
+            <input type="date" id="tripStartDateInput" style="width:100%; padding:8px 10px; border-radius:10px; border:1px solid #cbd5e1; outline:none;" />
+          </div>
+          <div>
+            <label style="font-size:12px; font-weight:700; display:block; margin-bottom:4px;">End Date</label>
+            <input type="date" id="tripEndDateInput" style="width:100%; padding:8px 10px; border-radius:10px; border:1px solid #cbd5e1; outline:none;" />
+          </div>
+        </div>
+
+        <div style="margin-bottom:18px;">
+          <label style="font-size:12px; font-weight:700; display:block; margin-bottom:4px;">Select Initial Stops:</label>
+          <div style="max-height:140px; overflow-y:auto; border:1px solid #e2e8f0; border-radius:10px; padding:8px;" id="tripDestCheckboxes">
+            <!-- Populated via JS -->
+          </div>
+        </div>
+
+        <div style="display:flex; gap:10px;">
+          <button type="submit" class="btn btn-primary btn-sm" style="flex:1;">Create Itinerary</button>
+          <button type="button" onclick="document.getElementById('createTripModal').classList.remove('open')" class="btn btn-secondary btn-sm">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Mobile Bottom App Bar -->
+  <nav class="mobile-bottom-nav">
+    <a href="index.html" class="bottom-nav-item">
+      <span>🏠</span>
+      <span>Home</span>
+    </a>
+    <a href="explore.html" class="bottom-nav-item">
+      <span>🧭</span>
+      <span>Explore</span>
+    </a>
+    <a href="ai-planner.html" class="bottom-nav-item">
+      <span>✨</span>
+      <span>AI Planner</span>
+    </a>
+    <a href="trips.html" class="bottom-nav-item active">
+      <span>📅</span>
+      <span>Trips</span>
+    </a>
+    <a href="profile.html" class="bottom-nav-item">
+      <span>👤</span>
+      <span>Profile</span>
+    </a>
+  </nav>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/favorites.js"></script>
+  <script src="js/destinations.js"></script>
+  <script src="js/trips.js"></script>
+  <script src="js/ai-chat.js"></script>
+  <script src="js/app.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      Trips.renderTripsList();
+
+      // Populate destination checkboxes in modal
+      const boxContainer = document.getElementById("tripDestCheckboxes");
+      if (boxContainer && window.karnatakaDestinations) {
+        boxContainer.innerHTML = window.karnatakaDestinations.map(d => `
+          <label style="display:flex; align-items:center; gap:8px; padding:4px 6px; font-size:12px; cursor:pointer;">
+            <input type="checkbox" name="tripDest" value="${d.slug || d.id}">
+            <span>${d.name} (${d.district})</span>
+          </label>
+        `).join("");
+      }
+    });
+
+    function handleCreateTripSubmit(e) {
+      e.preventDefault();
+      if (!Auth.isLoggedIn()) {
+        window.location.href = "login.html?redirect=trips.html";
+        return;
+      }
+      const name = document.getElementById("tripNameInput").value;
+      const desc = document.getElementById("tripDescInput").value;
+      const start = document.getElementById("tripStartDateInput").value;
+      const end = document.getElementById("tripEndDateInput").value;
+
+      const checked = [...document.querySelectorAll('input[name="tripDest"]:checked')].map(cb => cb.value);
+
+      Trips.create(name, desc, start, end, checked);
+      document.getElementById("createTripModal").classList.remove("open");
+      document.getElementById("newTripForm").reset();
+    }
+  </script>
+</body>
+</html>

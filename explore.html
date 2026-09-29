@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explore Karnataka Destinations | Karnataka Travel Diaries</title>
+  <meta name="description" content="Discover 25 hand-curated Karnataka destinations across Western Ghats, Karavali Coast, and heritage circuits with photography, GPS directions, district filters and distance calculations.">
+  <link rel="icon" href="images/hero/karnataka-fallback.jpg" type="image/jpeg">
+
+  <!-- Technical SEO & Canonical -->
+  <link rel="canonical" href="https://YOUR-PRODUCTION-DOMAIN.com/explore.html">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Karnataka Travel Diaries">
+  <meta property="og:title" content="Explore Karnataka Destinations | Karnataka Travel Diaries">
+  <meta property="og:description" content="Explore 25 authentic destinations across Karnataka: Coorg, Hampi, Gokarna, Mysore, Chikmagalur, Bandipur, Udupi, and more.">
+  <meta property="og:image" content="https://YOUR-PRODUCTION-DOMAIN.com/images/hero/karnataka-hero.jpg">
+  <meta property="og:url" content="https://YOUR-PRODUCTION-DOMAIN.com/explore.html">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Explore Karnataka Destinations | Karnataka Travel Diaries">
+  <meta name="twitter:description" content="Discover 25 authentic destinations across Karnataka with maps and travel guides.">
+  <meta name="twitter:image" content="https://YOUR-PRODUCTION-DOMAIN.com/images/hero/karnataka-hero.jpg">
+
+  <!-- Schema.org JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Karnataka Tourist Destinations Directory",
+    "description": "Comprehensive directory of 25 premier travel destinations across 31 districts of Karnataka.",
+    "url": "https://YOUR-PRODUCTION-DOMAIN.com/explore.html",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Karnataka Travel Diaries",
+      "url": "https://YOUR-PRODUCTION-DOMAIN.com/"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/ai.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container header-container">
+      <a href="index.html" class="brand-logo">
+        <div class="brand-icon-box">🧭</div>
+        <div>
+          <div class="brand-title">Karnataka<span>Diaries</span></div>
+          <span class="brand-tagline">Discover • Plan • Explore</span>
+        </div>
+      </a>
+
+      <nav class="desktop-nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="explore.html" class="nav-link active">Explore</a>
+        <a href="map.html" class="nav-link">Interactive Map</a>
+        <a href="ai-planner.html" class="nav-link">AI Planner ✨</a>
+        <a href="trips.html" class="nav-link">Trips</a>
+        <a href="diary.html" class="nav-link">Travel Diary</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="favorites.html" class="fav-nav-btn" title="Saved Wishlist" aria-label="Saved Places">
+          <span>❤️</span>
+          <span class="fav-badge" style="display:none;">0</span>
+        </a>
+
+        <div id="headerAuthContainer">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <a href="login.html" class="btn btn-secondary btn-sm" style="border:none;">Log In</a>
+            <a href="register.html" class="btn btn-primary btn-sm">Sign Up</a>
+          </div>
+        </div>
+
+        <button class="mobile-hamburger" id="mobileHamburgerBtn" aria-label="Open Menu">
+          ☰
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div class="mobile-drawer" id="mobileDrawer">
+      <nav style="display:flex; flex-direction:column; gap:4px;">
+        <a href="index.html" class="nav-link">Home <span>🏠</span></a>
+        <a href="explore.html" class="nav-link active">Explore Destinations <span>🧭</span></a>
+        <a href="map.html" class="nav-link">Interactive Map <span>🗺️</span></a>
+        <a href="ai-planner.html" class="nav-link">AI Travel Planner <span>✨</span></a>
+        <a href="trips.html" class="nav-link">Trip Itineraries <span>📅</span></a>
+        <a href="diary.html" class="nav-link">Travel Diary <span>📖</span></a>
+        <a href="favorites.html" class="nav-link">Saved Places <span>❤️</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main style="padding: 30px 0 60px;">
+    <div class="container">
+      <!-- Page Banner -->
+      <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-end; gap:16px; margin-bottom:28px; border-bottom:1px solid #f1f5f9; padding-bottom:18px;">
+        <div>
+          <div class="section-tag">🧭 All Destinations</div>
+          <h1 class="section-title">Explore Karnataka Destinations</h1>
+          <p class="section-desc">
+            Discover 21 curated hill stations, coastal beaches, UNESCO heritage capitals and wildlife parks.
+          </p>
+        </div>
+
+        <!-- Explore Near Me GPS Button -->
+        <button type="button" id="exploreNearMeBtn" class="btn btn-primary btn-sm" onclick="handleExploreNearMe()">
+          <span>📍</span>
+          <span id="nearMeBtnText">Explore Near Me</span>
+        </button>
+      </div>
+
+      <!-- Filter Controls Bar -->
+      <div style="background:#ffffff; border-radius:var(--radius-lg); padding:20px; box-shadow:var(--shadow-card); border:1px solid var(--border-card); margin-bottom:28px;">
+        <!-- Search, District & Sort -->
+        <div style="display:flex; flex-wrap:wrap; gap:12px; margin-bottom:16px;">
+          <!-- Keyword & Natural Language Input -->
+          <div style="flex:1; min-width:280px; position:relative; display:flex; gap:6px;">
+            <div style="position:relative; flex:1;">
+              <input 
+                type="text" 
+                id="exploreSearchInput" 
+                placeholder="Search destination, or ask AI (e.g. peaceful hill station within 300 km of BLR)..."
+                style="width:100%; padding:10px 14px 10px 38px; border-radius:12px; border:1px solid #cbd5e1; background:#f8fafc; outline:none; font-size:13px;"
+              />
+              <span style="position:absolute; left:12px; top:50%; transform:translateY(-50%); color:#94a3b8;">🔍</span>
+            </div>
+            <button type="button" id="btnAiSearch" onclick="triggerAISearch()" class="btn btn-primary btn-sm" style="border-radius:12px; padding:8px 14px; font-weight:700;" title="Search with AI">
+              ✨ Search
+            </button>
+          </div>
+
+          <!-- District filter -->
+          <select id="districtSelect" style="padding:10px 14px; border-radius:12px; border:1px solid #cbd5e1; background:#f8fafc; font-weight:600; color:#475569; outline:none; cursor:pointer;">
+            <option value="All">All Districts</option>
+            <option value="Kodagu">Kodagu</option>
+            <option value="Mysuru">Mysuru</option>
+            <option value="Chikkamagaluru">Chikkamagaluru</option>
+            <option value="Uttara Kannada">Uttara Kannada</option>
+            <option value="Dakshina Kannada">Dakshina Kannada</option>
+            <option value="Udupi">Udupi</option>
+            <option value="Vijayanagara">Vijayanagara</option>
+            <option value="Bagalkot">Bagalkot</option>
+            <option value="Hassan">Hassan</option>
+            <option value="Bengaluru Urban">Bengaluru Urban</option>
+            <option value="Chamarajanagar">Chamarajanagar</option>
+            <option value="Mandya">Mandya</option>
+            <option value="Shivamogga">Shivamogga</option>
+            <option value="Chikkaballapur">Chikkaballapur</option>
+          </select>
+
+          <!-- Sort filter -->
+          <select id="sortSelect" style="padding:10px 14px; border-radius:12px; border:1px solid #cbd5e1; background:#f8fafc; font-weight:600; color:#475569; outline:none; cursor:pointer;">
+            <option value="rating">Top Rated</option>
+            <option value="name">Alphabetical (A–Z)</option>
+            <option value="distance">Nearest to You</option>
+          </select>
+
+          <!-- Reset button -->
+          <button type="button" onclick="resetFilters()" class="btn btn-secondary btn-sm" style="border-radius:12px;" title="Reset filters">
+            🔄 Reset
+          </button>
+        </div>
+
+        <!-- Category Horizontal Filter Pills -->
+        <div style="display:flex; gap:8px; overflow-x:auto; padding-bottom:4px;" id="categoryFilterPills">
+          <button type="button" class="btn btn-primary btn-sm category-pill active" data-cat="All">All</button>
+          <button type="button" class="btn btn-secondary btn-sm category-pill" data-cat="Hill Stations">Hill Stations</button>
+          <button type="button" class="btn btn-secondary btn-sm category-pill" data-cat="Beaches">Beaches</button>
+          <button type="button" class="btn btn-secondary btn-sm category-pill" data-cat="Heritage">Heritage</button>
+          <button type="button" class="btn btn-secondary btn-sm category-pill" data-cat="Wildlife">Wildlife</button>
+          <button type="button" class="btn btn-secondary btn-sm category-pill" data-cat="Waterfalls">Waterfalls</button>
+          <button type="button" class="btn btn-secondary btn-sm category-pill" data-cat="Religious">Religious</button>
+          <button type="button" class="btn btn-secondary btn-sm category-pill" data-cat="Adventure">Adventure</button>
+          <button type="button" class="btn btn-secondary btn-sm category-pill" data-cat="Nature">Nature</button>
+          <button type="button" class="btn btn-secondary btn-sm category-pill" data-cat="Cities">Cities</button>
+          <button type="button" class="btn btn-secondary btn-sm category-pill" data-cat="Hidden Gems">Hidden Gems</button>
+        </div>
+      </div>
+
+      <!-- Results Count Status -->
+      <div style="display:flex; justify-content:space-between; align-items:center; font-size:13px; color:#64748b; margin-bottom:20px;">
+        <span id="resultsCountText">Showing destinations...</span>
+        <span id="gpsStatusText" style="display:none; color:#059669; font-weight:600;">
+          🟢 Distances calculated from your live GPS
+        </span>
+      </div>
+
+      <!-- Destination Cards Grid -->
+      <div class="destinations-grid" id="exploreGridContainer">
+        <!-- Rendered via JavaScript -->
+      </div>
+    </div>
+  </main>
+
+  <!-- Mobile Bottom App Bar -->
+  <nav class="mobile-bottom-nav">
+    <a href="index.html" class="bottom-nav-item">
+      <span>🏠</span>
+      <span>Home</span>
+    </a>
+    <a href="explore.html" class="bottom-nav-item active">
+      <span>🧭</span>
+      <span>Explore</span>
+    </a>
+    <a href="ai-planner.html" class="bottom-nav-item">
+      <span>✨</span>
+      <span>AI Planner</span>
+    </a>
+    <a href="map.html" class="bottom-nav-item">
+      <span>🗺️</span>
+      <span>Map</span>
+    </a>
+    <a href="profile.html" class="bottom-nav-item">
+      <span>👤</span>
+      <span>Profile</span>
+    </a>
+  </nav>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/favorites.js"></script>
+  <script src="js/destinations.js"></script>
+  <script src="js/ai-search.js"></script>
+  <script src="js/ai-chat.js"></script>
+  <script src="js/app.js"></script>
+
+  <script>
+    let activeCategory = "All";
+    let activeDistrict = "All";
+    let activeSort = "rating";
+    let userCoords = null;
+    let aiSearchResults = null;
+
+    document.addEventListener("DOMContentLoaded", () => {
+      // Check URL query parameters
+      const params = new URLSearchParams(window.location.search);
+      const urlCat = params.get("category");
+      const urlSearch = params.get("search");
+
+      if (urlCat) {
+        activeCategory = urlCat;
+        updatePillUI(urlCat);
+      }
+      if (urlSearch) {
+        document.getElementById("exploreSearchInput").value = urlSearch;
+      }
+
+      // Category Pill Click Handlers
+      document.querySelectorAll(".category-pill").forEach(pill => {
+        pill.addEventListener("click", () => {
+          activeCategory = pill.getAttribute("data-cat");
+          updatePillUI(activeCategory);
+          filterAndRender();
+        });
+      });
+
+      // Filter events
+      const searchInput = document.getElementById("exploreSearchInput");
+      searchInput.addEventListener("input", (e) => {
+        aiSearchResults = null;
+        filterAndRender();
+      });
+      searchInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          triggerAISearch();
+        }
+      });
+
+      document.getElementById("districtSelect").addEventListener("change", (e) => {
+        activeDistrict = e.target.value;
+        aiSearchResults = null;
+        filterAndRender();
+      });
+      document.getElementById("sortSelect").addEventListener("change", (e) => {
+        activeSort = e.target.value;
+        filterAndRender();
+      });
+
+      filterAndRender();
+    });
+
+    async function triggerAISearch() {
+      const q = document.getElementById("exploreSearchInput").value.trim();
+      if (!q) return;
+
+      if (AISearch.isComplexQuery(q)) {
+        await AISearch.executeSearch(q, (result) => {
+          if (result.isAI && result.destinations && result.destinations.length > 0) {
+            aiSearchResults = result;
+            renderAISearchResults(result);
+          } else {
+            aiSearchResults = null;
+            filterAndRender();
+          }
+        });
+      } else {
+        aiSearchResults = null;
+        filterAndRender();
+      }
+    }
+
+    function renderAISearchResults(result) {
+      const container = document.getElementById("exploreGridContainer");
+      const countText = document.getElementById("resultsCountText");
+      if (countText) {
+        countText.innerHTML = `
+          <span style="color:var(--primary-brand); font-weight:700;">
+            ✨ ${result.explanation}
+          </span>
+        `;
+      }
+
+      container.innerHTML = result.destinations.map(d => {
+        const standardCard = Destinations.renderCard(d);
+        // Inject explainable AI badge into the card
+        if (d.reasons && d.reasons.length > 0) {
+          const reasonTag = `<div style="background:#ede9fe; color:var(--primary-brand); font-size:11px; font-weight:700; padding:6px 10px; border-radius:8px; margin-bottom:10px; line-height:1.4; border-left:3px solid var(--primary-brand);">✨ AI Match: ${d.reasons[0]}</div>`;
+          return standardCard.replace('<div class="card-body">', `<div class="card-body">${reasonTag}`);
+        }
+        return standardCard;
+      }).join("");
+    }
+
+    function updatePillUI(catName) {
+      document.querySelectorAll(".category-pill").forEach(p => {
+        if (p.getAttribute("data-cat") === catName) {
+          p.classList.remove("btn-secondary");
+          p.classList.add("btn-primary");
+        } else {
+          p.classList.remove("btn-primary");
+          p.classList.add("btn-secondary");
+        }
+      });
+    }
+
+    function filterAndRender() {
+      const container = document.getElementById("exploreGridContainer");
+      const countText = document.getElementById("resultsCountText");
+      if (!container) return;
+
+      try {
+        const rawDestinations = window.karnatakaDestinations || [];
+        if (!Array.isArray(rawDestinations) || rawDestinations.length === 0) {
+          container.innerHTML = `
+            <div style="grid-column: 1 / -1; background:#ffffff; border-radius:24px; padding:60px 20px; text-align:center; border:1px solid #eef0f3;">
+              <div style="font-size:40px; margin-bottom:12px;">🧭</div>
+              <h3 style="font-size:20px; font-weight:800; color:var(--dark-text); margin-bottom:6px;">Loading Karnataka Destinations...</h3>
+              <p style="font-size:13px; color:#64748b; margin-bottom:20px;">Fetching verified travel spots and routes.</p>
+              <button type="button" onclick="location.reload()" class="btn btn-primary btn-sm">Refresh Page</button>
+            </div>
+          `;
+          if (countText) countText.textContent = "Loading destinations...";
+          return;
+        }
+
+        const q = (document.getElementById("exploreSearchInput")?.value || "").toLowerCase().trim();
+        let list = [...rawDestinations];
+
+        // Filter by Category
+        if (activeCategory !== "All") {
+          list = list.filter(d => 
+            d.category === activeCategory || 
+            (Array.isArray(d.categories) && d.categories.includes(activeCategory)) ||
+            (typeof d.tags === "string" && d.tags.toLowerCase().includes(activeCategory.toLowerCase()))
+          );
+        }
+
+        // Filter by District
+        if (activeDistrict !== "All") {
+          list = list.filter(d => 
+            d.district === activeDistrict || 
+            (d.district && d.district.toLowerCase().includes(activeDistrict.toLowerCase()))
+          );
+        }
+
+        // Filter by Search Query
+        if (q) {
+          list = list.filter(d => 
+            (d.name && d.name.toLowerCase().includes(q)) ||
+            (d.district && d.district.toLowerCase().includes(q)) ||
+            (d.taluk && d.taluk.toLowerCase().includes(q)) ||
+            (d.category && d.category.toLowerCase().includes(q)) ||
+            (d.shortDescription && d.shortDescription.toLowerCase().includes(q)) ||
+            (d.attractions && d.attractions.some(a => a.name && a.name.toLowerCase().includes(q)))
+          );
+        }
+
+        // Sorting
+        if (activeSort === "distance" && userCoords) {
+          list.sort((a, b) => {
+            const distA = calculateHaversineDistance(userCoords.latitude, userCoords.longitude, a.latitude, a.longitude);
+            const distB = calculateHaversineDistance(userCoords.latitude, userCoords.longitude, b.latitude, b.longitude);
+            return distA - distB;
+          });
+        } else if (activeSort === "name") {
+          list.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
+        } else {
+          // Default: rating
+          list.sort((a, b) => (b.averageRating || 4.8) - (a.averageRating || 4.8) || (b.reviewCount || 0) - (a.reviewCount || 0));
+        }
+
+        // Render Count
+        if (countText) {
+          countText.textContent = `Showing ${list.length} ${list.length === 1 ? 'destination' : 'destinations'}${activeCategory !== 'All' ? ` in ${activeCategory}` : ''}${activeDistrict !== 'All' ? ` (${activeDistrict})` : ''}`;
+        }
+
+        // Render Grid
+        if (list.length === 0) {
+          container.innerHTML = `
+            <div style="grid-column: 1 / -1; background:#ffffff; border-radius:24px; padding:60px 20px; text-align:center; border:1px solid #eef0f3;">
+              <div style="font-size:40px; margin-bottom:12px;">🔍</div>
+              <h3 style="font-size:20px; font-weight:800; color:var(--dark-text); margin-bottom:6px;">No Destinations Found</h3>
+              <p style="font-size:13px; color:#64748b; margin-bottom:20px;">
+                No places matched your filter criteria. Try adjusting the search or resetting your filters.
+              </p>
+              <button type="button" onclick="resetFilters()" class="btn btn-primary btn-sm">Clear All Filters</button>
+            </div>
+          `;
+        } else {
+          container.innerHTML = list.map(d => Destinations.renderCard(d)).join("");
+        }
+      } catch (err) {
+        console.error("Error rendering destinations:", err);
+        container.innerHTML = `
+          <div style="grid-column: 1 / -1; background:#ffffff; border-radius:24px; padding:60px 20px; text-align:center; border:1px solid #fee2e2;">
+            <div style="font-size:40px; margin-bottom:12px;">⚠️</div>
+            <h3 style="font-size:20px; font-weight:800; color:#b91c1c; margin-bottom:6px;">Unable to load destinations.</h3>
+            <p style="font-size:13px; color:#64748b; margin-bottom:20px;">An error occurred while loading places. Please click retry.</p>
+            <button type="button" onclick="filterAndRender()" class="btn btn-primary btn-sm">Retry</button>
+          </div>
+        `;
+      }
+    }
+
+    function resetFilters() {
+      activeCategory = "All";
+      activeDistrict = "All";
+      activeSort = "rating";
+      document.getElementById("exploreSearchInput").value = "";
+      document.getElementById("districtSelect").value = "All";
+      document.getElementById("sortSelect").value = "rating";
+      updatePillUI("All");
+      filterAndRender();
+    }
+
+    function handleExploreNearMe() {
+      if (!navigator.geolocation) {
+        alert("Geolocation is not supported by your browser.");
+        return;
+      }
+
+      const btnText = document.getElementById("nearMeBtnText");
+      btnText.textContent = "Acquiring GPS...";
+
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          userCoords = {
+            latitude: pos.coords.latitude,
+            longitude: pos.coords.longitude
+          };
+          btnText.textContent = "Near You (GPS Active)";
+          document.getElementById("sortSelect").value = "distance";
+          activeSort = "distance";
+          document.getElementById("gpsStatusText").style.display = "block";
+          if (window.showToast) window.showToast("GPS acquired! Places sorted nearest to you.", "success");
+          filterAndRender();
+        },
+        (err) => {
+          btnText.textContent = "Explore Near Me";
+          alert("Location access was denied. Please allow location permissions to sort by distance.");
+        },
+        { enableHighAccuracy: true, timeout: 8000 }
+      );
+    }
+  </script>
+</body>
+</html>

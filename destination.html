@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Destination Guide | Karnataka Travel Diaries</title>
+  <meta name="description" content="Complete travel guide with attractions, best seasons, travel duration, reviews and Google Maps driving directions.">
+  <link rel="icon" href="images/hero/karnataka-fallback.jpg" type="image/jpeg">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/ai.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+
+  <style>
+    .dest-hero {
+      position: relative;
+      min-height: 480px;
+      display: flex;
+      align-items: flex-end;
+      padding: 60px 0 40px;
+      color: white;
+      background-size: cover;
+      background-position: center;
+    }
+    .dest-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(14,20,32,0.92) 0%, rgba(14,20,32,0.4) 60%, rgba(14,20,32,0.2) 100%);
+    }
+    .dest-content-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 36px;
+      padding: 40px 0 60px;
+    }
+    @media (min-width: 1024px) {
+      .dest-content-grid {
+        grid-template-columns: 2fr 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container header-container">
+      <a href="index.html" class="brand-logo">
+        <div class="brand-icon-box">🧭</div>
+        <div>
+          <div class="brand-title">Karnataka<span>Diaries</span></div>
+          <span class="brand-tagline">Discover • Plan • Explore</span>
+        </div>
+      </a>
+
+      <nav class="desktop-nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="explore.html" class="nav-link active">Explore</a>
+        <a href="map.html" class="nav-link">Interactive Map</a>
+        <a href="ai-planner.html" class="nav-link" style="color:var(--ai-primary); font-weight:700;">AI Planner ✨</a>
+        <a href="trips.html" class="nav-link">Trips</a>
+        <a href="diary.html" class="nav-link">Travel Diary</a>
+      </nav>
+
+      <div class="header-actions">
+        <a href="favorites.html" class="fav-nav-btn" title="Saved Wishlist" aria-label="Saved Places">
+          <span>❤️</span>
+          <span class="fav-badge" style="display:none;">0</span>
+        </a>
+
+        <div id="headerAuthContainer">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <a href="login.html" class="btn btn-secondary btn-sm" style="border:none;">Log In</a>
+            <a href="register.html" class="btn btn-primary btn-sm">Sign Up</a>
+          </div>
+        </div>
+
+        <button class="mobile-hamburger" id="mobileHamburgerBtn" aria-label="Open Menu">
+          ☰
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="destinationMainContainer">
+    <!-- Dynamically injected via JavaScript below -->
+    <div style="padding: 100px 0; text-align: center; color: #64748b;">
+      Loading Karnataka destination guide...
+    </div>
+  </main>
+
+  <!-- Mobile Bottom App Bar -->
+  <nav class="mobile-bottom-nav">
+    <a href="index.html" class="bottom-nav-item">
+      <span>🏠</span>
+      <span>Home</span>
+    </a>
+    <a href="explore.html" class="bottom-nav-item active">
+      <span>🧭</span>
+      <span>Explore</span>
+    </a>
+    <a href="ai-planner.html" class="bottom-nav-item">
+      <span>✨</span>
+      <span>AI Planner</span>
+    </a>
+    <a href="map.html" class="bottom-nav-item">
+      <span>🗺️</span>
+      <span>Map</span>
+    </a>
+    <a href="profile.html" class="bottom-nav-item">
+      <span>👤</span>
+      <span>Profile</span>
+    </a>
+  </nav>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <!-- Vanilla JS Modules -->
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/favorites.js"></script>
+  <script src="js/destinations.js"></script>
+  <script src="js/trips.js"></script>
+  <script src="js/diary.js"></script>
+  <script src="js/reviews.js"></script>
+  <script src="js/app.js"></script>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const params = new URLSearchParams(window.location.search);
+      const destId = params.get("id") || "coorg";
+
+      const dest = window.karnatakaDestinations.find(d => 
+        d.slug === destId || d.id === destId || d.name.toLowerCase().includes(destId.toLowerCase())
+      ) || window.karnatakaDestinations[0];
+
+      document.title = `${dest.name} Travel Guide | Karnataka Travel Diaries`;
+
+      const main = document.getElementById("destinationMainContainer");
+      const isFav = window.Favorites ? window.Favorites.isFavorited(dest.id || dest.slug) : false;
+
+      // Things to do highlights
+      const thingsToDo = [
+        { title: "Sightseeing & Panoramas", desc: "Enjoy scenic viewpoints, cloud valleys, and heritage sites." },
+        { title: "Regional Gastronomy", desc: "Savor authentic regional Karnataka culinary delights and filter coffee." },
+        { title: "Heritage & Culture", desc: "Discover architectural marvels, local folklore, and ancient shrines." },
+        { title: "Nature & Hiking Trails", desc: "Walk through aromatic plantations, waterfalls, and wildlife trails." }
+      ];
+
+      main.innerHTML = `
+        <!-- Large Destination-Specific Hero Image -->
+        <section class="dest-hero" style="background-image: url('${dest.image || 'images/hero/karnataka-hero.jpg'}');">
+          <div class="dest-hero-overlay"></div>
+          <div class="container" style="position:relative; z-index:2;">
+            <div style="font-size:12px; color:rgba(255,255,255,0.7); margin-bottom:12px;">
+              <a href="index.html" style="color:white;">Home</a> / <a href="explore.html" style="color:white;">Destinations</a> / <span>${dest.name}</span>
+            </div>
+
+            <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-end; gap:20px;">
+              <div style="max-width:700px;">
+                <div style="display:inline-block; background:rgba(92,79,229,0.9); font-size:12px; font-weight:700; padding:4px 12px; border-radius:999px; margin-bottom:10px;">
+                  ${dest.category}
+                </div>
+                <h1 style="font-size:42px; font-weight:800; letter-spacing:-0.5px; line-height:1.15; margin-bottom:8px; text-shadow:0 2px 10px rgba(0,0,0,0.5);">
+                  ${dest.name}
+                </h1>
+                <p style="font-size:15px; color:rgba(255,255,255,0.9); margin-bottom:14px;">
+                  📍 ${dest.district}, Karnataka • ★ ${dest.averageRating.toFixed(1)} (${dest.reviewCount} Reviews)
+                </p>
+                <p style="font-size:14px; color:rgba(255,255,255,0.85); line-height:1.5;">
+                  &ldquo;${dest.shortDescription}&rdquo;
+                </p>
+              </div>
+
+              <!-- Action buttons -->
+              <div style="display:flex; flex-wrap:wrap; gap:10px;">
+                <button type="button" class="btn btn-primary" onclick="Destinations.getDirections(${dest.latitude}, ${dest.longitude}, '${dest.name.replace(/'/g, "\\'")}')">
+                  🧭 Get Directions
+                </button>
+                <button type="button" class="btn btn-ghost-white" onclick="Favorites.toggle('${dest.id || dest.slug}')">
+                  ${isFav ? '❤️ Saved' : '🤍 Save Place'}
+                </button>
+                <button type="button" class="btn btn-ghost-white" onclick="handleSharePlace('${dest.name}')">
+                  🔗 Share
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Main Details Grid -->
+        <div class="container dest-content-grid">
+          <!-- Left Column (Overview, Attractions, Things to Do, Reviews) -->
+          <div style="display:flex; flex-direction:column; gap:36px;">
+            <!-- Overview -->
+            <div style="background:#ffffff; border-radius:var(--radius-xl); padding:32px; border:1px solid #eef0f3; box-shadow:var(--shadow-card);">
+              <h2 style="font-size:22px; font-weight:800; margin-bottom:14px;">About ${dest.name}</h2>
+              <p style="font-size:14px; color:#475569; line-height:1.8; margin-bottom:24px;">
+                ${dest.description}
+              </p>
+
+              <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:16px; border-top:1px solid #f1f5f9; padding-top:20px;">
+                <div style="background:#f8fafc; padding:14px; border-radius:14px; border:1px solid #e2e8f0;">
+                  <div style="font-size:11px; font-weight:700; color:var(--primary-brand); text-transform:uppercase;">Best Time To Visit</div>
+                  <div style="font-size:14px; font-weight:800; color:var(--dark-text); margin-top:2px;">${dest.bestTimeToVisit}</div>
+                </div>
+
+                <div style="background:#f8fafc; padding:14px; border-radius:14px; border:1px solid #e2e8f0;">
+                  <div style="font-size:11px; font-weight:700; color:#d97706; text-transform:uppercase;">Recommended Duration</div>
+                  <div style="font-size:14px; font-weight:800; color:var(--dark-text); margin-top:2px;">${dest.recommendedDays}</div>
+                </div>
+
+                <div style="background:#f8fafc; padding:14px; border-radius:14px; border:1px solid #e2e8f0;">
+                  <div style="font-size:11px; font-weight:700; color:#059669; text-transform:uppercase;">From Bengaluru</div>
+                  <div style="font-size:14px; font-weight:800; color:var(--dark-text); margin-top:2px;">${dest.distanceFromBangalore === 0 ? '0 km (0 hrs)' : dest.distanceFromBangalore + ' km (~' + Math.round(dest.distanceFromBangalore / 50) + ' hrs)'}</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Top Attractions Cards -->
+            <div style="background:#ffffff; border-radius:var(--radius-xl); padding:32px; border:1px solid #eef0f3; box-shadow:var(--shadow-card);">
+              <h2 style="font-size:22px; font-weight:800; margin-bottom:6px;">Top Attractions in ${dest.name}</h2>
+              <p style="font-size:13px; color:#64748b; margin-bottom:20px;">Iconic sightseeing landmarks you should not miss.</p>
+
+              <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:16px;">
+                ${dest.attractions ? dest.attractions.map(att => `
+                  <div style="background:#f8fafc; border-radius:18px; padding:18px; border:1px solid #e2e8f0; display:flex; flex-direction:column; justify-content:space-between;">
+                    <div>
+                      <h4 style="font-size:16px; font-weight:800; color:var(--dark-text); margin-bottom:4px;">${att.name}</h4>
+                      <p style="font-size:12px; color:#64748b; line-height:1.6;">${att.description}</p>
+                    </div>
+                    <div style="margin-top:14px; padding-top:10px; border-top:1px solid #e2e8f0;">
+                      <button type="button" class="btn btn-secondary btn-sm" style="width:100%;" onclick="Destinations.getDirections(${dest.latitude}, ${dest.longitude}, '${att.name.replace(/'/g, "\\'")}')">
+                        🧭 Directions
+                      </button>
+                    </div>
+                  </div>
+                `).join("") : '<p>No attractions listed.</p>'}
+              </div>
+            </div>
+
+            <!-- Things to Do -->
+            <div style="background:#ffffff; border-radius:var(--radius-xl); padding:32px; border:1px solid #eef0f3; box-shadow:var(--shadow-card);">
+              <h2 style="font-size:22px; font-weight:800; margin-bottom:18px;">Experiences &amp; Things to Do</h2>
+              <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:16px;">
+                ${thingsToDo.map(item => `
+                  <div style="background:#f8fafc; padding:16px; border-radius:16px; border:1px solid #e2e8f0;">
+                    <h4 style="font-size:14px; font-weight:800; color:var(--dark-text); margin-bottom:4px;">✨ ${item.title}</h4>
+                    <p style="font-size:12px; color:#64748b; line-height:1.5;">${item.desc}</p>
+                  </div>
+                `).join("")}
+              </div>
+            </div>
+
+            <!-- Embedded Location Map -->
+            <div style="background:#ffffff; border-radius:var(--radius-xl); padding:32px; border:1px solid #eef0f3; box-shadow:var(--shadow-card);">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+                <h2 style="font-size:22px; font-weight:800;">Location on Karnataka Map</h2>
+                <button type="button" class="btn btn-primary btn-sm" onclick="Destinations.getDirections(${dest.latitude}, ${dest.longitude}, '${dest.name.replace(/'/g, "\\'")}')">
+                  Get Turn-By-Turn Route
+                </button>
+              </div>
+              <div id="destSingleMap" style="width:100%; height:320px; border-radius:16px; border:1px solid #e2e8f0;"></div>
+            </div>
+
+            <!-- Reviews & Rating Section -->
+            <div style="background:#ffffff; border-radius:var(--radius-xl); padding:32px; border:1px solid #eef0f3; box-shadow:var(--shadow-card);">
+              <h2 style="font-size:22px; font-weight:800; margin-bottom:16px;">Traveler Reviews &amp; Ratings</h2>
+
+              <!-- Submit Review Form -->
+              <form id="destReviewForm" onsubmit="handleReviewSubmit(event, '${dest.slug || dest.id}')" style="background:#f8fafc; padding:20px; border-radius:18px; border:1px solid #e2e8f0; margin-bottom:28px;">
+                <h4 style="font-size:14px; font-weight:800; margin-bottom:10px;">Share Your Experience</h4>
+                <div style="display:flex; gap:12px; margin-bottom:12px; flex-wrap:wrap;">
+                  <input type="text" id="reviewerNameInput" placeholder="Your Name" style="flex:1; padding:8px 12px; border-radius:10px; border:1px solid #cbd5e1; outline:none;" required />
+                  <select id="reviewRatingInput" style="padding:8px 12px; border-radius:10px; border:1px solid #cbd5e1; outline:none; font-weight:600;">
+                    <option value="5">★★★★★ 5 Stars</option>
+                    <option value="4">★★★★☆ 4 Stars</option>
+                    <option value="3">★★★☆☆ 3 Stars</option>
+                    <option value="2">★★☆☆☆ 2 Stars</option>
+                    <option value="1">★☆☆☆☆ 1 Star</option>
+                  </select>
+                </div>
+                <textarea id="reviewCommentInput" rows="3" placeholder="What did you love most about this destination?" style="width:100%; padding:10px; border-radius:10px; border:1px solid #cbd5e1; outline:none; margin-bottom:12px;" required></textarea>
+                <button type="submit" class="btn btn-primary btn-sm">Post Review</button>
+              </form>
+
+              <!-- Reviews List -->
+              <div id="destReviewsList" style="display:flex; flex-direction:column; gap:14px;">
+                <!-- Populated dynamically -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column Sidebar (Quick actions & Planner) -->
+          <div>
+            <div style="position:sticky; top:90px; background:#ffffff; border-radius:var(--radius-xl); padding:24px; border:1px solid #eef0f3; box-shadow:var(--shadow-card); display:flex; flex-direction:column; gap:16px;">
+              <h3 style="font-size:18px; font-weight:800; color:var(--dark-text);">Plan Your Visit</h3>
+              
+              <div style="display:flex; flex-direction:column; gap:10px; font-size:13px; color:#475569;">
+                <div style="display:flex; justify-content:space-between; padding-bottom:8px; border-bottom:1px solid #f1f5f9;">
+                  <span>District:</span>
+                  <strong>${dest.district}</strong>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding-bottom:8px; border-bottom:1px solid #f1f5f9;">
+                  <span>Category:</span>
+                  <strong style="color:var(--primary-brand);">${dest.category}</strong>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding-bottom:8px; border-bottom:1px solid #f1f5f9;">
+                  <span>Distance:</span>
+                  <strong>${dest.distanceFromBangalore} km from BLR</strong>
+                </div>
+                <div style="display:flex; justify-content:space-between; padding-bottom:8px; border-bottom:1px solid #f1f5f9;">
+                  <span>Ideal Season:</span>
+                  <strong>${dest.bestTimeToVisit}</strong>
+                </div>
+              </div>
+
+              <button type="button" class="btn btn-primary" onclick="Destinations.getDirections(${dest.latitude}, ${dest.longitude}, '${dest.name.replace(/'/g, "\\'")}')" style="width:100%;">
+                🧭 Google Maps Directions
+              </button>
+              <button type="button" class="btn btn-secondary" onclick="handleQuickAddToTrip('${dest.slug || dest.id}')" style="width:100%;">
+                ➕ Add to Trip Itinerary
+              </button>
+              <button type="button" class="btn btn-secondary" onclick="askAIAboutDestination('${dest.name.replace(/'/g, "\\'")}')" style="width:100%; border:1px solid #c084fc; color:#7e22ce; background:#faf5ff;">
+                ✨ Ask Copilot About ${dest.name}
+              </button>
+              <a href="diary.html?destination=${dest.slug || dest.id}" class="btn btn-secondary" style="width:100%; text-align:center;">
+                📖 Write in Travel Diary
+              </a>
+
+              <!-- Live Weather & AI Advisory Widget -->
+              <div id="destWeatherBox" style="margin-top:8px; padding:14px; background:#f8fafc; border-radius:14px; border:1px solid #e2e8f0;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                  <strong style="font-size:12px; color:#1e293b; display:flex; align-items:center; gap:6px;">
+                    🌤️ Live Weather Report
+                  </strong>
+                  <span style="font-size:10px; color:#64748b; background:#e2e8f0; padding:2px 6px; border-radius:6px;">Real-Time</span>
+                </div>
+                <div id="destWeatherContent" style="font-size:12px; color:#475569;">
+                  Checking current weather conditions...
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Related Destinations Section -->
+        <div class="container" style="margin-top: 56px; margin-bottom: 60px;">
+          <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom: 24px; border-bottom: 2px solid #f1f5f9; padding-bottom: 16px;">
+            <div>
+              <div style="font-size:12px; font-weight:700; color:var(--primary-brand); text-transform:uppercase; letter-spacing:1px; margin-bottom:4px;">Keep Exploring</div>
+              <h2 style="font-size:26px; font-weight:800; color:var(--dark-text);">Related Destinations in Karnataka</h2>
+            </div>
+            <a href="explore.html" class="btn btn-secondary btn-sm">Explore All &rarr;</a>
+          </div>
+          <div class="dest-grid" id="relatedDestGrid">
+            ${window.karnatakaDestinations
+              .filter(d => (d.slug || d.id) !== (dest.slug || dest.id))
+              .sort((a, b) => (a.category === dest.category ? -1 : 1))
+              .slice(0, 3)
+              .map(d => Destinations.renderCard(d))
+              .join("")}
+          </div>
+        </div>
+      `;
+
+      // Initialize Leaflet Single Pin Map
+      setTimeout(() => {
+        if (typeof L !== "undefined" && document.getElementById("destSingleMap")) {
+          const singleMap = L.map("destSingleMap", {
+            center: [dest.latitude, dest.longitude],
+            zoom: 11,
+            scrollWheelZoom: false
+          });
+
+          L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            attribution: '&copy; OpenStreetMap'
+          }).addTo(singleMap);
+
+          L.marker([dest.latitude, dest.longitude]).addTo(singleMap)
+            .bindPopup(`<b>${dest.name}</b><br>${dest.district}, Karnataka`)
+            .openPopup();
+        }
+      }, 200);
+
+      // Load live weather & AI advisory
+      fetchDestinationWeather(dest.name);
+
+      // Render Reviews
+      renderDestinationReviews(dest.slug || dest.id);
+    });
+
+    async function fetchDestinationWeather(destName) {
+      const container = document.getElementById("destWeatherContent");
+      if (!container) return;
+      try {
+        const res = await fetch(`/api/ai/weather?destination=${encodeURIComponent(destName)}`);
+        const data = await res.json();
+        if (data.success && data.weather) {
+          const w = data.weather;
+          container.innerHTML = `
+            <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:6px;">
+              <span style="font-size:18px; font-weight:800; color:#0f172a;">${w.temperature}°C</span>
+              <span style="font-weight:600; color:#3b82f6;">${w.description}</span>
+            </div>
+            <div style="font-size:11px; color:#64748b; margin-bottom:8px;">
+              Wind: ${w.windSpeed} km/h • Humidity: ${w.humidity}% • Source: Open-Meteo
+            </div>
+            <div style="background:#f5f3ff; border-left:3px solid #7c3aed; padding:8px 10px; border-radius:0 8px 8px 0; font-size:11px; color:#5b21b6; line-height:1.4;">
+              <strong>✨ AI Travel Note:</strong> ${data.aiTravelAdvice}
+            </div>
+          `;
+        } else {
+          container.innerHTML = `<span style="color:#64748b; font-size:11px;">Live information unavailable. Ideal season: check destination guide above.</span>`;
+        }
+      } catch (err) {
+        container.innerHTML = `<span style="color:#64748b; font-size:11px;">Live information unavailable.</span>`;
+      }
+    }
+
+    function askAIAboutDestination(name) {
+      if (window.AIChat) {
+        window.AIChat.open();
+        window.AIChat.send(`What should I visit in ${name}? Give me top attractions, activities, authentic food and travel tips.`);
+      }
+    }
+
+    function renderDestinationReviews(destId) {
+      const container = document.getElementById("destReviewsList");
+      if (!container || !window.Reviews) return;
+
+      const list = window.Reviews.getReviews(destId);
+      container.innerHTML = list.map(r => `
+        <div style="padding:14px; background:#f8fafc; border-radius:14px; border:1px solid #e2e8f0;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <strong style="font-size:13px; color:var(--dark-text);">${r.userName}</strong>
+            <span style="color:#f59e0b; font-size:12px; font-weight:700;">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</span>
+          </div>
+          <p style="font-size:12px; color:#475569; line-height:1.5;">${r.comment}</p>
+          <span style="font-size:10px; color:#94a3b8; display:block; margin-top:6px;">📅 ${r.date}</span>
+        </div>
+      `).join("");
+    }
+
+    function handleReviewSubmit(e, destId) {
+      e.preventDefault();
+      const name = document.getElementById("reviewerNameInput").value;
+      const rating = document.getElementById("reviewRatingInput").value;
+      const comment = document.getElementById("reviewCommentInput").value;
+
+      window.Reviews.addReview(destId, name, rating, comment);
+      document.getElementById("reviewCommentInput").value = "";
+      renderDestinationReviews(destId);
+    }
+
+    function handleQuickAddToTrip(destId) {
+      const trips = window.Trips.getAll();
+      if (trips.length > 0) {
+        window.Trips.addStop(trips[0].id, destId, "Explore sights");
+      } else {
+        window.Trips.create("Karnataka Explorer Itinerary", "Planned trip", "", "", [destId]);
+      }
+    }
+
+    function handleSharePlace(name) {
+      if (navigator.share) {
+        navigator.share({
+          title: `${name} | Karnataka Travel Diaries`,
+          url: window.location.href
+        }).catch(() => {});
+      } else {
+        navigator.clipboard.writeText(window.location.href);
+        if (window.showToast) window.showToast("Link copied to clipboard! 📋", "success");
+      }
+    }
+  </script>
+
+  <!-- AI Chat Assistant -->
+  <script src="js/ai-chat.js"></script>
+</body>
+</html>

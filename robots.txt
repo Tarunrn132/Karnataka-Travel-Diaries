@@ -1,0 +1,26 @@
+# Karnataka Travel Diaries — Production robots.txt
+# Technical Search Engine Crawl Directives
+
+User-agent: *
+Allow: /
+Allow: /index.html
+Allow: /explore.html
+Allow: /destination.html
+Allow: /map.html
+Allow: /ai-planner.html
+Allow: /images/
+Allow: /css/
+Allow: /js/
+
+# Disallow private user dashboards, sessions, and authenticated API routes
+Disallow: /api/
+Disallow: /profile.html
+Disallow: /trips.html
+Disallow: /diary.html
+Disallow: /favorites.html
+Disallow: /login.html
+Disallow: /register.html
+Disallow: /reset-password.html
+
+# Production Sitemap Location
+Sitemap: https://YOUR-PRODUCTION-DOMAIN.com/sitemap.xml

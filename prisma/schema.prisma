@@ -1,0 +1,322 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id                 String               @id @default(cuid())
+  firebaseUid        String?              @unique
+  name               String
+  username           String?              @unique
+  email              String?              @unique
+  phoneNumber        String?              @unique
+  whatsappNumber     String?
+  passwordHash       String?              // Kept for backward-compatible migration only; new users use Firebase
+  avatar             String?
+  role               String               @default("USER") // "USER" | "ADMIN"
+  authProvider       String               @default("firebase") // "firebase" | "google" | "phone" | "whatsapp"
+  googleProviderId   String?              @unique
+  emailVerified      Boolean              @default(false)
+  phoneVerified      Boolean              @default(false)
+  whatsappVerified   Boolean              @default(false)
+  lastLoginAt        DateTime?
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime             @updatedAt
+
+  favorites          Favorite[]
+  trips              Trip[]
+  travelDiaries      TravelDiary[]
+  reviews            Review[]
+  preferences        UserPreference?
+  itineraries        GeneratedItinerary[]
+  diaryDrafts        DiaryDraft[]
+  packingLists       PackingList[]
+  conversations      AIConversation[]
+  resetTokens        PasswordResetToken[]
+}
+
+model PasswordResetToken {
+  id         String   @id @default(cuid())
+  userId     String
+  tokenHash  String   @unique
+  expiresAt  DateTime
+  used       Boolean  @default(false)
+  createdAt  DateTime @default(now())
+
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model OtpVerification {
+  id          String   @id @default(cuid())
+  identifier  String   // Normalized phone number "+91XXXXXXXXXX" or email
+  type        String   // "phone" | "whatsapp"
+  otpHash     String
+  attempts    Int      @default(0)
+  maxAttempts Int      @default(5)
+  expiresAt   DateTime
+  verified    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([identifier, type])
+}
+
+model Destination {
+  id                    String            @id @default(cuid())
+  name                  String
+  slug                  String            @unique
+  district              String
+  category              String            // Hill Stations, Beaches, Heritage, Wildlife, Waterfalls, Religious, Adventure, Nature, Cities, Hidden Gems
+  shortDescription      String
+  description           String
+  image                 String
+  gallery               String            // JSON serialized array of image URLs
+  latitude              Float
+  longitude             Float
+  bestTimeToVisit       String
+  recommendedDays       String
+  distanceFromBangalore Int               // In kilometers
+  averageRating         Float             @default(4.8)
+  reviewCount           Int               @default(0)
+  featured              Boolean           @default(false)
+  createdAt             DateTime          @default(now())
+  updatedAt             DateTime          @updatedAt
+
+  districtId            String?
+  talukId               String?
+  districtRel           District?         @relation(fields: [districtId], references: [id])
+  taluk                 Taluk?            @relation(fields: [talukId], references: [id])
+  attractions           Attraction[]
+  favorites             Favorite[]
+  tripDestinations      TripDestination[]
+  travelDiaries         TravelDiary[]
+  reviews               Review[]
+}
+
+model Attraction {
+  id            String      @id @default(cuid())
+  destinationId String
+  talukId       String?
+  name          String
+  category      String?
+  description   String
+  image         String
+  visitingHours String?
+  latitude      Float?
+  longitude     Float?
+  createdAt     DateTime    @default(now())
+
+  destination   Destination @relation(fields: [destinationId], references: [id], onDelete: Cascade)
+  taluk         Taluk?      @relation(fields: [talukId], references: [id])
+}
+
+model Favorite {
+  id            String      @id @default(cuid())
+  userId        String
+  destinationId String
+  createdAt     DateTime    @default(now())
+
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  destination   Destination @relation(fields: [destinationId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, destinationId])
+}
+
+model Trip {
+  id          String            @id @default(cuid())
+  userId      String
+  name        String
+  description String?
+  startDate   DateTime?
+  endDate     DateTime?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  user        User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  destinations TripDestination[]
+}
+
+model TripDestination {
+  id            String      @id @default(cuid())
+  tripId        String
+  destinationId String
+  visitOrder    Int         @default(1)
+  notes         String?
+
+  trip          Trip        @relation(fields: [tripId], references: [id], onDelete: Cascade)
+  destination   Destination @relation(fields: [destinationId], references: [id], onDelete: Cascade)
+
+  @@unique([tripId, destinationId])
+}
+
+model TravelDiary {
+  id            String      @id @default(cuid())
+  userId        String
+  destinationId String
+  title         String
+  content       String
+  visitDate     DateTime    @default(now())
+  images        String      // JSON array of strings
+  rating        Int         @default(5)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  destination   Destination @relation(fields: [destinationId], references: [id], onDelete: Cascade)
+}
+
+model Review {
+  id            String      @id @default(cuid())
+  userId        String
+  destinationId String
+  rating        Int
+  comment       String
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  destination   Destination @relation(fields: [destinationId], references: [id], onDelete: Cascade)
+}
+
+model UserPreference {
+  id                 String   @id @default(cuid())
+  userId             String   @unique
+  interests          String   // JSON array of strings e.g. ["Mountains", "Nature", "Photography"]
+  travelStyle        String?  // "Relaxed", "Balanced", "Packed"
+  preferredTransport String?  // "Car", "Bike", "Bus", "Train", "Mixed"
+  budgetRange        String?  // "Budget", "Moderate", "Luxury"
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model GeneratedItinerary {
+  id            String   @id @default(cuid())
+  userId        String?
+  title         String
+  startingPoint String
+  durationDays  Int
+  totalBudget   Int
+  totalDistance Int?
+  travelers     String?
+  transport     String?
+  itineraryJson String   // Full day-by-day JSON
+  budgetJson    String   // Budget breakdown JSON
+  createdAt     DateTime @default(now())
+
+  user          User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+}
+
+model DiaryDraft {
+  id            String   @id @default(cuid())
+  userId        String
+  destinationId String
+  promptNotes   String
+  generatedText String
+  style         String   @default("Storytelling")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model PackingList {
+  id           String   @id @default(cuid())
+  userId       String?
+  destination  String
+  durationDays Int
+  season       String?
+  itemsJson    String   // JSON checklist
+  createdAt    DateTime @default(now())
+
+  user         User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model AIConversation {
+  id        String      @id @default(cuid())
+  userId    String?
+  title     String      @default("Karnataka AI Chat")
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  messages  AIMessage[]
+
+  user      User?       @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model AIMessage {
+  id             String         @id @default(cuid())
+  conversationId String
+  sender         String         // "user" | "assistant"
+  content        String
+  structuredJson String?        // optional structured response
+  createdAt      DateTime       @default(now())
+
+  conversation   AIConversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+}
+
+model DestinationCluster {
+  id           String   @id @default(cuid())
+  slug         String   @unique
+  name         String
+  region       String
+  description  String
+  destinations String   // JSON array of destination slugs e.g. ["mangalore", "udupi", "murudeshwar"]
+  corridor     String?  // JSON array of destination slugs in travel corridor order
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model District {
+  id                    String        @id
+  name                  String        @unique
+  normalizedName        String
+  region                String
+  latitude              Float
+  longitude             Float
+  neighbouringDistricts String?       // JSON array of district IDs
+  createdAt             DateTime      @default(now())
+  updatedAt             DateTime      @updatedAt
+
+  taluks                Taluk[]
+  destinations          Destination[]
+}
+
+model Taluk {
+  id                           String        @id
+  name                         String
+  normalizedName               String
+  districtId                   String
+  region                       String
+  coastalOrInland              String        @default("inland") // "coastal" | "inland" | "ghat"
+  priorityForTravelClustering  Int           @default(1)
+  latitude                     Float
+  longitude                    Float
+  neighbouringTaluks           String?       // JSON array of taluk IDs
+  neighbouringDistricts        String?       // JSON array of district IDs
+  nearbyTaluks                 String?       // JSON array of nearby taluk IDs within comfortable drive
+  createdAt                    DateTime      @default(now())
+  updatedAt                    DateTime      @updatedAt
+
+  district                     District      @relation(fields: [districtId], references: [id], onDelete: Cascade)
+  destinations                 Destination[]
+  attractions                  Attraction[]
+}
+
+model RouteCache {
+  id             String   @id @default(cuid())
+  originKey      String
+  destinationKey String
+  distanceKm     Float
+  travelMinutes  Int
+  roadType       String?  // "highway" | "ghat" | "coastal" | "urban"
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@unique([originKey, destinationKey])
+}
+

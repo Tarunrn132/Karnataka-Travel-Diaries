@@ -1,0 +1,100 @@
+/* ==========================================================================
+   Karnataka Travel Diaries - Comprehensive Responsive Breakpoints
+   Supporting: 320px, 375px, 425px, 768px, 1024px, 1280px, 1440px
+   ========================================================================== */
+
+/* Extra small mobile devices (320px - 374px) */
+@media (max-width: 374px) {
+  .hero-banner {
+    padding: 24px 16px;
+    min-height: 520px;
+  }
+
+  .hero-heading {
+    font-size: 28px;
+    line-height: 1.2;
+  }
+
+  .hero-subtitle {
+    font-size: 13px;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+  }
+
+  .card-media {
+    aspect-ratio: 16 / 11;
+  }
+
+  .card-title {
+    font-size: 16px;
+  }
+
+  .hero-stats {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+}
+
+/* Small mobile (375px - 424px) */
+@media (min-width: 375px) and (max-width: 424px) {
+  .hero-heading {
+    font-size: 32px;
+  }
+
+  .hero-banner {
+    padding: 32px 20px;
+  }
+}
+
+/* Large mobile (425px - 767px) */
+@media (min-width: 425px) and (max-width: 767px) {
+  .hero-heading {
+    font-size: 38px;
+  }
+
+  .destinations-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Tablet (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .destinations-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hero-banner {
+    min-height: 580px;
+  }
+}
+
+/* Desktop (1024px - 1279px) */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .destinations-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Wide Desktop (1280px+) */
+@media (min-width: 1280px) {
+  .destinations-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Touch optimization for mobile buttons */
+@media (max-width: 767px) {
+  .btn,
+  .btn-card-explore,
+  .btn-card-directions,
+  .bottom-nav-item,
+  .card-favorite-btn {
+    min-height: 40px;
+  }
+
+  .card-btn-row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
