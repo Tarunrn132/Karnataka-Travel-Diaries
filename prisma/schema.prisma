@@ -8,61 +8,26 @@ generator client {
 }
 
 model User {
-  id                 String               @id @default(cuid())
-  firebaseUid        String?              @unique
-  name               String
-  username           String?              @unique
-  email              String?              @unique
-  phoneNumber        String?              @unique
-  whatsappNumber     String?
-  passwordHash       String?              // Kept for backward-compatible migration only; new users use Firebase
-  avatar             String?
-  role               String               @default("USER") // "USER" | "ADMIN"
-  authProvider       String               @default("firebase") // "firebase" | "google" | "phone" | "whatsapp"
-  googleProviderId   String?              @unique
-  emailVerified      Boolean              @default(false)
-  phoneVerified      Boolean              @default(false)
-  whatsappVerified   Boolean              @default(false)
-  lastLoginAt        DateTime?
-  createdAt          DateTime             @default(now())
-  updatedAt          DateTime             @updatedAt
+  id             String               @id @default(cuid())
+  name           String
+  username       String?              @unique
+  email          String?              @unique
+  phoneNumber    String?              @unique
+  whatsappNumber String?
+  avatar         String?
+  role           String               @default("USER") // "USER" | "ADMIN"
+  createdAt      DateTime             @default(now())
+  updatedAt      DateTime             @updatedAt
 
-  favorites          Favorite[]
-  trips              Trip[]
-  travelDiaries      TravelDiary[]
-  reviews            Review[]
-  preferences        UserPreference?
-  itineraries        GeneratedItinerary[]
-  diaryDrafts        DiaryDraft[]
-  packingLists       PackingList[]
-  conversations      AIConversation[]
-  resetTokens        PasswordResetToken[]
-}
-
-model PasswordResetToken {
-  id         String   @id @default(cuid())
-  userId     String
-  tokenHash  String   @unique
-  expiresAt  DateTime
-  used       Boolean  @default(false)
-  createdAt  DateTime @default(now())
-
-  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model OtpVerification {
-  id          String   @id @default(cuid())
-  identifier  String   // Normalized phone number "+91XXXXXXXXXX" or email
-  type        String   // "phone" | "whatsapp"
-  otpHash     String
-  attempts    Int      @default(0)
-  maxAttempts Int      @default(5)
-  expiresAt   DateTime
-  verified    Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  @@index([identifier, type])
+  favorites      Favorite[]
+  trips          Trip[]
+  travelDiaries  TravelDiary[]
+  reviews        Review[]
+  preferences    UserPreference?
+  itineraries    GeneratedItinerary[]
+  diaryDrafts    DiaryDraft[]
+  packingLists   PackingList[]
+  conversations  AIConversation[]
 }
 
 model Destination {

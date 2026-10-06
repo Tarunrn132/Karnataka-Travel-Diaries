@@ -3,7 +3,6 @@ try {
 } catch (e) {}
 
 import { PrismaClient } from '@prisma/client';
-import bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
 
@@ -810,14 +809,10 @@ async function seed() {
   await prisma.user.deleteMany();
 
   // Create Users
-  const seedPassword = process.env.SEED_DEFAULT_PASSWORD || "Traveler2026!";
-  const passwordHash = await bcrypt.hash(seedPassword, 10);
-
   const traveler = await prisma.user.create({
     data: {
       name: "Tarun Naik",
       email: "traveler@karnatakadiaries.com",
-      passwordHash: passwordHash,
       avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop",
       role: "USER"
     }
@@ -827,7 +822,6 @@ async function seed() {
     data: {
       name: "Admin Karnataka",
       email: "admin@karnatakadiaries.com",
-      passwordHash: passwordHash,
       avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop",
       role: "ADMIN"
     }

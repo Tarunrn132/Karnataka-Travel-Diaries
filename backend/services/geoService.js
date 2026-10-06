@@ -93,7 +93,10 @@ function resolveLocationHierarchy(input) {
   // Check if it's a known taluk
   let taluk = data.taluks.find(t => t.id === normalized || t.normalizedName === normalized);
   if (!taluk) {
-    taluk = data.taluks.find(t => t.name.toLowerCase().includes(normalized) || normalized.includes(t.id));
+    taluk = data.taluks.find(t => t.name.toLowerCase() === normalized || t.normalizedName === normalized);
+  }
+  if (!taluk) {
+    taluk = data.taluks.find(t => t.name.toLowerCase().includes(normalized));
   }
 
   // Check destination mapping if not found
@@ -441,7 +444,8 @@ async function getRoadRouteWithCache(originName, destName, originLat, originLon,
 
   // Stage 2: Calculate Road Distance using application's routing service
   const leg = estimateDrivingLeg(originLat, originLon, destLat, destLon, originName, destName);
-  const travelMinutes = Math.round(leg.drivingHours * 60);
+  const travelHours = leg.driveHours !== undefined ? leg.driveHours : (leg.drivingHours || Number((leg.distanceKm / 50).toFixed(1)));
+  const travelMinutes = Math.round(travelHours * 60);
 
   // Determine road type based on geography
   let roadType = "highway";
@@ -460,11 +464,11 @@ async function getRoadRouteWithCache(originName, destName, originLat, originLon,
     to: destName,
     distance_km: leg.distanceKm,
     distanceKm: leg.distanceKm,
-    travel_hours: leg.drivingHours,
-    driveHours: leg.drivingHours,
+    travel_hours: travelHours,
+    driveHours: travelHours,
     travel_minutes: travelMinutes,
     road_type: roadType,
-    google_maps_url: leg.googleMapsUrl,
+    google_maps_url: leg.directionUrl || leg.googleMapsUrl,
     cached: false
   };
 

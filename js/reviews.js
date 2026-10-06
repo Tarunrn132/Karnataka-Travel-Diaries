@@ -35,7 +35,7 @@ const Reviews = {
 
     const newRev = {
       id: "rev-" + Date.now(),
-      userName: userName || (window.Auth && window.Auth.getUser() ? window.Auth.getUser().name : "Traveler"),
+      userName: userName || "Traveler",
       rating: parseInt(rating) || 5,
       date: new Date().toISOString().split("T")[0],
       comment: comment.trim()
@@ -47,17 +47,16 @@ const Reviews = {
     if (window.showToast) window.showToast("Review submitted! Thank you for sharing.", "success");
 
     // Sync to API
-    if (window.Auth && window.Auth.isLoggedIn()) {
-      fetch("/api/reviews", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          destinationId,
-          rating: newRev.rating,
-          comment: newRev.comment
-        })
-      }).catch(() => {});
-    }
+    fetch("/api/reviews", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        destinationId,
+        rating: newRev.rating,
+        comment: newRev.comment,
+        name: newRev.userName
+      })
+    }).catch(() => {});
 
     return newRev;
   }

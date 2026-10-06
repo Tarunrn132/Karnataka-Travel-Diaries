@@ -68,7 +68,12 @@ function resolveStartingPoint(startInput) {
   }
   const clean = String(startInput).trim().toLowerCase();
 
-  // Try resolving with GeoHierarchy first for accurate taluk / district coordinates
+  // Check direct hub match first (Bengaluru, Mysuru, Mangaluru, etc.)
+  for (const [key, hub] of Object.entries(HUBS)) {
+    if (clean === key || clean.startsWith(key) || clean.includes(key)) return hub;
+  }
+
+  // Try resolving with GeoHierarchy for accurate taluk / district coordinates
   try {
     const { resolveLocationHierarchy } = require('./geoService');
     const geo = resolveLocationHierarchy(startInput);
@@ -84,11 +89,7 @@ function resolveStartingPoint(startInput) {
       };
     }
   } catch (e) {
-    // Fall back to hub dictionary
-  }
-
-  for (const [key, hub] of Object.entries(HUBS)) {
-    if (clean.includes(key)) return hub;
+    // Fall back to default
   }
 
   // Default to Bengaluru coordinates only if completely unresolvable

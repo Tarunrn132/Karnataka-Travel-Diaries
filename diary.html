@@ -9,6 +9,7 @@
 
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/ai.css">
   <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
@@ -28,6 +29,7 @@
         <a href="index.html" class="nav-link">Home</a>
         <a href="explore.html" class="nav-link">Explore</a>
         <a href="map.html" class="nav-link">Interactive Map</a>
+        <a href="ai-planner.html" class="nav-link">AI Planner ✨</a>
         <a href="trips.html" class="nav-link">Trips</a>
         <a href="diary.html" class="nav-link active">Travel Diary</a>
       </nav>
@@ -37,7 +39,6 @@
           <span>❤️</span>
           <span class="fav-badge" style="display:none;">0</span>
         </a>
-        <div id="headerAuthContainer"></div>
         <button class="mobile-hamburger" id="mobileHamburgerBtn">☰</button>
       </div>
     </div>
@@ -56,8 +57,11 @@
         </div>
 
         <div style="display:flex; gap:10px; flex-wrap:wrap;">
-          <button type="button" onclick="document.getElementById('createDiaryModal').classList.add('open')" class="btn btn-primary btn-sm">
-            ✍️ Write Diary Entry
+          <button type="button" onclick="DiaryAI.openModal()" class="btn btn-primary btn-sm">
+            ✨ Write with AI
+          </button>
+          <button type="button" onclick="document.getElementById('createDiaryModal').classList.add('open')" class="btn btn-secondary btn-sm">
+            ✍️ Write Manually
           </button>
         </div>
       </div>
@@ -134,23 +138,22 @@
       <span>🧭</span>
       <span>Explore</span>
     </a>
-    <a href="trips.html" class="bottom-nav-item">
-      <span>📅</span>
-      <span>Trips</span>
+    <a href="ai-planner.html" class="bottom-nav-item">
+      <span>✨</span>
+      <span>AI Planner</span>
     </a>
     <a href="diary.html" class="bottom-nav-item active">
       <span>📖</span>
       <span>Diary</span>
     </a>
-    <a href="profile.html" class="bottom-nav-item">
-      <span>👤</span>
-      <span>Profile</span>
+    <a href="favorites.html" class="bottom-nav-item">
+      <span>❤️</span>
+      <span>Favorites</span>
     </a>
   </nav>
 
   <!-- Scripts -->
   <script src="js/data.js"></script>
-  <script src="js/auth.js"></script>
   <script src="js/favorites.js"></script>
   <script src="js/destinations.js"></script>
   <script src="js/diary.js"></script>
@@ -182,10 +185,6 @@
 
     function handleCreateDiarySubmit(e) {
       e.preventDefault();
-      if (!Auth.isLoggedIn()) {
-        window.location.href = "login.html?redirect=diary.html";
-        return;
-      }
       const destId = document.getElementById("diaryDestSelect").value;
       const title = document.getElementById("diaryTitleInput").value;
       const content = document.getElementById("diaryContentInput").value;

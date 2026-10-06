@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/ai.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
 
   <style>
@@ -58,6 +59,7 @@
         <a href="index.html" class="nav-link">Home</a>
         <a href="explore.html" class="nav-link active">Explore</a>
         <a href="map.html" class="nav-link">Interactive Map</a>
+        <a href="ai-planner.html" class="nav-link" style="color:var(--ai-primary); font-weight:700;">AI Planner ✨</a>
         <a href="trips.html" class="nav-link">Trips</a>
         <a href="diary.html" class="nav-link">Travel Diary</a>
       </nav>
@@ -67,13 +69,6 @@
           <span>❤️</span>
           <span class="fav-badge" style="display:none;">0</span>
         </a>
-
-        <div id="headerAuthContainer">
-          <div style="display:flex; align-items:center; gap:8px;">
-            <a href="login.html" class="btn btn-secondary btn-sm" style="border:none;">Log In</a>
-            <a href="register.html" class="btn btn-primary btn-sm">Sign Up</a>
-          </div>
-        </div>
 
         <button class="mobile-hamburger" id="mobileHamburgerBtn" aria-label="Open Menu">
           ☰
@@ -99,17 +94,17 @@
       <span>🧭</span>
       <span>Explore</span>
     </a>
-    <a href="trips.html" class="bottom-nav-item">
-      <span>📅</span>
-      <span>Trips</span>
+    <a href="ai-planner.html" class="bottom-nav-item">
+      <span>✨</span>
+      <span>AI Planner</span>
     </a>
     <a href="map.html" class="bottom-nav-item">
       <span>🗺️</span>
       <span>Map</span>
     </a>
-    <a href="profile.html" class="bottom-nav-item">
-      <span>👤</span>
-      <span>Profile</span>
+    <a href="favorites.html" class="bottom-nav-item">
+      <span>❤️</span>
+      <span>Favorites</span>
     </a>
   </nav>
 
@@ -118,7 +113,6 @@
 
   <!-- Vanilla JS Modules -->
   <script src="js/data.js"></script>
-  <script src="js/auth.js"></script>
   <script src="js/favorites.js"></script>
   <script src="js/destinations.js"></script>
   <script src="js/trips.js"></script>
@@ -334,6 +328,16 @@
               <button type="button" class="btn btn-secondary" onclick="handleQuickAddToTrip('${dest.slug || dest.id}')" style="width:100%;">
                 ➕ Add to Trip Itinerary
               </button>
+              <div style="display:flex; flex-direction:column; gap:6px; background:#F0FDF4; border:1px solid #BBF7D0; padding:12px; border-radius:12px;">
+                <div style="font-size:12px; font-weight:800; color:#166534; display:flex; align-items:center; gap:6px;">
+                  <span>✨</span> <span>Plan Around ${dest.name}</span>
+                </div>
+                <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px;">
+                  <a href="ai-planner.html?start=${encodeURIComponent(dest.name)}&days=1&auto=true" class="btn btn-secondary" style="padding:6px; font-size:11px; text-align:center; background:#fff;">1 Day</a>
+                  <a href="ai-planner.html?start=${encodeURIComponent(dest.name)}&days=2&auto=true" class="btn btn-secondary" style="padding:6px; font-size:11px; text-align:center; background:#fff;">2 Days</a>
+                  <a href="ai-planner.html?start=${encodeURIComponent(dest.name)}&days=3&auto=true" class="btn btn-secondary" style="padding:6px; font-size:11px; text-align:center; background:#fff;">3 Days</a>
+                </div>
+              </div>
               <a href="diary.html?destination=${dest.slug || dest.id}" class="btn btn-secondary" style="width:100%; text-align:center;">
                 📖 Write in Travel Diary
               </a>
@@ -404,7 +408,7 @@
       const container = document.getElementById("destWeatherContent");
       if (!container) return;
       try {
-        const res = await fetch(`/api/weather?destination=${encodeURIComponent(destName)}`);
+        const res = await fetch(`/api/ai/weather?destination=${encodeURIComponent(destName)}`);
         const data = await res.json();
         if (data.success && data.weather) {
           const w = data.weather;
@@ -416,16 +420,22 @@
             <div style="font-size:11px; color:#64748b; margin-bottom:8px;">
               Wind: ${w.windSpeed} km/h • Humidity: ${w.humidity}% • Source: Open-Meteo
             </div>
-            ${data.travelAdvice ? `
-            <div style="background:#f8fafc; border-left:3px solid var(--primary-brand); padding:8px 10px; border-radius:0 8px 8px 0; font-size:11px; color:#334155; line-height:1.4;">
-              <strong>💡 Travel Note:</strong> ${data.travelAdvice}
-            </div>` : ''}
+            <div style="background:#f5f3ff; border-left:3px solid #7c3aed; padding:8px 10px; border-radius:0 8px 8px 0; font-size:11px; color:#5b21b6; line-height:1.4;">
+              <strong>✨ AI Travel Note:</strong> ${data.aiTravelAdvice}
+            </div>
           `;
         } else {
           container.innerHTML = `<span style="color:#64748b; font-size:11px;">Live information unavailable. Ideal season: check destination guide above.</span>`;
         }
       } catch (err) {
         container.innerHTML = `<span style="color:#64748b; font-size:11px;">Live information unavailable.</span>`;
+      }
+    }
+
+    function askAIAboutDestination(name) {
+      if (window.AIChat) {
+        window.AIChat.open();
+        window.AIChat.send(`What should I visit in ${name}? Give me top attractions, activities, authentic food and travel tips.`);
       }
     }
 
@@ -478,5 +488,6 @@
       }
     }
   </script>
+
 </body>
 </html>

@@ -56,6 +56,7 @@
   <!-- Core Styles -->
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/ai.css">
   <link rel="stylesheet" href="css/responsive.css">
 
   <!-- Leaflet CSS for Map Preview -->
@@ -80,6 +81,7 @@
         <a href="index.html" class="nav-link active">Home</a>
         <a href="explore.html" class="nav-link">Explore</a>
         <a href="map.html" class="nav-link">Interactive Map</a>
+        <a href="ai-planner.html" class="nav-link" style="color:var(--primary-green); font-weight:700;">AI Planner ✨</a>
         <a href="trips.html" class="nav-link">Trips</a>
         <a href="diary.html" class="nav-link">Travel Diary</a>
       </nav>
@@ -90,13 +92,6 @@
           <span>❤️</span>
           <span class="fav-badge" style="display:none;">0</span>
         </a>
-
-        <div id="headerAuthContainer">
-          <div style="display:flex; align-items:center; gap:8px;">
-            <a href="login.html" class="btn btn-secondary btn-sm" style="border:none;">Log In</a>
-            <a href="register.html" class="btn btn-primary btn-sm">Sign Up</a>
-          </div>
-        </div>
 
         <button class="mobile-hamburger" id="mobileHamburgerBtn" aria-label="Open Menu">
           ☰
@@ -110,6 +105,7 @@
         <a href="index.html" class="nav-link active">Home <span>🏠</span></a>
         <a href="explore.html" class="nav-link">Explore Destinations <span>🧭</span></a>
         <a href="map.html" class="nav-link">Interactive Map <span>🗺️</span></a>
+        <a href="ai-planner.html" class="nav-link">AI Trip Planner <span>✨</span></a>
         <a href="trips.html" class="nav-link">Trip Itineraries <span>📅</span></a>
         <a href="diary.html" class="nav-link">Travel Diary <span>📖</span></a>
         <a href="favorites.html" class="nav-link">Saved Places <span>❤️</span></a>
@@ -174,8 +170,8 @@
               <a href="explore.html" class="btn btn-primary btn-lg">
                 🧭 Explore Karnataka
               </a>
-              <a href="trips.html" class="btn btn-ghost-white btn-lg">
-                📅 Plan My Trip
+              <a href="ai-planner.html" class="btn btn-ghost-white btn-lg">
+                ✨ Plan My Trip
               </a>
             </div>
           </div>
@@ -197,6 +193,259 @@
             <div class="hero-stat-item">
               <h4>Trip Planner</h4>
               <p>&amp; Personal Diary</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2.5. EXPLORE KARNATAKA YOUR WAY — AI EXPERIENCES SECTION -->
+    <section class="karnataka-experiences-section" style="padding: 56px 0 36px; background: #F8FAF9; border-bottom: 1px solid #E2E8F0;">
+      <div class="container">
+        <div style="text-align: center; max-width: 780px; margin: 0 auto 40px;">
+          <div class="section-tag" style="justify-content: center; display: inline-flex;">✨ AI-Powered Discovery</div>
+          <h2 class="section-title" style="font-size: 34px; margin-top: 8px;">Explore Karnataka Your Way</h2>
+          <p class="section-subtitle" style="font-size: 16px; color: #64748b; margin-top: 8px; line-height: 1.6;">
+            Discover Karnataka through AI-curated experiences built around the way you want to travel.
+          </p>
+        </div>
+
+        <div class="experiences-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px;">
+          <!-- 1. Spiritual Karnataka -->
+          <div class="experience-card">
+            <div class="experience-card-media">
+              <img src="images/destinations/dharmasthala.jpg" alt="Spiritual Karnataka" class="experience-card-img" onerror="this.src='images/hero/karnataka-hero.jpg'">
+            </div>
+            <div class="experience-card-body">
+              <div class="experience-card-header">
+                <span class="experience-card-icon">🛕</span>
+                <h3 class="experience-card-title">Spiritual Karnataka</h3>
+              </div>
+              <p class="experience-card-desc">
+                Explore Karnataka's famous temples, pilgrimage centers, coastal shrines and peaceful spiritual destinations.
+              </p>
+              <a href="ai-planner.html?type=Spiritual+Karnataka&auto=true" class="experience-card-btn">Plan with AI ✨</a>
+            </div>
+          </div>
+
+          <!-- 2. Nature & Waterfalls -->
+          <div class="experience-card">
+            <div class="experience-card-media">
+              <img src="images/destinations/jog-falls.jpg" alt="Nature and Waterfalls" class="experience-card-img" onerror="this.src='images/hero/karnataka-hero.jpg'">
+            </div>
+            <div class="experience-card-body">
+              <div class="experience-card-header">
+                <span class="experience-card-icon">🌿</span>
+                <h3 class="experience-card-title">Nature &amp; Waterfalls</h3>
+              </div>
+              <p class="experience-card-desc">
+                Roaring cascades, pristine Western Ghats rainforests, scenic river valleys, and lush green nature trails.
+              </p>
+              <a href="ai-planner.html?type=Nature+%26+Waterfalls&auto=true" class="experience-card-btn">Plan with AI ✨</a>
+            </div>
+          </div>
+
+          <!-- 3. Coastal & Beach Escapes -->
+          <div class="experience-card">
+            <div class="experience-card-media">
+              <img src="images/destinations/gokarna.jpg" alt="Coastal and Beach Escapes" class="experience-card-img" onerror="this.src='images/hero/karnataka-hero.jpg'">
+            </div>
+            <div class="experience-card-body">
+              <div class="experience-card-header">
+                <span class="experience-card-icon">🏖️</span>
+                <h3 class="experience-card-title">Coastal &amp; Beach Escapes</h3>
+              </div>
+              <p class="experience-card-desc">
+                Golden Arabian Sea beaches, Om Beach cliff walks, St. Mary's volcanic islands, and fresh Karavali seafood.
+              </p>
+              <a href="ai-planner.html?type=Coastal+%26+Beach+Escapes&auto=true" class="experience-card-btn">Plan with AI ✨</a>
+            </div>
+          </div>
+
+          <!-- 4. Hill Station Getaways -->
+          <div class="experience-card">
+            <div class="experience-card-media">
+              <img src="images/destinations/chikmagalur.jpg" alt="Hill Station Getaways" class="experience-card-img" onerror="this.src='images/hero/karnataka-hero.jpg'">
+            </div>
+            <div class="experience-card-body">
+              <div class="experience-card-header">
+                <span class="experience-card-icon">🏔️</span>
+                <h3 class="experience-card-title">Hill Station Getaways</h3>
+              </div>
+              <p class="experience-card-desc">
+                Misty coffee plantations, highest peaks like Mullayanagiri, cool mountain breeze, and scenic sunset viewpoints.
+              </p>
+              <a href="ai-planner.html?type=Hill+Station+Getaways&auto=true" class="experience-card-btn">Plan with AI ✨</a>
+            </div>
+          </div>
+
+          <!-- 5. Heritage & History -->
+          <div class="experience-card">
+            <div class="experience-card-media">
+              <img src="images/destinations/hampi.jpg" alt="Heritage and History" class="experience-card-img" onerror="this.src='images/hero/karnataka-hero.jpg'">
+            </div>
+            <div class="experience-card-body">
+              <div class="experience-card-header">
+                <span class="experience-card-icon">🏛️</span>
+                <h3 class="experience-card-title">Heritage &amp; History</h3>
+              </div>
+              <p class="experience-card-desc">
+                UNESCO World Heritage ruins of Hampi, Badami rock-cut caves, Pattadakal monuments, and royal Mysuru architecture.
+              </p>
+              <a href="ai-planner.html?type=Heritage+%26+History&auto=true" class="experience-card-btn">Plan with AI ✨</a>
+            </div>
+          </div>
+
+          <!-- 6. Wildlife & Safari -->
+          <div class="experience-card">
+            <div class="experience-card-media">
+              <img src="images/destinations/bandipur.jpg" alt="Wildlife and Safari" class="experience-card-img" onerror="this.src='images/hero/karnataka-hero.jpg'">
+            </div>
+            <div class="experience-card-body">
+              <div class="experience-card-header">
+                <span class="experience-card-icon">🐘</span>
+                <h3 class="experience-card-title">Wildlife &amp; Safari</h3>
+              </div>
+              <p class="experience-card-desc">
+                Thrilling jungle safaris in Bandipur, Nagarhole, and Kabini. Encounter wild Asian elephants, leopards, and Bengal tigers.
+              </p>
+              <a href="ai-planner.html?type=Wildlife+%26+Safari&auto=true" class="experience-card-btn">Plan with AI ✨</a>
+            </div>
+          </div>
+
+          <!-- 7. Adventure Karnataka -->
+          <div class="experience-card">
+            <div class="experience-card-media">
+              <img src="images/destinations/dandeli.jpg" alt="Adventure Karnataka" class="experience-card-img" onerror="this.src='images/hero/karnataka-hero.jpg'">
+            </div>
+            <div class="experience-card-body">
+              <div class="experience-card-header">
+                <span class="experience-card-icon">🧗</span>
+                <h3 class="experience-card-title">Adventure Karnataka</h3>
+              </div>
+              <p class="experience-card-desc">
+                Kali River white-water rafting, rugged Western Ghats trekking, forest canopy ziplines, and outdoor river camping.
+              </p>
+              <a href="ai-planner.html?type=Adventure+Karnataka&auto=true" class="experience-card-btn">Plan with AI ✨</a>
+            </div>
+          </div>
+
+          <!-- 8. Food & Culture -->
+          <div class="experience-card">
+            <div class="experience-card-media">
+              <img src="images/destinations/udupi.jpg" alt="Food and Culture" class="experience-card-img" onerror="this.src='images/hero/karnataka-hero.jpg'">
+            </div>
+            <div class="experience-card-body">
+              <div class="experience-card-header">
+                <span class="experience-card-icon">🍛</span>
+                <h3 class="experience-card-title">Food &amp; Culture</h3>
+              </div>
+              <p class="experience-card-desc">
+                Authentic Udupi vegetarian thalis, Neer Dosa, Mangalorean ghee roast, steaming filter coffee, and rich folk traditions.
+              </p>
+              <a href="ai-planner.html?type=Food+%26+Culture&auto=true" class="experience-card-btn">Plan with AI ✨</a>
+            </div>
+          </div>
+
+          <!-- 9. Hidden Gems -->
+          <div class="experience-card">
+            <div class="experience-card-media">
+              <img src="images/destinations/sringeri.jpg" alt="Hidden Gems" class="experience-card-img" onerror="this.src='images/hero/karnataka-hero.jpg'">
+            </div>
+            <div class="experience-card-body">
+              <div class="experience-card-header">
+                <span class="experience-card-icon">💎</span>
+                <h3 class="experience-card-title">Hidden Gems</h3>
+              </div>
+              <p class="experience-card-desc">
+                Untouched sacred groves, secluded ghat streams, tranquil temples, and secret viewpoints far from tourist crowds.
+              </p>
+              <a href="ai-planner.html?type=Hidden+Gems&auto=true" class="experience-card-btn">Plan with AI ✨</a>
+            </div>
+          </div>
+
+          <!-- 10. Photography & Scenic Routes -->
+          <div class="experience-card">
+            <div class="experience-card-media">
+              <img src="images/destinations/badami.jpg" alt="Photography and Scenic Routes" class="experience-card-img" onerror="this.src='images/hero/karnataka-hero.jpg'">
+            </div>
+            <div class="experience-card-body">
+              <div class="experience-card-header">
+                <span class="experience-card-icon">📸</span>
+                <h3 class="experience-card-title">Photography &amp; Scenic</h3>
+              </div>
+              <p class="experience-card-desc">
+                Golden hour silhouettes over ancient stone temples, dramatic sandstone cliffs, mist-covered valleys, and seascapes.
+              </p>
+              <a href="ai-planner.html?type=Photography+%26+Scenic+Routes&auto=true" class="experience-card-btn">Plan with AI ✨</a>
+            </div>
+          </div>
+
+          <!-- 11. Family Trips -->
+          <div class="experience-card">
+            <div class="experience-card-media">
+              <img src="images/destinations/mysore.jpg" alt="Family Trips" class="experience-card-img" onerror="this.src='images/hero/karnataka-hero.jpg'">
+            </div>
+            <div class="experience-card-body">
+              <div class="experience-card-header">
+                <span class="experience-card-icon">👨‍👩‍👧</span>
+                <h3 class="experience-card-title">Family Trips</h3>
+              </div>
+              <p class="experience-card-desc">
+                Relaxed itineraries with comfortable travel times, royal palace illuminations, interactive zoos, and family homestays.
+              </p>
+              <a href="ai-planner.html?type=Family+Trips&auto=true" class="experience-card-btn">Plan with AI ✨</a>
+            </div>
+          </div>
+
+          <!-- 12. Couple Getaways -->
+          <div class="experience-card">
+            <div class="experience-card-media">
+              <img src="images/destinations/coorg.jpg" alt="Couple Getaways" class="experience-card-img" onerror="this.src='images/hero/karnataka-hero.jpg'">
+            </div>
+            <div class="experience-card-body">
+              <div class="experience-card-header">
+                <span class="experience-card-icon">💑</span>
+                <h3 class="experience-card-title">Couple Getaways</h3>
+              </div>
+              <p class="experience-card-desc">
+                Intimate hillside plantation stays, secluded beaches, private waterfall trails, romantic sunsets, and cozy evenings.
+              </p>
+              <a href="ai-planner.html?type=Couple+Getaways&auto=true" class="experience-card-btn">Plan with AI ✨</a>
+            </div>
+          </div>
+
+          <!-- 13. Road Trips Across Karnataka -->
+          <div class="experience-card">
+            <div class="experience-card-media">
+              <img src="images/destinations/sakleshpur.jpg" alt="Road Trips Across Karnataka" class="experience-card-img" onerror="this.src='images/hero/karnataka-hero.jpg'">
+            </div>
+            <div class="experience-card-body">
+              <div class="experience-card-header">
+                <span class="experience-card-icon">🚗</span>
+                <h3 class="experience-card-title">Road Trips</h3>
+              </div>
+              <p class="experience-card-desc">
+                Iconic highway circuits connecting scenic Western Ghats hairpin passes (Charmadi, Shiradi), coastal NH-66, and plains.
+              </p>
+              <a href="ai-planner.html?type=Road+Trips+Across+Karnataka&auto=true" class="experience-card-btn">Plan with AI ✨</a>
+            </div>
+          </div>
+
+          <!-- 14. Weekend Escapes -->
+          <div class="experience-card">
+            <div class="experience-card-media">
+              <img src="images/destinations/nandi-hills.jpg" alt="Weekend Escapes" class="experience-card-img" onerror="this.src='images/hero/karnataka-hero.jpg'">
+            </div>
+            <div class="experience-card-body">
+              <div class="experience-card-header">
+                <span class="experience-card-icon">🌅</span>
+                <h3 class="experience-card-title">Weekend Escapes</h3>
+              </div>
+              <p class="experience-card-desc">
+                Quick 1 to 2-day rejuvenating breaks close to Bengaluru, Mysuru, or Mangaluru with sunrise viewpoints and refreshing sights.
+              </p>
+              <a href="ai-planner.html?type=Weekend+Escapes&auto=true" class="experience-card-btn">Plan with AI ✨</a>
             </div>
           </div>
         </div>
@@ -264,7 +513,42 @@
       </div>
     </section>
 
+    <!-- 3.5. MULTI-DAY ROAD TRIP PLANNER HOMEPAGE SPOTLIGHT -->
+    <section style="padding: 30px 0 20px;">
+      <div class="container">
+        <div style="position:relative; background: linear-gradient(135deg, #1e1b4b 0%, #1e293b 100%); border-radius:var(--radius-xl); padding:40px 32px; color:white; overflow:hidden; box-shadow:var(--shadow-premium); border:1px solid rgba(255,255,255,0.12);">
+          <div style="position:absolute; right:-40px; top:-40px; width:260px; height:260px; background:radial-gradient(circle, rgba(99, 102, 241, 0.25) 0%, transparent 70%); pointer-events:none;"></div>
+          
+          <div style="max-width:680px; position:relative; z-index:2;">
+            <div style="display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,0.15); padding:4px 12px; border-radius:14px; font-size:11px; font-weight:700; color:#a5b4fc; margin-bottom:12px; letter-spacing:0.5px;">
+              <span>📅</span>
+              <span>MULTI-DAY ITINERARY BUILDER</span>
+            </div>
 
+            <h2 style="font-size:32px; font-weight:800; line-height:1.2; margin-bottom:12px; color:#ffffff;">
+              Multi-Day Road Trip Planner
+            </h2>
+
+            <p style="font-size:15px; color:#cbd5e1; line-height:1.6; margin-bottom:16px;">
+              Design custom day-by-day road trip itineraries across Karnataka. Organize stops, add travel notes, and calculate driving routes with turn-by-turn Google Maps navigation.
+            </p>
+
+            <div style="background:rgba(255,255,255,0.1); border-left:3px solid #fde047; padding:10px 14px; border-radius:8px; font-size:13px; font-style:italic; color:#f1f5f9; margin-bottom:24px;">
+              &ldquo;Plan your 4-day Western Ghats circuit from Bengaluru to Mysuru &amp; Coorg with live timeline stops.&rdquo;
+            </div>
+
+            <div style="display:flex; gap:12px; flex-wrap:wrap;">
+              <a href="trips.html" class="btn btn-primary" style="padding:12px 24px; font-size:14px;">
+                📅 Open Multi-Day Trip Planner
+              </a>
+              <a href="map.html" class="btn btn-ghost-white" style="padding:12px 24px; font-size:14px;">
+                🗺️ View Road Map
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- 4. FEATURED DESTINATIONS (8 Destinations from data.js) -->
     <section style="padding: 40px 0;">
@@ -417,8 +701,8 @@
             <a href="explore.html" class="btn" style="background:#ffffff; color:var(--primary-brand); font-weight:700;">
               Explore Karnataka ↗
             </a>
-            <a href="register.html" class="btn btn-ghost-white">
-              Create Free Account
+            <a href="ai-planner.html" class="btn btn-ghost-white">
+              Plan with AI ✨
             </a>
           </div>
         </div>
@@ -448,8 +732,9 @@
           <ul>
             <li><a href="explore.html">Explore</a></li>
             <li><a href="explore.html">Destinations</a></li>
-            <li><a href="trips.html">Trip Planner</a></li>
+            <li><a href="trips.html">Multi-Day Trip Planner</a></li>
             <li><a href="map.html">Interactive Map</a></li>
+            <li><a href="diary.html">Travel Diary</a></li>
           </ul>
         </div>
 
@@ -491,17 +776,17 @@
       <span>🧭</span>
       <span>Explore</span>
     </a>
-    <a href="trips.html" class="bottom-nav-item">
-      <span>📅</span>
-      <span>Trips</span>
-    </a>
     <a href="map.html" class="bottom-nav-item">
       <span>🗺️</span>
       <span>Map</span>
     </a>
-    <a href="profile.html" class="bottom-nav-item">
-      <span>👤</span>
-      <span>Profile</span>
+    <a href="trips.html" class="bottom-nav-item">
+      <span>📅</span>
+      <span>Trips</span>
+    </a>
+    <a href="diary.html" class="bottom-nav-item">
+      <span>📖</span>
+      <span>Diary</span>
     </a>
   </nav>
 
@@ -510,7 +795,6 @@
 
   <!-- Vanilla JS Modules -->
   <script src="js/data.js"></script>
-  <script src="js/auth.js"></script>
   <script src="js/favorites.js"></script>
   <script src="js/destinations.js"></script>
   <script src="js/maps.js"></script>

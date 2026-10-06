@@ -8,52 +8,25 @@ const router = express.Router();
 const { getPersonalizedRecommendations } = require('../services/recommendationService');
 const { retrieveRelevantDestinations } = require('../services/ragService');
 
-module.exports = function(prisma, authenticate) {
-  // 1. Personalized Recommendations for User or Guest
+module.exports = function(prisma) {
+  // 1. Recommendations for Public Visitors
   router.get('/', async (req, res) => {
     try {
-      const session = await authenticate(req);
       let favorites = [];
       let trips = [];
       let diaryEntries = [];
       let userPreferences = null;
 
-      if (session) {
-        // Fetch user history from database
-        const [favRecords, tripRecords, diaryRecords, prefRecord] = await Promise.all([
-          prisma.favorite.findMany({
-            where: { userId: session.id },
-            include: { destination: { select: { slug: true } } }
-          }),
-          prisma.trip.findMany({
-            where: { userId: session.id },
-            include: { destinations: { include: { destination: { select: { slug: true } } } } }
-          }),
-          prisma.travelDiary.findMany({
-            where: { userId: session.id },
-            include: { destination: { select: { slug: true } } }
-          }),
-          prisma.userPreference.findUnique({
-            where: { userId: session.id }
-          })
-        ]);
-
-        favorites = favRecords.map(f => f.destination.slug);
-        trips = tripRecords;
-        diaryEntries = diaryRecords;
-        userPreferences = prefRecord;
-      } else {
-        // Guest mode fallback from query params
-        if (req.query.favorites) {
-          favorites = req.query.favorites.split(',');
-        }
-        if (req.query.interests) {
-          userPreferences = { interests: req.query.interests.split(',') };
-        }
+      // Guest mode preferences from query params or database
+      if (req.query.favorites) {
+        favorites = req.query.favorites.split(',');
+      }
+      if (req.query.interests) {
+        userPreferences = { interests: req.query.interests.split(',') };
       }
 
       const recommendations = getPersonalizedRecommendations({
-        user: session,
+        user: null,
         userPreferences,
         favorites,
         trips,
@@ -64,7 +37,7 @@ module.exports = function(prisma, authenticate) {
 
       return res.json({
         success: true,
-        isPersonalized: Boolean(session || favorites.length > 0 || (userPreferences?.interests?.length > 0)),
+        isPersonalized: Boolean(favorites.length > 0 || (userPreferences?.interests?.length > 0)),
         userInterests: userPreferences?.interests
           ? (typeof userPreferences.interests === 'string' ? JSON.parse(userPreferences.interests) : userPreferences.interests)
           : [],

@@ -10,6 +10,7 @@ This document provides complete, step-by-step instructions for deploying the **K
 * **Backend**: Node.js & Express 5 REST API (`server.js`).
 * **Database**: Prisma ORM (SQLite `dev.db` locally, easily switchable to PostgreSQL/Supabase/Neon for high-concurrency production).
 * **Authentication**: Firebase Authentication (Email/Password, Google OAuth, Phone/SMS OTP) with server-side Firebase Admin SDK session verification.
+* **AI & Planning**: Embedded Local Grounded RAG + optional Gemini/OpenAI integration.
 * **Maps & Geo**: Leaflet 1.9.4 with OpenStreetMap tiles & 31 Karnataka Districts + 240 Taluks geographic hierarchy.
 * **SEO Layer**: Pre-rendered Open Graph tags, canonical URLs, Schema.org JSON-LD structured data (`TouristDestination`, `BreadcrumbList`, `WebSite`), `sitemap.xml`, and `robots.txt`.
 
@@ -51,6 +52,7 @@ Configure these environment variables in your hosting dashboard (e.g., Render, R
 | `FIREBASE_APP_ID` | Client & Backend | Public | From Firebase Console Web App configuration |
 | `FIREBASE_CLIENT_EMAIL`| Backend | **SECRET** | Service Account Email from Google Cloud / Firebase Admin SDK |
 | `FIREBASE_PRIVATE_KEY` | Backend | **SECRET** | Full RSA Private Key with newline characters (`\n`) |
+| `GEMINI_API_KEY` | Backend | **SECRET** | (Optional) Google Gemini API Key for LLM expansion |
 | `WHATSAPP_API_KEY` | Backend | **SECRET** | (Optional) Meta Cloud API access token if using WhatsApp OTP |
 | `WHATSAPP_PHONE_NUMBER_ID` | Backend | **SECRET** | (Optional) Meta Phone Number ID for WhatsApp Business |
 
@@ -190,6 +192,7 @@ The application has been engineered for maximum search visibility:
   - Schema.org `WebSite` & `TravelAgency` on homepage.
   - Schema.org `CollectionPage` on explore directory.
   - Schema.org `Map` on interactive map page.
+  - Schema.org `WebApplication` on AI planner.
 
 ### 7.2 Google Search Console Submission Steps
 1. Navigate to **[Google Search Console](https://search.google.com/search-console)**.

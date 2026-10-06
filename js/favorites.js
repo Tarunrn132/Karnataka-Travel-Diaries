@@ -20,17 +20,15 @@ const Favorites = {
   },
 
   async syncWithServer() {
-    if (!window.Auth || !window.Auth.isLoggedIn()) return;
     try {
       const res = await fetch("/api/favorites");
       if (res.ok) {
         const data = await res.json();
-        if (data.destinations) {
-          data.destinations.forEach(d => this.ids.add(d.id || d.slug));
-          localStorage.setItem("ktd_favorites", JSON.stringify([...this.ids]));
-          this.updateBadges();
-          this.updateCardHeartIcons();
-        }
+        const dests = Array.isArray(data) ? data : (data.destinations || []);
+        dests.forEach(id => this.ids.add(id));
+        localStorage.setItem("ktd_favorites", JSON.stringify([...this.ids]));
+        this.updateBadges();
+        this.updateCardHeartIcons();
       }
     } catch (e) {
       // Ignored
@@ -60,18 +58,12 @@ const Favorites = {
       );
     }
 
-    // Sync with API if logged in
-    if (window.Auth && window.Auth.isLoggedIn()) {
-      try {
-        await fetch("/api/favorites", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ destinationId }),
-        });
-      } catch (e) {
-        // Ignored
-      }
-    }
+    // Sync with API
+    fetch("/api/favorites", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ destinationId }),
+    }).catch(() => {});
   },
 
   updateBadges() {

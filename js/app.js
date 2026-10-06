@@ -46,7 +46,6 @@ window.calculateHaversineDistance = calculateHaversineDistance;
 
 // Initialize on DOM load
 document.addEventListener("DOMContentLoaded", () => {
-  if (window.Auth) window.Auth.init();
   if (window.Favorites) window.Favorites.init();
   if (window.Trips) window.Trips.init();
   if (window.Diary) window.Diary.init();

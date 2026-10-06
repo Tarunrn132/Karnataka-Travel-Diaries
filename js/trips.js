@@ -37,7 +37,6 @@ const Trips = {
   },
 
   async syncWithServer() {
-    if (!window.Auth || !window.Auth.isLoggedIn()) return;
     try {
       const res = await fetch("/api/trips");
       if (res.ok) {
@@ -87,19 +86,17 @@ const Trips = {
     if (window.showToast) window.showToast(`Trip "${name}" created!`, "success");
 
     // Sync to API
-    if (window.Auth && window.Auth.isLoggedIn()) {
-      fetch("/api/trips", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name,
-          description,
-          startDate,
-          endDate,
-          destinationIds
-        })
-      }).catch(() => {});
-    }
+    fetch("/api/trips", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name,
+        description,
+        startDate,
+        endDate,
+        destinationIds
+      })
+    }).catch(() => {});
 
     return newTrip;
   },
@@ -112,9 +109,7 @@ const Trips = {
 
     if (window.showToast) window.showToast("Trip itinerary deleted.", "info");
 
-    if (window.Auth && window.Auth.isLoggedIn()) {
-      fetch(`/api/trips/${tripId}`, { method: "DELETE" }).catch(() => {});
-    }
+    fetch(`/api/trips/${tripId}`, { method: "DELETE" }).catch(() => {});
   },
 
   addStop(tripId, destinationId, notes = "") {

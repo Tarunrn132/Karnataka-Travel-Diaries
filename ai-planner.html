@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Trip Planner ✨ | Karnataka Travel Diaries</title>
+  <meta name="description" content="Generate realistic, distance-aware Karnataka travel itineraries. Explore Western Ghats hill stations, coastal beaches, and ancient temple circuits with verified driving times and interactive maps.">
+  <link rel="icon" href="images/hero/karnataka-fallback.jpg" type="image/jpeg">
+
+  <!-- Technical SEO & Canonical -->
+  <link rel="canonical" href="https://YOUR-PRODUCTION-DOMAIN.com/ai-planner.html">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Karnataka Travel Diaries">
+  <meta property="og:title" content="AI Trip Planner ✨ | Karnataka Travel Diaries">
+  <meta property="og:description" content="Intelligent Karnataka travel itinerary generator: realistic driving times, taluk clustering, verified coastal spiritual circuit, and interactive maps.">
+  <meta property="og:image" content="https://YOUR-PRODUCTION-DOMAIN.com/images/hero/karnataka-hero.jpg">
+  <meta property="og:url" content="https://YOUR-PRODUCTION-DOMAIN.com/ai-planner.html">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI Trip Planner ✨ | Karnataka Travel Diaries">
+  <meta name="twitter:description" content="Plan realistic Karnataka road trips with AI clustering and verified driving distances.">
+  <meta name="twitter:image" content="https://YOUR-PRODUCTION-DOMAIN.com/images/hero/karnataka-hero.jpg">
+
+  <!-- Schema.org WebApplication -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Karnataka AI Trip Planner",
+    "applicationCategory": "TravelApplication",
+    "operatingSystem": "All modern browsers",
+    "url": "https://YOUR-PRODUCTION-DOMAIN.com/ai-planner.html",
+    "description": "Interactive AI trip planner specializing in Karnataka tourism circuits, distance optimization, and day-by-day itineraries."
+  }
+  </script>
+
+  <!-- Core Styles -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/ai.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+</head>
+<body>
+
+  <!-- 1. SITE HEADER & NAVIGATION -->
+  <header class="site-header">
+    <div class="container header-container">
+      <a href="index.html" class="brand-logo">
+        <div class="brand-icon-box">🧭</div>
+        <div>
+          <div class="brand-title">Karnataka<span>Diaries</span></div>
+          <span class="brand-tagline">Discover • Plan • Explore</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="desktop-nav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="explore.html" class="nav-link">Explore</a>
+        <a href="map.html" class="nav-link">Interactive Map</a>
+        <a href="ai-planner.html" class="nav-link active" style="color:var(--primary-green); font-weight:700;">AI Planner ✨</a>
+        <a href="trips.html" class="nav-link">Trips</a>
+        <a href="diary.html" class="nav-link">Travel Diary</a>
+      </nav>
+
+      <!-- Right Actions: Wishlist & Hamburger -->
+      <div class="header-actions">
+        <a href="favorites.html" class="fav-nav-btn" title="Saved Wishlist" aria-label="Saved Places">
+          <span>❤️</span>
+          <span class="fav-badge" style="display:none;">0</span>
+        </a>
+
+        <button class="mobile-hamburger" id="mobileHamburgerBtn" aria-label="Open Menu">
+          ☰
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer Sheet -->
+    <div class="mobile-drawer" id="mobileDrawer">
+      <nav style="display:flex; flex-direction:column; gap:4px;">
+        <a href="index.html" class="nav-link">Home <span>🏠</span></a>
+        <a href="explore.html" class="nav-link">Explore Destinations <span>🧭</span></a>
+        <a href="map.html" class="nav-link">Interactive Map <span>🗺️</span></a>
+        <a href="ai-planner.html" class="nav-link active">AI Trip Planner <span>✨</span></a>
+        <a href="trips.html" class="nav-link">Trip Itineraries <span>📅</span></a>
+        <a href="diary.html" class="nav-link">Travel Diary <span>📖</span></a>
+        <a href="favorites.html" class="nav-link">Saved Places <span>❤️</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main style="padding: 32px 0 60px;">
+    <div class="container" style="max-width: 1040px;">
+
+      <!-- 2. HERO BANNER -->
+      <section class="ai-hero-section">
+        <div class="ai-hero-badge">
+          <span>✨</span>
+          <span>Karnataka Route Intelligence Engine</span>
+        </div>
+        <h1 class="ai-hero-title">AI Trip Planner ✨</h1>
+        <p class="ai-hero-desc">
+          Plan realistic, cluster-aware Karnataka road trips. Unlike generic text generators, our engine calculates verified highway distances, driving times, opening hours, and geographic feasibility across all 31 districts.
+        </p>
+      </section>
+
+      <!-- 3. TRIP PLANNER INPUT FORM -->
+      <section id="plannerFormSection">
+        <div class="planner-form-card">
+          <form id="aiPlanTripForm">
+
+            <!-- Hidden Form Inputs -->
+            <input type="hidden" id="planDaysInput" value="2">
+            <input type="hidden" id="planTravelTypeInput" value="Temple & Spiritual">
+            <input type="hidden" id="planPaceInput" value="Balanced">
+            <input type="hidden" id="planBudgetInput" value="Moderate">
+            <input type="hidden" id="planModeInput" value="Car">
+
+            <!-- STEP 1: DURATION IN DAYS -->
+            <div style="margin-bottom: 28px;">
+              <div class="form-step-title">
+                <span class="step-number-badge">1</span>
+                <span>Trip Duration (Number of Days)</span>
+              </div>
+              <p class="form-step-desc">
+                Select your trip length. Durations under 3 days focus on a single region to eliminate exhausting state-wide travel.
+              </p>
+
+              <div class="days-selector-grid">
+                <div class="day-pill-btn" data-days="1">
+                  <span class="day-pill-number">1</span>
+                  <span class="day-pill-label">Day</span>
+                </div>
+                <div class="day-pill-btn active" data-days="2">
+                  <span class="day-pill-number">2</span>
+                  <span class="day-pill-label">Days</span>
+                </div>
+                <div class="day-pill-btn" data-days="3">
+                  <span class="day-pill-number">3</span>
+                  <span class="day-pill-label">Days</span>
+                </div>
+                <div class="day-pill-btn" data-days="4">
+                  <span class="day-pill-number">4</span>
+                  <span class="day-pill-label">Days</span>
+                </div>
+                <div class="day-pill-btn" data-days="5">
+                  <span class="day-pill-number">5</span>
+                  <span class="day-pill-label">Days</span>
+                </div>
+                <div class="day-pill-btn" data-days="6">
+                  <span class="day-pill-number">6</span>
+                  <span class="day-pill-label">Days</span>
+                </div>
+                <div class="day-pill-btn" data-days="7">
+                  <span class="day-pill-number">7+</span>
+                  <span class="day-pill-label">Days</span>
+                </div>
+              </div>
+
+              <!-- Special Spiritual Banner Indicator -->
+              <div id="spiritualSpecialBanner" style="display:none; background:#FFFBEB; border:1.5px solid #FCD34D; border-radius:12px; padding:12px 16px; font-size:13px; color:#92400E; font-weight:600; margin-top:-10px; margin-bottom:18px;">
+                🛕 <strong>Special Coastal Spiritual Route Activated:</strong> Selecting 6 Days with Temple &amp; Spiritual unlocks Karnataka's sacred corridor: <em>Dharmasthala → Kukke Shri Subrahmanya → Mangaluru → Udupi → Murdeshwar → Honnavar → Gokarna → Karwar</em>.
+              </div>
+            </div>
+
+            <!-- STEP 2: STARTING & ENDING LOCATION -->
+            <div style="margin-bottom: 28px;">
+              <div class="form-step-title">
+                <span class="step-number-badge">2</span>
+                <span>Starting &amp; Ending Location</span>
+              </div>
+              <p class="form-step-desc">
+                Enter any Karnataka city, town, or village. No mandatory GPS required.
+              </p>
+
+              <!-- Start Location Input -->
+              <div class="location-input-group">
+                <span class="location-icon-left">📍</span>
+                <input 
+                  type="text" 
+                  id="planStartLocation" 
+                  class="location-input" 
+                  value="Bengaluru" 
+                  placeholder="Enter starting city (e.g. Bengaluru, Mysuru, Mangaluru)..."
+                  autocomplete="off"
+                  required
+                >
+                <button type="button" id="btnLocateMe" class="btn-gps-locate" title="Use Current GPS Coordinates">
+                  📍 Use Current
+                </button>
+              </div>
+
+              <!-- Quick Selection Hubs -->
+              <div class="quick-locations-strip">
+                <span class="quick-loc-label">Popular Starting Hubs:</span>
+                <button type="button" class="quick-loc-chip">Bengaluru</button>
+                <button type="button" class="quick-loc-chip">Mysuru</button>
+                <button type="button" class="quick-loc-chip">Mangaluru</button>
+                <button type="button" class="quick-loc-chip">Hubballi</button>
+                <button type="button" class="quick-loc-chip">Belagavi</button>
+                <button type="button" class="quick-loc-chip">Shivamogga</button>
+                <button type="button" class="quick-loc-chip">Hassan</button>
+                <button type="button" class="quick-loc-chip">Ballari</button>
+              </div>
+
+              <!-- End Location Options -->
+              <div style="margin-top: 14px;">
+                <label style="font-size: 13px; font-weight: 700; color: var(--dark-text); display: block; margin-bottom: 8px;">
+                  Ending Location (Optional):
+                </label>
+                <div class="end-location-radios">
+                  <label>
+                    <input type="radio" name="endLocationOption" value="same" checked>
+                    <span>Same as starting location (Round Trip)</span>
+                  </label>
+                  <label>
+                    <input type="radio" name="endLocationOption" value="different">
+                    <span>Different ending location</span>
+                  </label>
+                  <label>
+                    <input type="radio" name="endLocationOption" value="open">
+                    <span>Open-ended (One-way)</span>
+                  </label>
+                </div>
+
+                <div id="differentEndLocationContainer" style="display:none; margin-top: 10px;">
+                  <input 
+                    type="text" 
+                    id="planDifferentEndLocation" 
+                    class="location-input" 
+                    placeholder="Enter final destination (e.g. Mangaluru, Karwar, Goa)..."
+                    style="padding-left: 16px;"
+                  >
+                </div>
+              </div>
+            </div>
+
+            <!-- STEP 3: TRAVEL TYPE -->
+            <div style="margin-bottom: 28px;">
+              <div class="form-step-title">
+                <span class="step-number-badge">3</span>
+                <span>Travel Type &amp; Theme</span>
+              </div>
+              <p class="form-step-desc">
+                Select your primary trip theme to guide regional selection and attraction filters.
+              </p>
+
+              <div class="travel-type-grid">
+                <div class="type-card selected" data-type="Spiritual Karnataka">
+                  <span class="type-card-icon">🛕</span>
+                  <span class="type-card-name">Spiritual Karnataka</span>
+                  <span class="type-card-check">✓</span>
+                </div>
+                <div class="type-card" data-type="Nature & Waterfalls">
+                  <span class="type-card-icon">🌿</span>
+                  <span class="type-card-name">Nature &amp; Waterfalls</span>
+                  <span class="type-card-check">✓</span>
+                </div>
+                <div class="type-card" data-type="Coastal & Beach Escapes">
+                  <span class="type-card-icon">🏖️</span>
+                  <span class="type-card-name">Coastal &amp; Beach Escapes</span>
+                  <span class="type-card-check">✓</span>
+                </div>
+                <div class="type-card" data-type="Hill Station Getaways">
+                  <span class="type-card-icon">🏔️</span>
+                  <span class="type-card-name">Hill Station Getaways</span>
+                  <span class="type-card-check">✓</span>
+                </div>
+                <div class="type-card" data-type="Heritage & History">
+                  <span class="type-card-icon">🏛️</span>
+                  <span class="type-card-name">Heritage &amp; History</span>
+                  <span class="type-card-check">✓</span>
+                </div>
+                <div class="type-card" data-type="Wildlife & Safari">
+                  <span class="type-card-icon">🐘</span>
+                  <span class="type-card-name">Wildlife &amp; Safari</span>
+                  <span class="type-card-check">✓</span>
+                </div>
+                <div class="type-card" data-type="Adventure Karnataka">
+                  <span class="type-card-icon">🧗</span>
+                  <span class="type-card-name">Adventure Karnataka</span>
+                  <span class="type-card-check">✓</span>
+                </div>
+                <div class="type-card" data-type="Food & Culture">
+                  <span class="type-card-icon">🍛</span>
+                  <span class="type-card-name">Food &amp; Culture</span>
+                  <span class="type-card-check">✓</span>
+                </div>
+                <div class="type-card" data-type="Hidden Gems">
+                  <span class="type-card-icon">💎</span>
+                  <span class="type-card-name">Hidden Gems</span>
+                  <span class="type-card-check">✓</span>
+                </div>
+                <div class="type-card" data-type="Photography & Scenic Routes">
+                  <span class="type-card-icon">📸</span>
+                  <span class="type-card-name">Photography &amp; Scenic</span>
+                  <span class="type-card-check">✓</span>
+                </div>
+                <div class="type-card" data-type="Family Trips">
+                  <span class="type-card-icon">👨‍👩‍👧</span>
+                  <span class="type-card-name">Family Trips</span>
+                  <span class="type-card-check">✓</span>
+                </div>
+                <div class="type-card" data-type="Couple Getaways">
+                  <span class="type-card-icon">💑</span>
+                  <span class="type-card-name">Couple Getaways</span>
+                  <span class="type-card-check">✓</span>
+                </div>
+                <div class="type-card" data-type="Road Trips Across Karnataka">
+                  <span class="type-card-icon">🚗</span>
+                  <span class="type-card-name">Road Trips</span>
+                  <span class="type-card-check">✓</span>
+                </div>
+                <div class="type-card" data-type="Weekend Escapes">
+                  <span class="type-card-icon">🌅</span>
+                  <span class="type-card-name">Weekend Escapes</span>
+                  <span class="type-card-check">✓</span>
+                </div>
+                <div class="type-card" data-type="Mixed Karnataka">
+                  <span class="type-card-icon">🌈</span>
+                  <span class="type-card-name">Mixed Karnataka</span>
+                  <span class="type-card-check">✓</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- STEP 4: TRAVEL PACE, BUDGET & MODE -->
+            <div style="margin-bottom: 28px;">
+              <div class="form-step-title">
+                <span class="step-number-badge">4</span>
+                <span>Pace, Budget &amp; Transportation</span>
+              </div>
+              <p class="form-step-desc">
+                Fine-tune your travel comfort, daily drive budgets, and vehicle preferences.
+              </p>
+
+              <!-- Travel Pace -->
+              <div style="margin-bottom: 16px;">
+                <label style="font-size: 13px; font-weight: 700; color: var(--dark-text); display: block; margin-bottom: 8px;">Travel Pace:</label>
+                <div class="pill-options-row">
+                  <div class="option-pill-btn pace-pill-btn" data-pace="Relaxed">
+                    <span>☕</span> Relaxed (Slow &amp; Deep)
+                  </div>
+                  <div class="option-pill-btn pace-pill-btn active" data-pace="Balanced">
+                    <span>⚖️</span> Balanced (Recommended)
+                  </div>
+                  <div class="option-pill-btn pace-pill-btn" data-pace="Fast-paced">
+                    <span>⚡</span> Fast-paced (Cover Max)
+                  </div>
+                </div>
+              </div>
+
+              <!-- Budget -->
+              <div style="margin-bottom: 16px;">
+                <label style="font-size: 13px; font-weight: 700; color: var(--dark-text); display: block; margin-bottom: 8px;">Budget Category:</label>
+                <div class="pill-options-row">
+                  <div class="option-pill-btn budget-pill-btn" data-budget="Budget">
+                    <span>🪙</span> Budget (Homestays / KSRTC)
+                  </div>
+                  <div class="option-pill-btn budget-pill-btn active" data-budget="Moderate">
+                    <span>💳</span> Moderate (3-Star / Private)
+                  </div>
+                  <div class="option-pill-btn budget-pill-btn" data-budget="Premium">
+                    <span>👑</span> Premium (Resorts / Luxury)
+                  </div>
+                </div>
+              </div>
+
+              <!-- Travel Mode -->
+              <div style="margin-bottom: 16px;">
+                <label style="font-size: 13px; font-weight: 700; color: var(--dark-text); display: block; margin-bottom: 8px;">Preferred Travel Mode:</label>
+                <div class="pill-options-row">
+                  <div class="option-pill-btn mode-pill-btn active" data-mode="Car">
+                    <span>🚗</span> Car / Self-Drive
+                  </div>
+                  <div class="option-pill-btn mode-pill-btn" data-mode="Bike">
+                    <span>🏍️</span> Bike Touring
+                  </div>
+                  <div class="option-pill-btn mode-pill-btn" data-mode="Bus">
+                    <span>🚌</span> KSRTC Bus
+                  </div>
+                  <div class="option-pill-btn mode-pill-btn" data-mode="Train + Local Transport">
+                    <span>🚆</span> Train + Local Auto
+                  </div>
+                </div>
+              </div>
+
+              <!-- Number of Travelers -->
+              <div>
+                <label style="font-size: 13px; font-weight: 700; color: var(--dark-text); display: block; margin-bottom: 8px;">Travel Group:</label>
+                <select id="planTravelersInput" class="location-input" style="padding-left:16px;">
+                  <option value="1 Solo">1 Solo Traveler</option>
+                  <option value="2 Couple" selected>2 Travelers (Couple / Friends)</option>
+                  <option value="3-5 Family">3–5 Travelers (Family / Friends)</option>
+                  <option value="6+ Group">6+ Travelers (Large Group)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- STEP 5: PREFERENCES (MULTI-SELECT CHIPS) -->
+            <div style="margin-bottom: 28px;">
+              <div class="form-step-title">
+                <span class="step-number-badge">5</span>
+                <span>Specific Interests &amp; Vibes</span>
+              </div>
+              <p class="form-step-desc">
+                Select all that apply to highlight customized experiences on each day.
+              </p>
+
+              <div class="pref-chips-grid">
+                <div class="pref-chip selected" data-pref="Famous places">
+                  <input type="checkbox" checked> <span>🌟 Famous places</span>
+                </div>
+                <div class="pref-chip" data-pref="Hidden gems">
+                  <input type="checkbox"> <span>💎 Hidden gems</span>
+                </div>
+                <div class="pref-chip selected" data-pref="Temples">
+                  <input type="checkbox" checked> <span>🛕 Temples</span>
+                </div>
+                <div class="pref-chip" data-pref="Beaches">
+                  <input type="checkbox"> <span>🏖️ Beaches</span>
+                </div>
+                <div class="pref-chip" data-pref="Waterfalls">
+                  <input type="checkbox"> <span>🌊 Waterfalls</span>
+                </div>
+                <div class="pref-chip" data-pref="Photography">
+                  <input type="checkbox"> <span>📸 Photography</span>
+                </div>
+                <div class="pref-chip" data-pref="Nature">
+                  <input type="checkbox"> <span>🌲 Nature</span>
+                </div>
+                <div class="pref-chip" data-pref="Food">
+                  <input type="checkbox"> <span>🍛 Local Food</span>
+                </div>
+                <div class="pref-chip" data-pref="History">
+                  <input type="checkbox"> <span>🏰 History</span>
+                </div>
+                <div class="pref-chip" data-pref="Culture">
+                  <input type="checkbox"> <span>🎭 Culture</span>
+                </div>
+                <div class="pref-chip" data-pref="Sunrise">
+                  <input type="checkbox"> <span>🌅 Sunrise</span>
+                </div>
+                <div class="pref-chip" data-pref="Sunset">
+                  <input type="checkbox"> <span>🌇 Sunset</span>
+                </div>
+                <div class="pref-chip" data-pref="Adventure">
+                  <input type="checkbox"> <span>🎒 Adventure</span>
+                </div>
+                <div class="pref-chip" data-pref="Family-friendly">
+                  <input type="checkbox"> <span>👨‍👩‍👧 Family-friendly</span>
+                </div>
+                <div class="pref-chip" data-pref="Couple-friendly">
+                  <input type="checkbox"> <span>💑 Couple-friendly</span>
+                </div>
+                <div class="pref-chip" data-pref="Senior-friendly">
+                  <input type="checkbox"> <span>🧓 Senior-friendly</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- STEP 6: CUSTOM REQUESTS & MUST-VISITS -->
+            <div style="margin-bottom: 28px;">
+              <div class="form-step-title">
+                <span class="step-number-badge">6</span>
+                <span>Tell AI What You Want (Optional)</span>
+              </div>
+              <p class="form-step-desc">
+                Add any specific instructions or must-visit/must-avoid places.
+              </p>
+
+              <textarea 
+                id="planUserPrompt" 
+                class="ai-prompt-textarea" 
+                rows="3" 
+                placeholder="Tell AI what you want from this trip... Example: 'I want famous temples and peaceful spiritual places with authentic temple prasada.'"
+              ></textarea>
+
+              <div class="two-col-inputs">
+                <div>
+                  <label style="font-size: 12px; font-weight: 700; color: var(--dark-text); display: block; margin-bottom: 4px;">Places you want to visit (Optional):</label>
+                  <input type="text" id="planPlacesToVisit" class="location-input" style="padding-left:14px;" placeholder="e.g. Om Beach, Murdeshwar">
+                </div>
+                <div>
+                  <label style="font-size: 12px; font-weight: 700; color: var(--dark-text); display: block; margin-bottom: 4px;">Places you want to avoid (Optional):</label>
+                  <input type="text" id="planPlacesToAvoid" class="location-input" style="padding-left:14px;" placeholder="e.g. Crowded commercial spots">
+                </div>
+              </div>
+            </div>
+
+            <!-- SUBMIT BUTTON -->
+            <button type="submit" id="btnSubmitPlan" class="btn-generate-plan">
+              <span>✨</span>
+              <span>Generate My AI Itinerary</span>
+            </button>
+
+          </form>
+        </div>
+      </section>
+
+      <!-- 4. LOADING STATE CONTAINER -->
+      <section id="aiLoadingBox" class="ai-loading-box" style="display:none;">
+        <div class="ai-loading-spinner"></div>
+        <div id="aiLoadingStepText" class="ai-loading-step-text">
+          1/4 • Filtering Karnataka destinations by category &amp; region...
+        </div>
+        <p class="ai-loading-subtext">
+          Running geographic corridor clustering, road distance calculation, and anti-backtracking optimization...
+        </p>
+      </section>
+
+      <!-- 5. GENERATED ITINERARY OUTPUT SECTION -->
+      <section id="planOutputSection" class="plan-output-section">
+        
+        <!-- Summary Header Card -->
+        <div class="plan-summary-card">
+          <div class="plan-badge-strip">
+            <span class="plan-tag-badge">AI Generated Trip ✨</span>
+            <span id="planVerifiedBadge" style="font-size:12px; color:var(--text-muted); font-weight:700;">✓ Highway Distance Verified</span>
+          </div>
+
+          <h2 id="outTripTitle" class="plan-title-heading">6-Day Coastal Karnataka Spiritual Circuit</h2>
+          <p id="outTripLead" class="plan-summary-lead">Customized Karnataka travel plan optimized for road travel.</p>
+
+          <!-- Metrics Strip -->
+          <div class="plan-metrics-grid">
+            <div class="metric-item">
+              <span class="metric-label">Duration</span>
+              <span id="metricDays" class="metric-value">6 Days</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-label">Theme</span>
+              <span id="metricType" class="metric-value">Spiritual</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-label">Starting From</span>
+              <span id="metricStart" class="metric-value">Bengaluru</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-label">Travel Mode</span>
+              <span id="metricMode" class="metric-value">Car</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-label">Pace</span>
+              <span id="metricPace" class="metric-value">Balanced</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-label">Total Distance</span>
+              <span id="metricDistance" class="metric-value">845 km</span>
+            </div>
+            <div class="metric-item">
+              <span class="metric-label">Total Drive Time</span>
+              <span id="metricDriveHours" class="metric-value">17.2 hrs</span>
+            </div>
+          </div>
+
+          <!-- Aggressive Travel Alert Warning (Section 16) -->
+          <div id="outTravelWarningAlert" class="travel-warning-alert" style="display:none;"></div>
+
+          <!-- "Why this itinerary?" Explanation Box (Section 14) -->
+          <div class="why-itinerary-card">
+            <div class="why-header">
+              <span>💡</span>
+              <span>Why this itinerary?</span>
+            </div>
+            <p id="outWhyThisItineraryText" class="why-body-text">
+              This route follows Karnataka's coastal pilgrimage corridor, minimizing unnecessary backtracking while grouping nearby shrines and attractions.
+            </p>
+          </div>
+
+          <!-- Modification & Optimization Toolbar (Section 15 & 22) -->
+          <div class="plan-modification-toolbar">
+            <span class="toolbar-label">Modify &amp; Optimize:</span>
+            <button type="button" class="btn-toolbar" onclick="AIPlanner.generateItinerary()">🔄 Regenerate</button>
+            <button type="button" class="btn-toolbar" onclick="AIPlanner.optimizeTrip()">✨ Optimize Trip</button>
+            <button type="button" class="btn-toolbar" onclick="AIPlanner.makeTripRelaxed()">😌 Make Relaxed</button>
+            <button type="button" class="btn-toolbar" onclick="AIPlanner.reduceTravelTime()">🚗 Reduce Travel Time</button>
+            <button type="button" class="btn-toolbar" onclick="AIPlanner.addTemples()">🛕 Add More Temples</button>
+            <button type="button" class="btn-toolbar" onclick="AIPlanner.addBeaches()">🏖️ Add More Beaches</button>
+            <button type="button" class="btn-toolbar" onclick="AIPlanner.addNature()">🌿 Add More Nature</button>
+            <button type="button" class="btn-toolbar" onclick="AIPlanner.addPhotography()">📸 Add Photography</button>
+            <button type="button" class="btn-toolbar" onclick="AIPlanner.makeBudgetFriendly()">💰 Make Budget Friendly</button>
+            <button type="button" class="btn-toolbar" onclick="AIPlanner.promptChangeDays()">📅 Change Days</button>
+            <button type="button" class="btn-toolbar" onclick="AIPlanner.changeTravelMode()">🚗 Change Mode</button>
+            <button type="button" class="btn-toolbar" onclick="AIPlanner.promptAddPlace()">➕ Add Destination</button>
+            <button type="button" class="btn-toolbar" onclick="AIPlanner.promptRemovePlace()">➖ Remove Destination</button>
+            <a id="btnGoogleMapsNav" href="#" target="_blank" rel="noopener noreferrer" class="btn-toolbar nav-btn" style="text-decoration:none; display:inline-flex; align-items:center; gap:4px;">🚗 Navigate in Google Maps</a>
+            <button type="button" id="btnSaveToTrips" class="btn-toolbar save-btn" onclick="AIPlanner.saveToMyTrips()">💾 Save to Trips</button>
+          </div>
+
+          <!-- Daily Itinerary Cards Timeline (Section 12) -->
+          <div>
+            <h3 style="font-family:'Outfit', sans-serif; font-size:20px; font-weight:800; color:var(--dark-text); margin-bottom:18px;">
+              Day-by-Day Schedule &amp; Attractions
+            </h3>
+            <div id="dailyTimelineCardsContainer" class="daily-timeline-container">
+              <!-- Rendered dynamically by js/ai-planner.js -->
+            </div>
+          </div>
+
+          <!-- Budget Breakdown (Section 12) -->
+          <div class="budget-overview-card">
+            <div class="budget-header-row">
+              <div>
+                <h4 style="font-family:'Outfit', sans-serif; font-size:16px; font-weight:800; color:var(--dark-text); margin-bottom:2px;">
+                  💰 Estimated Trip Budget
+                </h4>
+                <p style="font-size:12px; color:var(--text-muted); margin:0;">
+                  Transparent road trip estimation including fuel, stays, meals, and permits.
+                </p>
+              </div>
+              <button type="button" class="btn-toolbar" onclick="AIPlanner.modifyActivePlan('slow_down')" style="font-size:11px;">
+                💸 Make Trip Cheaper
+              </button>
+            </div>
+
+            <div class="budget-items-list">
+              <div class="budget-item-row">
+                <span class="budget-item-label">🚗 Transportation (Fuel &amp; Tolls)</span>
+                <span id="budgetItemTransport" class="budget-item-val">₹0</span>
+              </div>
+              <div class="budget-item-row">
+                <span class="budget-item-label">🏨 Accommodation &amp; Homestays</span>
+                <span id="budgetItemStay" class="budget-item-val">₹0</span>
+              </div>
+              <div class="budget-item-row">
+                <span class="budget-item-label">🍛 Food &amp; Prasada Dining</span>
+                <span id="budgetItemFood" class="budget-item-val">₹0</span>
+              </div>
+              <div class="budget-item-row">
+                <span class="budget-item-label">🎟️ Entry Fees &amp; Boating</span>
+                <span id="budgetItemActivities" class="budget-item-val">₹0</span>
+              </div>
+            </div>
+
+            <div class="budget-total-bar">
+              <span>Total Estimated Cost</span>
+              <div style="text-align:right;">
+                <span id="budgetTotalAmount">₹0</span>
+                <span id="budgetPerPersonAmount" style="display:block; font-size:11px; font-weight:600; opacity:0.85;">(Approx. ₹0 per traveler)</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- SITE FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <div class="footer-brand">
+        <div class="brand-logo" style="margin-bottom:12px;">
+          <div class="brand-icon-box">🧭</div>
+          <div>
+            <div class="brand-title" style="color:#ffffff;">Karnataka<span>Diaries</span></div>
+            <span class="brand-tagline" style="color:#D8F3DC;">Discover • Plan • Explore</span>
+          </div>
+        </div>
+        <p style="font-size:13px; color:#A0AEC0; max-width:320px; line-height:1.5;">
+          Official companion for discovering the soul of Karnataka. Powered by verified geographic distance models and rich cultural data.
+        </p>
+      </div>
+
+      <div class="footer-links-grid">
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <a href="index.html">Home</a>
+          <a href="explore.html">Explore Destinations</a>
+          <a href="map.html">Interactive Map</a>
+          <a href="ai-planner.html">AI Trip Planner ✨</a>
+          <a href="trips.html">My Trips</a>
+          <a href="diary.html">Travel Diary</a>
+        </div>
+        <div class="footer-col">
+          <h4>Spiritual Circuits</h4>
+          <a href="ai-planner.html?days=6&type=Temple+%26+Spiritual&auto=true">Coastal Spiritual Circuit</a>
+          <a href="ai-planner.html?days=2&type=Temple+%26+Spiritual&auto=true">Mysuru Sacred Corridor</a>
+          <a href="ai-planner.html?days=4&type=Temple+%26+Spiritual&auto=true">South Canara Shrines</a>
+          <a href="ai-planner.html?days=3&type=Heritage&auto=true">Hampi &amp; Badami UNESCO</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p>© 2026 Karnataka Travel Diaries. Discover Karnataka. Create Your Story.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/maps.js"></script>
+  <script src="js/ai-planner.js"></script>
+  <script>
+    // Mobile Drawer Toggle
+    const hamburger = document.getElementById("mobileHamburgerBtn");
+    const drawer = document.getElementById("mobileDrawer");
+    if (hamburger && drawer) {
+      hamburger.addEventListener("click", () => {
+        drawer.classList.toggle("open");
+      });
+    }
+  </script>
+</body>
+</html>

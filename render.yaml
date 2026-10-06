@@ -15,21 +15,3 @@ services:
         value: production
       - key: DATABASE_URL
         value: file:./dev.db
-      - key: JWT_SECRET
-        generateValue: true
-      - key: SEED_DEFAULT_PASSWORD
-        generateValue: true
-      - key: ENABLE_DEMO_LOGIN
-        value: "true"
-      - key: FIREBASE_API_KEY
-        value: AIzaSyDdhr6HweoEYnpjBhDzw3aq1UYIhPNF9eo
-      - key: FIREBASE_AUTH_DOMAIN
-        value: karnatakatraveldiaries-a513e.firebaseapp.com
-      - key: FIREBASE_PROJECT_ID
-        value: karnatakatraveldiaries-a513e
-      - key: FIREBASE_STORAGE_BUCKET
-        value: karnatakatraveldiaries-a513e.firebasestorage.app
-      - key: FIREBASE_MESSAGING_SENDER_ID
-        value: "989877596600"
-      - key: FIREBASE_APP_ID
-        value: "1:989877596600:web:c108fc94c64e77a61d5f4d"

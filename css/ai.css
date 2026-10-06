@@ -1,0 +1,1158 @@
+/* ==========================================================================
+   Karnataka Travel Diaries - AI Trip Planner & Copilot Styles
+   Palette: Deep Western Ghats Green (#1B4332), Warm Cream/Sand (#FBF9F5),
+   Warm Heritage Gold (#D4A373), Terracotta (#E76F51), Crisp White Cards (#FFFFFF).
+   ========================================================================== */
+
+/* 1. HERO SECTION */
+.ai-hero-section {
+  position: relative;
+  border-radius: var(--radius-xl, 24px);
+  overflow: hidden;
+  background: linear-gradient(135deg, #133927 0%, #1B4332 50%, #2D6A4F 100%);
+  color: #ffffff;
+  padding: 44px 32px;
+  box-shadow: 0 16px 36px -10px rgba(27, 67, 50, 0.35);
+  margin-bottom: 36px;
+  border: 1px solid rgba(212, 163, 115, 0.25);
+}
+
+.ai-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 6px 14px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #FEF3C7;
+  margin-bottom: 14px;
+  backdrop-filter: blur(8px);
+}
+
+.ai-hero-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1.2;
+  margin-bottom: 10px;
+  color: #ffffff;
+}
+
+@media (min-width: 768px) {
+  .ai-hero-title {
+    font-size: 42px;
+  }
+}
+
+.ai-hero-desc {
+  font-size: 15px;
+  color: #D8F3DC;
+  max-width: 720px;
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+
+/* 2. PLANNER FORM CONTAINER */
+.planner-form-card {
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid var(--border-card, #EAE6DF);
+  padding: 32px 28px;
+  box-shadow: var(--shadow-card, 0 4px 18px -2px rgba(27, 67, 50, 0.06));
+  margin-bottom: 40px;
+}
+
+.form-step-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--dark-text, #1C1E21);
+  margin-bottom: 6px;
+}
+
+.form-step-desc {
+  font-size: 13px;
+  color: var(--text-secondary, #4A5568);
+  margin-bottom: 18px;
+}
+
+.step-number-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--green-tint, #D8F3DC);
+  color: var(--primary-green, #1B4332);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+/* 3. NUMBER OF DAYS PILLS */
+.days-selector-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.day-pill-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 8px;
+  background: var(--bg-body, #FBF9F5);
+  border: 1.5px solid var(--border-card, #EAE6DF);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 700;
+  color: var(--dark-text, #1C1E21);
+  user-select: none;
+}
+
+.day-pill-btn:hover {
+  border-color: var(--primary-green, #1B4332);
+  background: #ffffff;
+  transform: translateY(-2px);
+}
+
+.day-pill-btn.active {
+  background: var(--primary-green, #1B4332);
+  color: #ffffff;
+  border-color: var(--primary-green, #1B4332);
+  box-shadow: 0 4px 12px rgba(27, 67, 50, 0.25);
+}
+
+.day-pill-number {
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.day-pill-label {
+  font-size: 11px;
+  opacity: 0.85;
+}
+
+/* 4. LOCATION INPUT & QUICK CHIPS */
+.location-input-group {
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.location-input {
+  width: 100%;
+  padding: 13px 16px 13px 42px;
+  border-radius: 12px;
+  border: 1.5px solid var(--border-card, #EAE6DF);
+  font-family: inherit;
+  font-size: 14px;
+  background: #ffffff;
+  color: var(--dark-text, #1C1E21);
+  transition: border-color 0.2s;
+  outline: none;
+}
+
+.location-input:focus {
+  border-color: var(--primary-green, #1B4332);
+  box-shadow: 0 0 0 3px rgba(27, 67, 50, 0.1);
+}
+
+.location-icon-left {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: var(--primary-green, #1B4332);
+}
+
+.btn-gps-locate {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  background: var(--green-tint, #D8F3DC);
+  color: var(--primary-green, #1B4332);
+  border: none;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-gps-locate:hover {
+  background: #c3e9cb;
+}
+
+.quick-locations-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 24px;
+}
+
+.quick-loc-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted, #718096);
+  margin-right: 4px;
+}
+
+.quick-loc-chip {
+  padding: 5px 12px;
+  background: var(--bg-body, #FBF9F5);
+  border: 1px solid var(--border-card, #EAE6DF);
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--dark-text, #1C1E21);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.quick-loc-chip:hover {
+  background: var(--green-tint, #D8F3DC);
+  border-color: var(--secondary-green, #40916C);
+  color: var(--primary-green, #1B4332);
+}
+
+/* Ending location options */
+.end-location-radios {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--dark-text, #1C1E21);
+}
+
+.end-location-radios label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+/* 5. TRAVEL TYPE SELECTABLE CARDS */
+.travel-type-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.type-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--bg-body, #FBF9F5);
+  border: 1.5px solid var(--border-card, #EAE6DF);
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.type-card:hover {
+  background: #ffffff;
+  border-color: var(--primary-green, #1B4332);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.type-card.selected {
+  background: #ffffff;
+  border-color: var(--primary-green, #1B4332);
+  box-shadow: 0 0 0 2px var(--primary-green, #1B4332), 0 4px 12px rgba(27, 67, 50, 0.12);
+}
+
+.type-card-icon {
+  font-size: 22px;
+  line-height: 1;
+}
+
+.type-card-name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--dark-text, #1C1E21);
+}
+
+.type-card-check {
+  margin-left: auto;
+  font-size: 14px;
+  color: var(--primary-green, #1B4332);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.type-card.selected .type-card-check {
+  opacity: 1;
+}
+
+/* Special Spiritual Banner highlight */
+.type-card[data-type="Temple & Spiritual"].selected {
+  border-color: var(--accent-gold, #D4A373);
+  box-shadow: 0 0 0 2px var(--accent-gold, #D4A373), 0 4px 12px rgba(212, 163, 115, 0.2);
+}
+
+/* 6. TRAVEL PACE, BUDGET & MODE CARDS */
+.pill-options-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.option-pill-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 14px;
+  background: var(--bg-body, #FBF9F5);
+  border: 1.5px solid var(--border-card, #EAE6DF);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--dark-text, #1C1E21);
+  text-align: center;
+}
+
+.option-pill-btn:hover {
+  background: #ffffff;
+  border-color: var(--primary-green, #1B4332);
+}
+
+.option-pill-btn.active {
+  background: var(--primary-green, #1B4332);
+  color: #ffffff;
+  border-color: var(--primary-green, #1B4332);
+  box-shadow: 0 4px 12px rgba(27, 67, 50, 0.2);
+}
+
+/* 7. PREFERENCES MULTI-SELECT CHIPS */
+.pref-chips-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.pref-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: var(--bg-body, #FBF9F5);
+  border: 1px solid var(--border-card, #EAE6DF);
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary, #4A5568);
+  cursor: pointer;
+  transition: all 0.15s;
+  user-select: none;
+}
+
+.pref-chip:hover {
+  background: #ffffff;
+  border-color: var(--primary-green, #1B4332);
+  color: var(--dark-text, #1C1E21);
+}
+
+.pref-chip.selected {
+  background: var(--green-tint, #D8F3DC);
+  border-color: var(--primary-green, #1B4332);
+  color: var(--primary-green, #1B4332);
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(27, 67, 50, 0.1);
+}
+
+/* 8. OPTIONAL TEXTAREA & INPUTS */
+.ai-prompt-textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1.5px solid var(--border-card, #EAE6DF);
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+  background: #ffffff;
+  color: var(--dark-text, #1C1E21);
+  outline: none;
+  transition: border-color 0.2s;
+  resize: vertical;
+  margin-bottom: 18px;
+}
+
+.ai-prompt-textarea:focus {
+  border-color: var(--primary-green, #1B4332);
+  box-shadow: 0 0 0 3px rgba(27, 67, 50, 0.1);
+}
+
+.two-col-inputs {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+@media (min-width: 640px) {
+  .two-col-inputs {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Submit Button */
+.btn-generate-plan {
+  width: 100%;
+  padding: 16px 24px;
+  background: linear-gradient(135deg, var(--primary-green, #1B4332) 0%, var(--primary-green-light, #2D6A4F) 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 14px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 8px 24px -4px rgba(27, 67, 50, 0.35);
+}
+
+.btn-generate-plan:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px -4px rgba(27, 67, 50, 0.45);
+}
+
+.btn-generate-plan:active {
+  transform: translateY(0);
+}
+
+/* 9. LOADING STEP ANIMATION */
+.ai-loading-box {
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid var(--border-card, #EAE6DF);
+  padding: 48px 24px;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.ai-loading-spinner {
+  width: 52px;
+  height: 52px;
+  border: 4px solid var(--green-tint, #D8F3DC);
+  border-top-color: var(--primary-green, #1B4332);
+  border-radius: 50%;
+  margin: 0 auto 20px;
+  animation: ai-spin 0.9s infinite linear;
+}
+
+@keyframes ai-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.ai-loading-step-text {
+  font-family: 'Outfit', sans-serif;
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--dark-text, #1C1E21);
+  margin-bottom: 6px;
+  min-height: 26px;
+}
+
+.ai-loading-subtext {
+  font-size: 13px;
+  color: var(--text-secondary, #4A5568);
+}
+
+/* 10. GENERATED PLAN CONTAINER */
+.plan-output-section {
+  display: none;
+  animation: fadeIn 0.4s ease;
+}
+
+.plan-output-section.visible {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Header & Summary Card */
+.plan-summary-card {
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid var(--border-card, #EAE6DF);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-card, 0 4px 18px -2px rgba(27, 67, 50, 0.06));
+  margin-bottom: 24px;
+}
+
+.plan-badge-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.plan-tag-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--green-tint, #D8F3DC);
+  color: var(--primary-green, #1B4332);
+  padding: 5px 12px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.plan-title-heading {
+  font-family: 'Outfit', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--dark-text, #1C1E21);
+  line-height: 1.25;
+  margin-bottom: 8px;
+}
+
+.plan-summary-lead {
+  font-size: 14px;
+  color: var(--text-secondary, #4A5568);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+/* Stats Metric Pills Grid */
+.plan-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+  background: var(--bg-body, #FBF9F5);
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid var(--border-card, #EAE6DF);
+  margin-bottom: 20px;
+}
+
+.metric-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.metric-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted, #718096);
+  margin-bottom: 2px;
+}
+
+.metric-value {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--primary-green, #1B4332);
+}
+
+/* Aggressive Travel Warning Banner */
+.travel-warning-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: #FFFBEB;
+  border: 1.5px solid #FCD34D;
+  border-radius: 14px;
+  padding: 14px 18px;
+  margin-bottom: 24px;
+  color: #92400E;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+/* "Why this itinerary?" Explanation Box */
+.why-itinerary-card {
+  background: #FFFDF9;
+  border: 1.5px solid #F0E6D2;
+  border-left: 4px solid var(--accent-gold, #D4A373);
+  border-radius: 14px;
+  padding: 18px 22px;
+  margin-bottom: 28px;
+}
+
+.why-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px;
+  font-weight: 800;
+  color: #8C5311;
+  margin-bottom: 6px;
+}
+
+.why-body-text {
+  font-size: 13.5px;
+  color: var(--dark-text, #1C1E21);
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* 11. MAP CONTAINER & BUTTONS */
+.route-map-container {
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid var(--border-card, #EAE6DF);
+  overflow: hidden;
+  box-shadow: var(--shadow-card, 0 4px 18px -2px rgba(27, 67, 50, 0.06));
+  margin-bottom: 28px;
+}
+
+.map-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  background: var(--bg-body, #FBF9F5);
+  border-bottom: 1px solid var(--border-card, #EAE6DF);
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.map-title-text {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--primary-green, #1B4332);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.map-actions-group {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btn-map-action {
+  padding: 7px 14px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid var(--border-card, #EAE6DF);
+  background: #ffffff;
+  color: var(--dark-text, #1C1E21);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.btn-map-action:hover {
+  background: var(--green-tint, #D8F3DC);
+  color: var(--primary-green, #1B4332);
+  border-color: var(--secondary-green, #40916C);
+}
+
+.btn-map-action.nav-primary {
+  background: var(--primary-green, #1B4332);
+  color: #ffffff;
+  border-color: var(--primary-green, #1B4332);
+}
+
+.btn-map-action.nav-primary:hover {
+  background: var(--primary-green-hover, #143526);
+}
+
+#itineraryRouteMap {
+  width: 100%;
+  height: 380px;
+  background: #e2e8f0;
+}
+
+/* 12. MODIFICATION ACTION TOOLBAR (Section 15) */
+.plan-modification-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 14px 18px;
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid var(--border-card, #EAE6DF);
+  margin-bottom: 32px;
+  align-items: center;
+}
+
+.toolbar-label {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--text-muted, #718096);
+  margin-right: 6px;
+  text-transform: uppercase;
+}
+
+.btn-toolbar {
+  padding: 8px 13px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  border: 1px solid var(--border-card, #EAE6DF);
+  background: var(--bg-body, #FBF9F5);
+  color: var(--dark-text, #1C1E21);
+  cursor: pointer;
+  transition: all 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.btn-toolbar:hover {
+  background: var(--green-tint, #D8F3DC);
+  color: var(--primary-green, #1B4332);
+  border-color: var(--secondary-green, #40916C);
+}
+
+.btn-toolbar.save-btn {
+  background: #FFFBEB;
+  border-color: #FCD34D;
+  color: #92400E;
+  margin-left: auto;
+}
+
+.btn-toolbar.save-btn:hover {
+  background: #FEF3C7;
+  color: #78350F;
+}
+
+/* 13. DAILY ITINERARY TIMELINE (Section 12) */
+.daily-timeline-container {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  margin-bottom: 40px;
+}
+
+.day-timeline-card {
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid var(--border-card, #EAE6DF);
+  overflow: hidden;
+  box-shadow: var(--shadow-card, 0 4px 18px -2px rgba(27, 67, 50, 0.06));
+  transition: transform 0.2s;
+}
+
+.day-card-header {
+  padding: 18px 22px;
+  background: var(--bg-body, #FBF9F5);
+  border-bottom: 1px solid var(--border-card, #EAE6DF);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.day-card-title-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.day-circle-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: var(--primary-green, #1B4332);
+  color: #ffffff;
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.day-route-text {
+  font-family: 'Outfit', sans-serif;
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--dark-text, #1C1E21);
+}
+
+.day-badges-strip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.day-meta-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  background: #ffffff;
+  border: 1px solid var(--border-card, #EAE6DF);
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-secondary, #4A5568);
+}
+
+.day-meta-pill.overnight {
+  background: #FEF3C7;
+  color: #92400E;
+  border-color: #FDE68A;
+}
+
+.day-card-body {
+  padding: 22px;
+}
+
+/* Time Slots (Morning, Afternoon, Evening) */
+.time-slot-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.time-slot-block {
+  display: flex;
+  gap: 14px;
+}
+
+.slot-icon-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 32px;
+  flex-shrink: 0;
+}
+
+.slot-icon-badge {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--bg-body, #FBF9F5);
+  border: 1px solid var(--border-card, #EAE6DF);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+}
+
+.slot-vert-line {
+  flex-grow: 1;
+  width: 2px;
+  background: var(--border-card, #EAE6DF);
+  margin-top: 4px;
+}
+
+.slot-content-col {
+  flex-grow: 1;
+}
+
+.slot-timing-pill {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--primary-green, #1B4332);
+  margin-bottom: 3px;
+  letter-spacing: 0.3px;
+}
+
+.slot-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--dark-text, #1C1E21);
+  margin-bottom: 4px;
+}
+
+.slot-desc {
+  font-size: 13px;
+  color: var(--text-secondary, #4A5568);
+  line-height: 1.5;
+  margin-bottom: 6px;
+}
+
+.slot-activities-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.activity-tag {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  background: var(--bg-body, #FBF9F5);
+  border: 1px solid var(--border-card, #EAE6DF);
+  border-radius: 6px;
+  color: var(--text-secondary, #4A5568);
+}
+
+/* Day Footer (Meals & Overnight) */
+.day-card-footer {
+  padding: 14px 22px;
+  background: var(--bg-body, #FBF9F5);
+  border-top: 1px solid var(--border-card, #EAE6DF);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 12px;
+}
+
+.footer-meal-note {
+  color: var(--text-secondary, #4A5568);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-remove-day-place {
+  padding: 5px 10px;
+  border-radius: 8px;
+  background: #ffffff;
+  border: 1px solid #FCA5A5;
+  color: #DC2626;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.btn-remove-day-place:hover {
+  background: #FEE2E2;
+}
+
+/* 14. BUDGET SUMMARY CARD */
+.budget-overview-card {
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid var(--border-card, #EAE6DF);
+  padding: 24px;
+  box-shadow: var(--shadow-card, 0 4px 18px -2px rgba(27, 67, 50, 0.06));
+  margin-bottom: 40px;
+}
+
+.budget-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border-card, #EAE6DF);
+}
+
+.budget-items-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+@media (min-width: 640px) {
+  .budget-items-list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.budget-item-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: var(--bg-body, #FBF9F5);
+  border-radius: 10px;
+  font-size: 13px;
+}
+
+.budget-item-label {
+  color: var(--text-secondary, #4A5568);
+  font-weight: 600;
+}
+
+.budget-item-val {
+  font-weight: 800;
+  color: var(--dark-text, #1C1E21);
+}
+
+.budget-total-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  background: var(--green-tint, #D8F3DC);
+  border-radius: 12px;
+  font-weight: 800;
+  font-size: 16px;
+  color: var(--primary-green, #1B4332);
+}
+
+/* 15. RESPONSIVE BREAKPOINTS */
+@media (max-width: 768px) {
+  .ai-hero-section {
+    padding: 32px 20px;
+  }
+  .planner-form-card {
+    padding: 22px 16px;
+  }
+  .day-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .travel-type-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  #itineraryRouteMap {
+    height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .travel-type-grid {
+    grid-template-columns: 1fr;
+  }
+  .plan-metrics-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* 16. KARNATAKA EXPERIENCES CARDS */
+.experience-card {
+  background: #ffffff;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.experience-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 14px 30px rgba(27, 67, 50, 0.12);
+  border-color: #A7F3D0;
+}
+
+.experience-card-media {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+  background: #E2E8F0;
+}
+
+.experience-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.experience-card:hover .experience-card-img {
+  transform: scale(1.05);
+}
+
+.experience-card-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.experience-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.experience-card-icon {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.experience-card-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: #1E293B;
+  margin: 0;
+  line-height: 1.25;
+}
+
+.experience-card-desc {
+  font-size: 13px;
+  color: #64748B;
+  line-height: 1.55;
+  margin-bottom: 18px;
+  flex: 1;
+}
+
+.experience-card-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: #1B4332;
+  color: #ffffff !important;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 13px;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.15s ease;
+  box-shadow: 0 4px 10px rgba(27, 67, 50, 0.2);
+}
+
+.experience-card-btn:hover {
+  background: #2D6A4F;
+  color: #ffffff !important;
+  transform: translateY(-1px);
+}

@@ -93,20 +93,18 @@ const Diary = {
     if (window.showToast) window.showToast("Story successfully published to your travel diary! 📖", "success");
 
     // Sync to API
-    if (window.Auth && window.Auth.isLoggedIn()) {
-      fetch("/api/diary", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          destinationId,
-          title,
-          content,
-          visitDate: newEntry.visitDate,
-          rating: newEntry.rating,
-          images: [newEntry.image]
-        })
-      }).catch(() => {});
-    }
+    fetch("/api/diary", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        destinationId,
+        title,
+        content,
+        visitDate: newEntry.visitDate,
+        rating: newEntry.rating,
+        images: [newEntry.image]
+      })
+    }).catch(() => {});
 
     return newEntry;
   },
@@ -119,9 +117,7 @@ const Diary = {
 
     if (window.showToast) window.showToast("Diary entry removed.", "info");
 
-    if (window.Auth && window.Auth.isLoggedIn()) {
-      fetch(`/api/diary/${diaryId}`, { method: "DELETE" }).catch(() => {});
-    }
+    fetch(`/api/diary/${diaryId}`, { method: "DELETE" }).catch(() => {});
   },
 
   renderDiaryCards(containerId = "diaryEntriesContainer") {

@@ -8,29 +8,14 @@ try {
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
-const cookieParser = require('cookie-parser');
 const cors = require('cors');
-const bcrypt = require('bcryptjs');
 const { PrismaClient } = require('@prisma/client');
-const { SignJWT, jwtVerify } = require('jose');
 const { karnatakaDestinations } = require('./js/data.js');
+const { getDestinationWeather } = require('./backend/services/weatherService');
 
 const app = express();
 const prisma = new PrismaClient();
 const PORT = process.env.PORT || 3000;
-
-// Strict environment variable validation for JWT_SECRET
-let JWT_SECRET_STRING = process.env.JWT_SECRET;
-if (!JWT_SECRET_STRING) {
-  console.warn('⚠️ [Render / Production Notice]: JWT_SECRET was not provided. Using fallback secret. For security, set a unique JWT_SECRET in your Render environment variables.');
-  JWT_SECRET_STRING = 'karnataka_travel_diaries_super_secret_jwt_key_2026_discover_karnataka';
-}
-const JWT_SECRET = new TextEncoder().encode(JWT_SECRET_STRING);
-
-const {
-  verifyFirebaseIdToken,
-  getOrCreateUserFromFirebaseToken
-} = require('./backend/services/firebaseAdmin');
 
 // Production CORS Configuration
 const allowedOrigins = process.env.CORS_ORIGIN 
@@ -50,7 +35,22 @@ app.use(cors({
 }));
 
 app.use(express.json());
-app.use(cookieParser());
+app.use(express.urlencoded({ extended: true }));
+
+// Helper to get or create default public traveler record
+async function getPublicTraveler() {
+  let user = await prisma.user.findFirst();
+  if (!user) {
+    user = await prisma.user.create({
+      data: {
+        name: 'Karnataka Traveler',
+        email: 'traveler@karnatakadiaries.com',
+        role: 'USER'
+      }
+    });
+  }
+  return user;
+}
 
 // Production Health Check Endpoint
 app.get('/health', (req, res) => {
@@ -73,56 +73,16 @@ app.get('/sitemap.xml', (req, res) => {
   res.sendFile(path.join(__dirname, 'sitemap.xml'));
 });
 
-// Firebase Authentication Middleware
-// Verifies Firebase ID Token via Firebase Admin SDK and resolves application User in Prisma
-async function authenticate(req) {
-  let token = null;
-  const authHeader = req.headers.authorization;
-  if (authHeader && authHeader.startsWith('Bearer ')) {
-    token = authHeader.split(' ')[1];
-  } else if (req.cookies?.ktd_token) {
-    token = req.cookies.ktd_token;
-  }
-
-  if (!token) return null;
-
-  // 1. Primary: Verify via Firebase Admin SDK
-  try {
-    const decodedToken = await verifyFirebaseIdToken(token);
-    if (decodedToken && decodedToken.uid) {
-      const user = await getOrCreateUserFromFirebaseToken(decodedToken, prisma);
-      return {
-        id: user.id,
-        firebaseUid: user.firebaseUid,
-        email: user.email,
-        role: user.role,
-        name: user.name,
-        username: user.username
-      };
-    }
-  } catch (firebaseErr) {
-    // 2. Transition / Demo Login fallback via signed JWT
-    try {
-      const { payload } = await jwtVerify(token, JWT_SECRET);
-      if (payload && payload.id) {
-        return payload;
-      }
-    } catch (jwtErr) {
-      return null;
-    }
-  }
-
-  return null;
-}
+// Legacy auth routes redirect to home
+app.get(['/login', '/login.html', '/register', '/register.html', '/reset-password', '/reset-password.html', '/profile', '/profile.html'], (req, res) => {
+  res.redirect(301, '/');
+});
 
 // ==========================================
 // REST API ENDPOINTS
 // ==========================================
 
-// 1. Comprehensive Authentication & Registration System
-app.use('/api/auth', require('./backend/routes/auth')(prisma, authenticate, JWT_SECRET));
-
-// 5. Destinations List
+// 1. Destinations List
 app.get('/api/destinations', async (req, res) => {
   try {
     const destinations = await prisma.destination.findMany({
@@ -138,7 +98,7 @@ app.get('/api/destinations', async (req, res) => {
   }
 });
 
-// 6. Destination Detail
+// 2. Destination Detail
 app.get('/api/destinations/:id', async (req, res) => {
   const { id } = req.params;
   try {
@@ -163,13 +123,10 @@ app.get('/api/destinations/:id', async (req, res) => {
   }
 });
 
-// 7. Favorites
+// 3. Favorites
 app.get('/api/favorites', async (req, res) => {
-  const session = await authenticate(req);
-  if (!session) return res.json([]);
   try {
     const favs = await prisma.favorite.findMany({
-      where: { userId: session.id },
       select: { destinationId: true }
     });
     return res.json(favs.map(f => f.destinationId));
@@ -179,18 +136,21 @@ app.get('/api/favorites', async (req, res) => {
 });
 
 app.post('/api/favorites', async (req, res) => {
-  const session = await authenticate(req);
-  if (!session) return res.status(401).json({ error: 'Authentication required' });
   const { destinationId } = req.body;
   if (!destinationId) return res.status(400).json({ error: 'destinationId required' });
 
   try {
-    // Check if exists
+    const dest = await prisma.destination.findFirst({
+      where: { OR: [{ id: destinationId }, { slug: destinationId }] }
+    });
+    const targetDestId = dest ? dest.id : destinationId;
+
+    const traveler = await getPublicTraveler();
     const existing = await prisma.favorite.findUnique({
       where: {
         userId_destinationId: {
-          userId: session.id,
-          destinationId
+          userId: traveler.id,
+          destinationId: targetDestId
         }
       }
     });
@@ -203,8 +163,8 @@ app.post('/api/favorites', async (req, res) => {
     } else {
       await prisma.favorite.create({
         data: {
-          userId: session.id,
-          destinationId
+          userId: traveler.id,
+          destinationId: targetDestId
         }
       });
       return res.json({ favorited: true });
@@ -215,13 +175,12 @@ app.post('/api/favorites', async (req, res) => {
   }
 });
 
-// 8. Trips
+// ==========================================
+// 4. MULTI-DAY TRIP PLANNER SECTION
+// ==========================================
 app.get('/api/trips', async (req, res) => {
-  const session = await authenticate(req);
-  if (!session) return res.json([]);
   try {
     const trips = await prisma.trip.findMany({
-      where: { userId: session.id },
       include: {
         destinations: {
           include: { destination: true },
@@ -230,30 +189,45 @@ app.get('/api/trips', async (req, res) => {
       },
       orderBy: { createdAt: 'desc' }
     });
-    return res.json(trips);
+    return res.json({ trips, success: true });
   } catch (err) {
+    console.error('Error fetching trips:', err);
     return res.status(500).json({ error: 'Error fetching trips' });
   }
 });
 
 app.post('/api/trips', async (req, res) => {
-  const session = await authenticate(req);
-  if (!session) return res.status(401).json({ error: 'Authentication required' });
   const { name, description, startDate, endDate, destinationIds } = req.body;
 
   try {
+    const traveler = await getPublicTraveler();
+
+    // Resolve destination IDs (supporting both slug and CUID)
+    const tripStops = [];
+    if (Array.isArray(destinationIds)) {
+      for (let i = 0; i < destinationIds.length; i++) {
+        const dId = destinationIds[i];
+        const dest = await prisma.destination.findFirst({
+          where: { OR: [{ id: dId }, { slug: dId }] }
+        });
+        if (dest) {
+          tripStops.push({
+            destinationId: dest.id,
+            visitOrder: i + 1
+          });
+        }
+      }
+    }
+
     const trip = await prisma.trip.create({
       data: {
-        userId: session.id,
+        userId: traveler.id,
         name: name || 'My Karnataka Journey',
         description,
         startDate: startDate ? new Date(startDate) : null,
         endDate: endDate ? new Date(endDate) : null,
         destinations: {
-          create: (destinationIds || []).map((destId, idx) => ({
-            destinationId: destId,
-            visitOrder: idx + 1
-          }))
+          create: tripStops
         }
       },
       include: {
@@ -262,7 +236,7 @@ app.post('/api/trips', async (req, res) => {
         }
       }
     });
-    return res.json(trip);
+    return res.json({ trip, success: true });
   } catch (err) {
     console.error('Trip create error:', err);
     return res.status(500).json({ error: 'Error creating trip' });
@@ -270,44 +244,51 @@ app.post('/api/trips', async (req, res) => {
 });
 
 app.delete('/api/trips/:id', async (req, res) => {
-  const session = await authenticate(req);
-  if (!session) return res.status(401).json({ error: 'Authentication required' });
   try {
-    await prisma.trip.delete({
-      where: { id: req.params.id, userId: session.id }
+    const existing = await prisma.trip.findUnique({
+      where: { id: req.params.id }
     });
+    if (existing) {
+      await prisma.trip.delete({
+        where: { id: req.params.id }
+      });
+    }
     return res.json({ success: true });
   } catch (err) {
+    console.error('Trip delete error:', err);
     return res.status(500).json({ error: 'Error deleting trip' });
   }
 });
 
-// 9. Diary
+// ==========================================
+// 5. TRAVEL DIARY
+// ==========================================
 app.get('/api/diary', async (req, res) => {
-  const session = await authenticate(req);
-  if (!session) return res.json([]);
   try {
     const entries = await prisma.travelDiary.findMany({
-      where: { userId: session.id },
       include: { destination: true },
       orderBy: { visitDate: 'desc' }
     });
-    return res.json(entries);
+    return res.json({ diaries: entries });
   } catch (err) {
     return res.status(500).json({ error: 'Error fetching diary' });
   }
 });
 
 app.post('/api/diary', async (req, res) => {
-  const session = await authenticate(req);
-  if (!session) return res.status(401).json({ error: 'Authentication required' });
   const { destinationId, title, content, rating, visitDate, images } = req.body;
 
   try {
+    const traveler = await getPublicTraveler();
+    const dest = await prisma.destination.findFirst({
+      where: { OR: [{ id: destinationId }, { slug: destinationId }] }
+    });
+    const targetDestId = dest ? dest.id : destinationId;
+
     const entry = await prisma.travelDiary.create({
       data: {
-        userId: session.id,
-        destinationId,
+        userId: traveler.id,
+        destinationId: targetDestId,
         title,
         content,
         rating: rating ? parseInt(rating, 10) : 5,
@@ -323,11 +304,18 @@ app.post('/api/diary', async (req, res) => {
   }
 });
 
-// 10. Reviews
+// ==========================================
+// 6. REVIEWS
+// ==========================================
 app.get('/api/reviews/:destinationId', async (req, res) => {
   try {
+    const dest = await prisma.destination.findFirst({
+      where: { OR: [{ id: req.params.destinationId }, { slug: req.params.destinationId }] }
+    });
+    const targetDestId = dest ? dest.id : req.params.destinationId;
+
     const reviews = await prisma.review.findMany({
-      where: { destinationId: req.params.destinationId },
+      where: { destinationId: targetDestId },
       include: { user: { select: { name: true, avatar: true } } },
       orderBy: { createdAt: 'desc' }
     });
@@ -338,17 +326,21 @@ app.get('/api/reviews/:destinationId', async (req, res) => {
 });
 
 app.post('/api/reviews', async (req, res) => {
-  const session = await authenticate(req);
-  if (!session) return res.status(401).json({ error: 'Authentication required to post reviews' });
-  const { destinationId, rating, comment } = req.body;
+  const { destinationId, rating, comment, name } = req.body;
 
   try {
+    const traveler = await getPublicTraveler();
+    const dest = await prisma.destination.findFirst({
+      where: { OR: [{ id: destinationId }, { slug: destinationId }] }
+    });
+    const targetDestId = dest ? dest.id : destinationId;
+
     const review = await prisma.review.create({
       data: {
-        userId: session.id,
-        destinationId,
-        rating: parseInt(rating, 10),
-        comment
+        userId: traveler.id,
+        destinationId: targetDestId,
+        rating: parseInt(rating, 10) || 5,
+        comment: comment || ''
       },
       include: { user: { select: { name: true, avatar: true } } }
     });
@@ -360,10 +352,9 @@ app.post('/api/reviews', async (req, res) => {
 });
 
 // ==========================================
-// 11. LIVE WEATHER ROUTE
+// 7. LIVE WEATHER ROUTE
 // ==========================================
-const { getDestinationWeather } = require('./backend/services/weatherService');
-app.get('/api/weather', async (req, res) => {
+const weatherHandler = async (req, res) => {
   let { lat, lon, name, destination } = req.query;
   const targetName = destination || name || "Karnataka";
 
@@ -396,6 +387,7 @@ app.get('/api/weather', async (req, res) => {
         rainProbability: weatherData.factualWeather.rainProbability,
         forecast: weatherData.factualWeather.forecast
       },
+      aiTravelAdvice: weatherData.aiTravelNote,
       factualWeather: weatherData.factualWeather,
       travelAdvice: weatherData.aiTravelNote,
       source: weatherData.source
@@ -403,10 +395,25 @@ app.get('/api/weather', async (req, res) => {
   } catch (err) {
     return res.status(500).json({ error: "Failed to fetch weather data" });
   }
-});
+};
 
-app.use('/api/recommendations', require('./backend/routes/recommendations')(prisma, authenticate));
-app.use('/api/user', require('./backend/routes/user')(prisma, authenticate));
+app.get('/api/weather', weatherHandler);
+app.get('/api/ai/weather', weatherHandler);
+
+// ==========================================
+// 8. RECOMMENDATIONS ROUTE
+// ==========================================
+app.use('/api/recommendations', require('./backend/routes/recommendations')(prisma));
+
+// ==========================================
+// 9. AI TRIP PLANNER ROUTE
+// ==========================================
+app.use('/api/ai', require('./backend/routes/ai')(prisma));
+
+// Explicit route for AI Trip Planner page
+app.get(['/ai-planner.html', '/ai-planner', '/plan'], (req, res) => {
+  res.sendFile(path.join(__dirname, 'ai-planner.html'));
+});
 
 // ==========================================
 // STATIC FRONTEND SERVING & SEO SSR
