@@ -1,16 +1,15 @@
-# Karnataka Travel Diaries — AI Travel Copilot Platform
+# Karnataka Travel Diaries — "Explore the Soul of Karnataka" 🌸
 
-> **Karnataka Travel Diaries is a full-stack AI-powered travel platform for discovering and planning journeys across Karnataka. It combines a retrieval-grounded AI travel assistant, intelligent itinerary generation, natural-language destination search, personalized recommendations, route planning, Google Maps navigation and AI-assisted travel journaling.**
+> **Karnataka Travel Diaries is a full-stack, AI-powered travel platform for discovering, exploring, and planning journeys across Karnataka. It features an intelligent, distance-aware AI Trip Planner, natural-language search, 25 curated destination guides with live weather, interactive mapping, turn-by-turn Google Maps navigation, an AI travel diary writer, and anonymous local favorites.**
 
 ---
 
-## 🌟 The 6-Stage Travel Workflow
+## 🌟 Overview & Core Principles
 
-```
-  DISCOVER   ──▶   PLAN   ──▶   OPTIMIZE   ──▶   NAVIGATE   ──▶   EXPERIENCE   ──▶   REMEMBER
-  (Catalog &      (AI Trip      (Heuristic      (Turn-by-turn     (Live Sights,    (AI-Assisted
-   NL Search)     Copilot)      Route & Cost)    Google Maps)     Weather Tips)     Diary & Log)
-```
+- **Pure Vanilla Web Architecture**: Built using pure HTML5, modern vanilla CSS3, and modern vanilla JavaScript (ES6+). Zero heavy frameworks (no React, Next.js, Vue, Angular, TypeScript, or Tailwind).
+- **Frictionless & Anonymous**: Completely free of authentication, logins, passwords, or paywalls. All features (AI Trip Planner, Trips, Travel Diary, and ❤️ Favorites) are instantly accessible to any traveler.
+- **Hybrid AI + Deterministic Geographic Engine**: Combines the reasoning and narrative capabilities of Large Language Models (Google Gemini & OpenAI with a robust Local Rule Engine fallback) with deterministic geographic calculations (verified road distances, ghat winding factors, taluk hierarchies, and opening hours).
+- **Distance & Direction Coherence**: Minimizes backtracking, respects daily driving limits, clusters short trips, and dynamically constructs multi-region circuits for longer journeys.
 
 ---
 
@@ -19,175 +18,175 @@
 ```mermaid
 graph TD
     subgraph Frontend["Frontend Layer (Pure Vanilla HTML5 / CSS3 / ES6 JavaScript)"]
-        UI_Home["index.html<br/>(Hero & Copilot Spotlight)"]
-        UI_Planner["ai-planner.html<br/>(AI Hub & Itinerary Generator)"]
-        UI_Explore["explore.html<br/>(Natural-Language Search)"]
-        UI_Dest["destination.html<br/>(Guide & Live Weather)"]
-        UI_Diary["diary.html<br/>(AI Story Generator)"]
-        UI_Profile["profile.html<br/>(Interests & Recommendations)"]
-        UI_Map["map.html & trips.html<br/>(Interactive Map & Stops)"]
-        UI_Chat["js/ai-chat.js<br/>(Floating Copilot Drawer)"]
+        UI_Home["index.html<br/>(Hero, 14 Experience Cards, Sights)"]
+        UI_Planner["ai-planner.html<br/>(AI Trip Planner & Itinerary Output)"]
+        UI_Explore["explore.html<br/>(Natural-Language & Category Search)"]
+        UI_Dest["destination.html<br/>(Destination Guides & Real-time Weather)"]
+        UI_Map["map.html<br/>(Interactive Karnataka Map)"]
+        UI_Trips["trips.html<br/>(Saved & Custom Itineraries)"]
+        UI_Diary["diary.html<br/>(AI Travel Diary & Journal Writer)"]
+        UI_Fav["favorites.html<br/>(Saved Favorites Collection)"]
     end
 
     subgraph Backend["Backend Layer (Node.js & Express 5)"]
-        Router_AI["backend/routes/ai.js<br/>(/api/ai/*)"]
+        Router_AI["backend/routes/ai.js<br/>(/api/ai/* - Trip Planning & Optimization)"]
         Router_Rec["backend/routes/recommendations.js<br/>(/api/recommendations/*)"]
-        Router_User["backend/routes/user.js<br/>(/api/user/*)"]
-        Router_Legacy["server.js<br/>(Auth, Destinations, Trips, Diaries, Reviews)"]
+        Router_Server["server.js<br/>(Static Assets, Destinations, Trips, Diaries)"]
     end
 
-    subgraph Services["Core Intelligence & Optimization Services"]
-        RAG["ragService.js<br/>(Intent Parsing, Weighted Scoring & Compact Context)"]
-        AIService["aiService.js<br/>(Provider Abstraction: Gemini / OpenAI / Local RAG)"]
-        RouteOpt["routeOptimizer.js<br/>(Haversine Distance, Nearest Neighbor & Multi-Stop URL)"]
-        BudgetSvc["budgetService.js<br/>(Cost Breakdown & 'Make Trip Cheaper' Heuristics)"]
-        WeatherSvc["weatherService.js<br/>(Open-Meteo API & Advisory Interpretation)"]
-        RecSvc["recommendationService.js<br/>(Interest & History Affinities with Explanations)"]
+    subgraph Intelligence["Core Intelligence & Optimization Engines"]
+        AIService["aiService.js<br/>(Hybrid AI Planner, Intent Scoring, Dynamic Clustering)"]
+        GeoService["geoService.js<br/>(31 Districts, Taluks, Verified Highway Distances, Caching)"]
+        RouteOpt["routeOptimizer.js<br/>(Hub Coordinates, Haversine, Multi-Stop Google Maps URLs)"]
+        BudgetSvc["budgetService.js<br/>(Dynamic Expense Estimator & 'Make Trip Cheaper')"]
+        WeatherSvc["weatherService.js<br/>(Open-Meteo Meteorological Data)"]
+        RAG["ragService.js<br/>(Natural Language Search Parser & Scorer)"]
     end
 
     subgraph DataStore["Data & Knowledge Layer"]
-        KB[("data/knowledge-base.json<br/>21 Destinations, Sights, Food, Culture, Seasons")]
-        SQLite[("prisma/dev.db<br/>Prisma ORM: Users, Trips, Diaries, Preferences, AI Logs")]
-        WeatherAPI["External Weather API<br/>(Open-Meteo Real-Time)"]
+        KB[("data/knowledge-base.json<br/>25 Destinations, Sights, Visiting Hours, Food Specialties")]
+        GeoHierarchy[("data/karnataka-geo-hierarchy.json<br/>31 Districts, 240+ Taluks, Location Aliases")]
+        SQLite[("prisma/dev.db<br/>Prisma SQLite: Trips, Generated Itineraries, Diaries, Route Cache")]
+        WeatherAPI["Open-Meteo Weather API<br/>(Real-Time Temperature & Climate)"]
     end
 
-    Frontend -->|Vanilla fetch JSON| Backend
-    Router_AI --> RAG
+    Frontend -->|JSON REST API| Backend
     Router_AI --> AIService
-    Router_AI --> RouteOpt
-    Router_AI --> BudgetSvc
-    Router_AI --> WeatherSvc
-    Router_Rec --> RecSvc
-
-    RAG --> KB
-    RecSvc --> KB
-    RecSvc --> SQLite
-    RouteOpt --> KB
+    AIService --> GeoService
+    AIService --> RouteOpt
+    AIService --> BudgetSvc
+    AIService --> KB
+    GeoService --> GeoHierarchy
+    GeoService --> SQLite
+    Router_Server --> WeatherSvc
     WeatherSvc --> WeatherAPI
-    Router_AI --> SQLite
+    Router_Rec --> KB
 ```
 
 ---
 
-## 🛠️ Technology Stack & Constraints
+## ⚡ The Intelligent AI Trip Planner (`ai-planner.html`)
 
-- **Frontend:** Pure **HTML5**, **Vanilla CSS3**, and **Vanilla JavaScript (ES6+)**.
-  - **Zero** React, Next.js, Vue, Angular, Svelte, TypeScript, TSX, JSX, or Tailwind CSS.
-  - All communication uses standard asynchronous `fetch()` calls.
-  - Client-side code **never** has access to AI API keys.
-- **Backend:** **Node.js** with **Express 5**, **Prisma ORM 6**, and **SQLite**.
-- **Interactive Maps:** **Leaflet** with OpenStreetMap tiles.
-- **GPS Navigation:** HTML5 Geolocation API with live Google Maps routing (`google.com/maps/dir/...`).
-- **Weather:** Real-time meteorological data via **Open-Meteo API**.
-- **AI Abstraction:** Unified multi-model adapter supporting **Google Gemini 2.0/1.5 Flash**, **OpenAI GPT-4o-mini**, and an embedded, zero-dependency **Local Grounded RAG Engine**.
+The AI Trip Planner functions as a **real, distance-aware travel planner** rather than a static place filter:
 
----
+### 1. Travel Type as Intent, Not a Rigid List
+The planner interprets user themes as travel intent:
+- **Coastal & Beach Escapes**: Prioritizes Karnataka’s 320 km Arabian Sea coastline while blending legendary cultural sights (e.g. Malpe Beach, St. Mary's Island, Kaup Lighthouse, Udupi Sri Krishna Matha, and authentic Karavali seafood).
+- **Nature & Waterfalls**: Identifies Western Ghats nature corridors (Chikkamagaluru, Sakleshpur, Coorg, Kudremukh, Jog Falls).
+- **History & Heritage**: Prioritizes UNESCO Vijayanagara ruins (Hampi), Chalukyan cave temples (Badami & Pattadakal), and Hoysala/Wodeyar legacies (Belur-Halebidu, Mysuru).
+- **Spiritual Karnataka**: Connects sacred temple corridors (Dharmasthala, Kukke Subrahmanya, Udupi, Murudeshwar, Gokarna, Sringeri).
+- **Hill Station Getaways**: High-altitude mist retreats (Chikkamagaluru, Coorg, Sakleshpur).
+- **Wildlife & Adventure**: River rafting in Dandeli, safaris in Bandipur and Nagarhole.
+- **Culture & Food**: Authentic culinary walking trails and palace heritage.
 
-## ⚡ Key AI Features Implemented
+### 2. Multi-Region Karnataka Journeys (7+ Days)
+When a traveler selects **7+ Days** (7, 8, 9, 10, 11, 12+ days), the planner avoids stretching 2 places across a week. It dynamically constructs a **3- to 4-region connected journey**:
+- **7-Day Nature Circuit**: Chikkamagaluru (Days 1–2) → Sakleshpur & Kudremukh (Days 3–4) → Coorg (Days 5–6) → Return to Bengaluru (Day 7).
+- **7-Day Coastal Odyssey**: South Karavali / Mangaluru & Udupi (Days 1–2) → Central Coast / Murudeshwar & Honnavar (Days 3–4) → North Coast / Gokarna & Karwar (Days 5–6) → Return to Bengaluru (Day 7).
+- **7-Day Heritage Journey**: Vijayanagara / Hampi (Days 1–2) → Badami & Pattadakal (Days 3–4) → Hoysala / Belur-Halebidu & Mysuru (Days 5–6) → Return to Bengaluru (Day 7).
 
-### 1. 🤖 Karnataka AI Travel Assistant (Floating Copilot)
-- **Universal Access:** Present across all pages via the floating `✨ Ask Karnataka AI` button (bottom-right on desktop, elevated above mobile navigation bar on handhelds).
-- **RAG-Grounded Intelligence:** Analyzes user intent, queries `data/knowledge-base.json`, retrieves matching destination contexts, and generates structured cards with estimated costs, days, day-by-day routes, and direct action buttons (`[View Directions]`, `[Plan Trip]`).
-- **Safe Fallbacks:** Built-in starter prompts ("Plan a 3-day Coorg trip", "Where can I go from Bengaluru for 2 days?", "Suggest peaceful hill stations").
+### 3. Intelligent Clustered Short Trips (1–3 Days)
+- **1 Day**: Bounded within 150 km of origin (e.g. Bengaluru → Nandi Hills or Lalbagh/Bengaluru Palace; Mangaluru → Panambur & Kadri Manjunatha).
+- **2 Days**: Anchored to **one primary regional cluster** closest to the starting location (e.g. Chikkamagaluru cluster from Bengaluru; Kudremukh/Coorg from Mangaluru; Badami from Hubballi), avoiding statewide jumping.
+- **3 Days**: Explores one core cluster with neighboring attractions (e.g. Mangaluru + Udupi; Chikkamagaluru + Sakleshpur; Mysuru + Srirangapatna).
 
-### 2. 🗺️ AI Trip Planner (`ai-planner.html`)
-- **Configurable Form:** Starting location, duration (days), budget, travelers (Solo/Couple/Friends/Family), transport mode (Car/Bike/Bus/Train), travel pace (Relaxed/Balanced/Packed), and 10 visual interest tags.
-- **Progressive Feedback:** Real-time stepped animation messages (*"✨ Understanding your preferences..."* → *"📍 Finding Karnataka destinations..."* → *"🗺️ Building your route..."* → *"💰 Estimating your budget..."* → *"✨ Creating your itinerary..."*).
-- **Interactive Itinerary Timeline:** Day-by-day morning/afternoon/evening schedules with destination photography, direct Google Maps navigation buttons, and 1-click **Save This Trip** into the user's permanent trips collection.
+### 4. Origin & Destination Sensitivity
+- **Starting Location**: Starting in Mangaluru selects Western Ghats nature (Kudremukh/Coorg) instead of distant eastern hills; starting in Mysuru selects Coorg/Bandipur; starting in Hubballi selects Badami/Dandeli.
+- **Different Ending Location**: If the user starts in Bengaluru and ends in Mangaluru, the route sequences progressively through intermediate regions (Mysuru → Coorg → Sakleshpur → Udupi → Mangaluru).
+- **Round-Trip Mode**: On the final day of a round-trip, the morning features sightseeing, the afternoon has lunch, and the evening schedules the return drive back to the starting hub.
 
-### 3. 🔍 AI Natural-Language Destination Search (`explore.html`)
-- **Dual Search System:**
-  - **Standard Search:** Instant keyword and district matching for simple queries (`Coorg`, `Hampi`, `Gokarna`) without consuming AI tokens.
-  - **Natural Language Parsing:** Automatically activates when queries contain multi-constraint criteria (e.g., *"peaceful hill station within 300 km of Bengaluru"*, *"places for photography under ₹5000"*).
-- Extracts origin, maximum distance, budget limits, duration, and categories, returning destinations labeled with AI match percentage badges.
-
-### 4. 📚 RAG-Based Karnataka Knowledge Base (`data/knowledge-base.json`)
-- Structured records covering all 21 Karnataka destinations in the platform:
-  - Districts, categories, GPS coordinates, ideal duration, and best visiting seasons.
-  - Verified local attractions, top activities, authentic food specialties, cultural highlights, and practical travel tips.
-  - Daily cost estimations and pre-curated trip templates.
-- **Strict Grounding:** AI queries receive strictly relevant retrieved snippets rather than dumping entire databases, eliminating hallucinations.
-
-### 5. 🎯 Personalized Recommendations (`profile.html` & `ai-planner.html`)
-- **Explicit User Preferences:** Interactive travel interest checklist stored in SQLite (`UserPreference` entity).
-- **Multi-Factor Scoring Engine (`recommendationService.js`):** Computes recommendation scores based on selected interests (50%), favorited destinations (25%), past trip history (15%), and category affinity (10%).
-- **Explainable Reasons:** Every recommendation displays a human-readable justification (e.g., *"Recommended because you saved Coorg and frequently explore nature and hill destinations."*).
-- **Visual "Find My Place" Wizard:** 4-step interactive wizard matching ideal destinations in seconds.
-
-### 6. ✍️ AI Travel Diary Generator (`diary.html`)
-- Upgrades the travel journal with a modal **"✨ Write with AI"** flow.
-- Users input destination, dates, short notes, highlights, and mood.
-- Generates editable travel narratives across 6 tones: **Detailed Journal, Short & Punchy, Storytelling, Casual, Travel Blog, and Photo Caption**.
-- Includes revision buttons: `[Make Shorter]`, `[Make More Personal]`, `[Regenerate]`, and `[Use This Story]`. Generated text is never auto-published without user review.
-
-### 7. 🧮 Route & Budget Optimization
-- **Route Optimizer (`routeOptimizer.js`):** Computes pairwise Haversine distances with a 1.25x Western Ghats winding factor. Reorders multi-destination itineraries using a nearest-neighbor heuristic and builds multi-stop Google Maps waypoint URLs.
-- **Budget Breakdown (`budgetService.js`):** Separates costs into Transportation, Accommodation, Food, Activities, Entry Fees, and Miscellaneous. Includes a **[Make Trip Cheaper]** optimizer that re-tunes stay categories and activities to fit tighter budgets. All figures are prominently labeled: *"Estimated costs — actual prices may vary."*
-- **Live Weather Integration (`weatherService.js`):** Fetches real-time temperature, wind speed, and weather codes from Open-Meteo API. Strictly separates factual meteorological data from AI travel advisory tips.
-- **Packing Assistant (`packing.js`):** Generates activity- and season-specific checklists with interactive checkboxes and local storage persistence.
+### 5. Attraction Uniqueness & Opening Hours
+- Selects distinct morning, afternoon, and evening attractions for every day.
+- Prevents repeating attractions when spending consecutive days in the same destination.
+- Respects visiting hours (morning peaks/temples, afternoon shaded sights/museums, evening sunset points).
+- Embeds authentic destination cuisine (Neer Dosa & Goli Baje in Udupi, Pandi Curry & Akki Rotti in Coorg, Mysore Pak in Mysuru, Jolada Rotti in Badami).
 
 ---
 
-## 🗄️ Database Entities (Prisma & SQLite)
+## 🔍 Other Core Platform Features
 
-The schema (`prisma/schema.prisma`) extends the existing user and trip database with structured AI support entities:
+### 1. Natural Language Search (`explore.html`)
+- **Dual Engine**: Instant keyword matching for quick queries (`Hampi`, `Gokarna`) and automatic natural-language parsing for multi-criteria phrases (e.g., *"peaceful hill station within 300 km of Bengaluru"*, *"places for photography under ₹5000"*).
+- Extracts origin, distance limits, budget, and travel interests, returning matched destination cards with match percentage badges.
 
-| Model | Purpose |
+### 2. Destination Guides & Live Weather (`destination.html`)
+- Comprehensive guides for 25 destinations across Karnataka with high-resolution photography, short overviews, key attractions, visiting hours, and local food highlights.
+- Live real-time weather fetched dynamically from Open-Meteo API.
+
+### 3. Interactive Karnataka Map (`map.html`)
+- Interactive Leaflet map displaying destinations, districts, and cultural regions across Karnataka.
+- Filter destinations by categories (Beaches, Hill Stations, Heritage, Wildlife, Spiritual, Waterfalls).
+
+### 4. Travel Diary with AI Writer (`diary.html`)
+- Modal **"✨ Write with AI"** flow for travel journals.
+- Transforms bullet points and traveler mood into polished travel narratives across 6 tones (Storytelling, Detailed Journal, Casual, Travel Blog, Photo Caption, Short & Punchy).
+
+### 5. Turn-by-Turn Google Maps Navigation
+- Generates verified, multi-stop Google Maps driving directions URLs (`google.com/maps/dir/...`) for every generated trip.
+
+### 6. Anonymous Favorites & Custom Trips (`favorites.html`, `trips.html`)
+- Heart any destination across the app to save it into ❤️ Favorites.
+- Save AI-generated itineraries or create custom road trips with 1 click.
+
+---
+
+## 🛠️ Technology Stack
+
+| Layer | Technologies Used |
 |---|---|
-| `User` | Core traveler account credentials and profile |
-| `UserPreference` | Explicit travel interests (`isNature`, `isHeritage`, `preferredPace`, etc.) |
-| `Destination` | 21 canonical Karnataka destinations with coordinates and media |
-| `Attraction` | Sights and landmarks associated with destinations |
-| `Trip` & `TripStop` | Custom itineraries created by users or generated by the AI |
-| `GeneratedItinerary` | Persistent cache of AI itineraries with budget and route details |
-| `DiaryEntry` & `DiaryDraft` | User travel journals and saved AI draft stories |
-| `PackingList` | Checklists generated by the packing assistant |
-| `AIConversation` & `AIMessage` | Grounded chat history for the floating copilot |
+| **Frontend** | Pure HTML5, Vanilla CSS3, Vanilla ES6+ JavaScript |
+| **Backend** | Node.js, Express 5 |
+| **Database** | SQLite, Prisma ORM 6 |
+| **Geographic Services** | Custom Geocoding, Haversine Engine, 31 Districts & 240+ Taluks Hierarchy |
+| **Maps & Weather** | Leaflet / OpenStreetMap (map.html), Open-Meteo Meteorological API |
+| **AI Integration** | Google Gemini 2.0 / 1.5, OpenAI GPT-4o-mini, Local Grounded Engine |
 
 ---
 
-## 🔐 Environment Variables & Security
+## 📁 Repository Structure
 
-Create a `.env` file in the project root (see `.env.example`):
-
-```env
-# Database URL
-DATABASE_URL="file:./dev.db"
-
-# Server Port
-PORT=3000
-
-# JWT Secret for Session Auth (Generate via: openssl rand -base64 32)
-JWT_SECRET="your_production_jwt_signing_secret_min_32_characters_here"
-
-# Base URL
-NEXT_PUBLIC_APP_URL="http://localhost:3000"
-
-# Demo Account Login (Set to "false" in production)
-ENABLE_DEMO_LOGIN="false"
-
-# Database Seeder Password (Used during 'npm run db:seed')
-SEED_DEFAULT_PASSWORD="your_secure_seed_password_here"
-
-# Optional Cloud AI API Keys (Local Grounded RAG works out of the box!)
-GEMINI_API_KEY=""
-OPENAI_API_KEY=""
-AI_API_KEY=""
 ```
-
-> [!WARNING]
-> ### 🚨 Secret Rotation & Git History Warning
-> **If any secret was previously hardcoded or committed, that old value remains permanently visible in Git history!**
-> - **Rotate All Secrets Immediately:** Before deploying to production, generate a brand-new random `JWT_SECRET`, change all database passwords, update user passwords, and rotate any third-party API keys (`GEMINI_API_KEY`, `OPENAI_API_KEY`).
-> - **Git History Purge:** Any string committed in previous commits can be retrieved from git history (`git log`, `git show`). If this repository is ever made public, use tools like `git filter-repo` or BFG Repo-Cleaner to completely purge past commit records.
-
-> [!IMPORTANT]
-> **API Key & Secret Safety Guardrails:**
-> - Neither `GEMINI_API_KEY` nor `OPENAI_API_KEY` is ever transmitted to or referenced in client-side code.
-> - Google Gemini API keys are transmitted in HTTP request headers (`x-goog-api-key`) rather than URL query parameters to prevent exposure in web proxy or server access logs.
-> - `.env` is strictly listed in `.gitignore` to prevent secret leaks.
-> - Demo accounts can be disabled entirely in production by setting `ENABLE_DEMO_LOGIN="false"`.
-> - If no cloud API key is supplied, the platform automatically runs in **LOCAL GROUNDED RAG MODE**, providing full deterministic grounding, route optimization, budgets, and natural language search using the verified Karnataka knowledge base without failing or crashing.
+KarnatakaTravelDiaries/
+├── ai-planner.html            # AI Trip Planner page
+├── index.html                 # Home page with 14 experience cards & trending destinations
+├── explore.html               # Search & filter destinations
+├── destination.html           # Individual destination guide & real-time weather
+├── map.html                   # Interactive Leaflet map of Karnataka
+├── trips.html                 # Custom & saved trips page
+├── diary.html                 # Travel Diary & AI writing assistant
+├── favorites.html             # Saved favorites collection
+├── server.js                  # Main Express application server
+├── backend/
+│   ├── routes/
+│   │   ├── ai.js              # AI Planner endpoints (/api/ai/plan-trip, /api/ai/optimize-trip)
+│   │   └── recommendations.js # Destination recommendation endpoints
+│   └── services/
+│       ├── aiService.js       # Hybrid AI Planning Engine, Intent Scoring & Multi-Region Circuits
+│       ├── geoService.js      # Geographic Hierarchy, Verified Highway Distances & Caching
+│       ├── routeOptimizer.js  # Hub coordinates, Haversine distance & Google Maps routing
+│       ├── budgetService.js   # Dynamic budget calculator & optimizer
+│       ├── ragService.js      # Natural language search parser & knowledge retrieval
+│       └── weatherService.js  # Open-Meteo API weather integration
+├── css/
+│   ├── ai.css                 # AI Trip Planner styling
+│   ├── style.css              # Core Karnataka design system & navigation styling
+│   └── destination.css        # Destination guide styles
+├── js/
+│   ├── ai-planner.js          # AI Trip Planner frontend controller
+│   ├── app.js                 # Global utilities & navigation
+│   ├── diary.js               # Travel Diary controller
+│   ├── favorites.js           # Favorites controller
+│   └── trips.js               # Trips management controller
+├── data/
+│   ├── knowledge-base.json    # Canonical database of 25 Karnataka destinations & attractions
+│   └── karnataka-geo-hierarchy.json # Complete hierarchy of 31 districts & 240+ taluks
+├── scripts/
+│   ├── testAllPlannerCases.mjs       # Standard verification test suite (8 tests)
+│   ├── testNewIntelligentFeatures.mjs # Deep intelligence & multi-region verification suite (8 scenarios)
+│   └── generateSitemap.mjs    # Dynamic SEO sitemap generator
+└── prisma/
+    └── schema.prisma          # Database schema (Trips, Itineraries, Diaries, RouteCache)
+```
 
 ---
 
@@ -199,39 +198,63 @@ cd ~/Downloads/KarnatakaTravelDiaries
 npm install
 ```
 
-### 2. Initialize Database & Knowledge Base
+### 2. Configure Environment (Optional)
+Create a `.env` file in the root directory (see `.env.example`):
+```env
+PORT=3000
+DATABASE_URL="file:./dev.db"
+
+# Optional Cloud AI API Keys (Local Grounded Engine works out of the box!)
+GEMINI_API_KEY=""
+OPENAI_API_KEY=""
+```
+
+### 3. Initialize Database & Generate Prisma Client
 ```bash
-# Push schema changes to SQLite
 npx prisma db push
-
-# Generate Prisma client
 npx prisma generate
-
-# Seed sample data (if starting fresh)
-node scripts/seed.mjs
 ```
 
-### 3. Start the Server
+### 4. Build & Start the Server
 ```bash
+npm run build
 npm start
-# Server starts on http://localhost:3000
 ```
+The application will be live at **`http://localhost:3000`**.
 
 ---
 
-## 🧪 Testing Each Feature
+## 🧪 Automated Testing & Verification
 
-| Feature | Where to Test | How to Verify |
-|---|---|---|
-| **AI Travel Copilot** | Any page (bottom-right button) | Click `✨ Ask Karnataka AI`, try suggested prompts like *"Plan a 3-day Coorg trip"*. Verify structured trip card response with budget and navigation links. |
-| **AI Trip Planner** | `ai-planner.html` | Fill in Bengaluru, 3 days, ₹7000, 3 Friends, Car, select Nature & Waterfalls. Click `✨ Generate My AI Trip`. Observe loading steps, vertical timeline, route summary, and budget breakdown. |
-| **Make Trip Cheaper** | `ai-planner.html` (under budget table) | Click `💰 Make Trip Cheaper`. Verify reduced stay/activity estimates and travel tips. |
-| **Natural Language Search** | `explore.html` | Type: *"peaceful hill station within 300 km of Bengaluru"*. Verify AI extracts filters and displays matched cards with match percentage badges. |
-| **Live Weather & AI Note** | `destination.html?id=chikmagalur` | Look at the sidebar widget. Verify real-time Open-Meteo temperature and distinct AI travel note. |
-| **AI Travel Diary** | `diary.html` | Click `✨ Write with AI`. Enter destination (e.g. Hampi), mood, and bullet notes. Select style *"Storytelling"*, click `Generate Story`. Test `[Make Shorter]` and `[Use This Story]`. |
-| **Personalized Recommendations** | `profile.html` | Check/uncheck travel interests (e.g. Mountains, Photography). Click `Save Travel Interests`. Observe updated recommendations with explainable reasons. |
-| **Find My Place Wizard** | `ai-planner.html` (bottom section) | Choose Experience: *Heritage*, Duration: *2-3 Days*, Travelers: *Family*. Click `✨ Find My Karnataka Destination`. |
-| **Packing Assistant** | `ai-planner.html` (tab 3) | Enter Kudremukh, 3 days, Monsoon season, Trekking. Click `Generate Packing List`. Check items and click `Save Packing List`. |
+The project includes two comprehensive test suites:
+
+### 1. Standard Verification Suite
+Validates core requirements and duration bounds:
+```bash
+node scripts/testAllPlannerCases.mjs
+```
+- ✅ Test 1: 2 Days | Start: Bengaluru | Type: Temple & Spiritual (< 400 km, Mysuru/Srirangapatna)
+- ✅ Test 2: 2 Days | Start: Bengaluru | Type: Beaches (Single coastal base)
+- ✅ Test 3: 3 Days | Start: Bengaluru | Type: Beaches (Mangaluru + Udupi connected)
+- ✅ Test 4: 3 Days | Start: Bengaluru | Type: Temple & Spiritual (< 500 km)
+- ✅ Test 5: 4 Days | Start: Bengaluru | Type: Nature & Waterfalls (Connected Western Ghats)
+- ✅ Test 6: 6 Days | Start: Bengaluru | Type: Temple & Spiritual (Coastal Spiritual Circuit)
+- ✅ Test 7: 6 Days | Start: Bengaluru | Type: Beaches (6-day Grand Karavali Circuit)
+- ✅ Test 8: 6 Days | Start: Mysuru | Type: Temple & Spiritual (Distance to Dharmasthala 235 km)
+
+### 2. Deep Intelligence & Multi-Region Suite
+Validates dynamic candidate selection, 7+ days multi-region loops, origin sensitivity, and attraction blending:
+```bash
+node scripts/testNewIntelligentFeatures.mjs
+```
+- ✅ Scenario 1: 1-Day Nature Trip (Nandi Hills, 56 km within 150 km bound)
+- ✅ Scenario 2: 2-Day Nature Trip (Chikkamagaluru cluster, Mullayanagiri, Jhari/Hebbe Falls, return to Bengaluru)
+- ✅ Scenario 3: 2-Day Nature Trip from Mangaluru (Kudremukh, 138 km, origin-sensitive)
+- ✅ Scenario 4: 7-Day Multi-Region Nature Journey (Chikkamagaluru → Sakleshpur → Kudremukh → Sringeri → Coorg → return)
+- ✅ Scenario 5: 7-Day Multi-Region Coastal Trip (Mangaluru → Udupi → Murudeshwar → Honnavar → Gokarna → Karwar → return)
+- ✅ Scenario 6: 7-Day Multi-Region Heritage Trip (Hampi → Badami → Pattadakal → Belur → Mysuru → return)
+- ✅ Scenario 7: 7-Day Trip with Different Ending Location (Bengaluru → Mysuru → Coorg → Sakleshpur → Udupi → Mangaluru)
+- ✅ Scenario 8: Attraction Uniqueness & Theme Blending (No duplicate attractions across days; temples and local food blended into beach trips)
 
 ---
 
