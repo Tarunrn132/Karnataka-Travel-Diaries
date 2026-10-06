@@ -360,9 +360,51 @@ app.post('/api/reviews', async (req, res) => {
 });
 
 // ==========================================
-// 11. AI COPILOT & INTELLIGENCE ROUTES
+// 11. LIVE WEATHER ROUTE
 // ==========================================
-app.use('/api/ai', require('./backend/routes/ai')(prisma, authenticate));
+const { getDestinationWeather } = require('./backend/services/weatherService');
+app.get('/api/weather', async (req, res) => {
+  let { lat, lon, name, destination } = req.query;
+  const targetName = destination || name || "Karnataka";
+
+  if ((!lat || !lon) && targetName) {
+    const lower = targetName.toLowerCase();
+    const destRecord = (karnatakaDestinations || []).find(d =>
+      (d.slug && d.slug.toLowerCase() === lower) ||
+      (d.name && d.name.toLowerCase().includes(lower))
+    );
+    if (destRecord) {
+      lat = destRecord.latitude;
+      lon = destRecord.longitude;
+    }
+  }
+  if (!lat || !lon) {
+    lat = 12.9716;
+    lon = 77.5946;
+  }
+
+  try {
+    const weatherData = await getDestinationWeather(parseFloat(lat), parseFloat(lon), targetName);
+    return res.json({
+      success: true,
+      destination: weatherData.destination,
+      weather: {
+        temperature: parseInt(weatherData.factualWeather.temperature, 10) || 25,
+        description: weatherData.factualWeather.condition,
+        humidity: parseInt(weatherData.factualWeather.humidity, 10) || 60,
+        windSpeed: parseInt(weatherData.factualWeather.windSpeed, 10) || 10,
+        rainProbability: weatherData.factualWeather.rainProbability,
+        forecast: weatherData.factualWeather.forecast
+      },
+      factualWeather: weatherData.factualWeather,
+      travelAdvice: weatherData.aiTravelNote,
+      source: weatherData.source
+    });
+  } catch (err) {
+    return res.status(500).json({ error: "Failed to fetch weather data" });
+  }
+});
+
 app.use('/api/recommendations', require('./backend/routes/recommendations')(prisma, authenticate));
 app.use('/api/user', require('./backend/routes/user')(prisma, authenticate));
 

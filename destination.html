@@ -10,7 +10,6 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/responsive.css">
-  <link rel="stylesheet" href="css/ai.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
 
   <style>
@@ -59,7 +58,6 @@
         <a href="index.html" class="nav-link">Home</a>
         <a href="explore.html" class="nav-link active">Explore</a>
         <a href="map.html" class="nav-link">Interactive Map</a>
-        <a href="ai-planner.html" class="nav-link" style="color:var(--ai-primary); font-weight:700;">AI Planner ✨</a>
         <a href="trips.html" class="nav-link">Trips</a>
         <a href="diary.html" class="nav-link">Travel Diary</a>
       </nav>
@@ -101,9 +99,9 @@
       <span>🧭</span>
       <span>Explore</span>
     </a>
-    <a href="ai-planner.html" class="bottom-nav-item">
-      <span>✨</span>
-      <span>AI Planner</span>
+    <a href="trips.html" class="bottom-nav-item">
+      <span>📅</span>
+      <span>Trips</span>
     </a>
     <a href="map.html" class="bottom-nav-item">
       <span>🗺️</span>
@@ -336,9 +334,6 @@
               <button type="button" class="btn btn-secondary" onclick="handleQuickAddToTrip('${dest.slug || dest.id}')" style="width:100%;">
                 ➕ Add to Trip Itinerary
               </button>
-              <button type="button" class="btn btn-secondary" onclick="askAIAboutDestination('${dest.name.replace(/'/g, "\\'")}')" style="width:100%; border:1px solid #c084fc; color:#7e22ce; background:#faf5ff;">
-                ✨ Ask Copilot About ${dest.name}
-              </button>
               <a href="diary.html?destination=${dest.slug || dest.id}" class="btn btn-secondary" style="width:100%; text-align:center;">
                 📖 Write in Travel Diary
               </a>
@@ -409,7 +404,7 @@
       const container = document.getElementById("destWeatherContent");
       if (!container) return;
       try {
-        const res = await fetch(`/api/ai/weather?destination=${encodeURIComponent(destName)}`);
+        const res = await fetch(`/api/weather?destination=${encodeURIComponent(destName)}`);
         const data = await res.json();
         if (data.success && data.weather) {
           const w = data.weather;
@@ -421,22 +416,16 @@
             <div style="font-size:11px; color:#64748b; margin-bottom:8px;">
               Wind: ${w.windSpeed} km/h • Humidity: ${w.humidity}% • Source: Open-Meteo
             </div>
-            <div style="background:#f5f3ff; border-left:3px solid #7c3aed; padding:8px 10px; border-radius:0 8px 8px 0; font-size:11px; color:#5b21b6; line-height:1.4;">
-              <strong>✨ AI Travel Note:</strong> ${data.aiTravelAdvice}
-            </div>
+            ${data.travelAdvice ? `
+            <div style="background:#f8fafc; border-left:3px solid var(--primary-brand); padding:8px 10px; border-radius:0 8px 8px 0; font-size:11px; color:#334155; line-height:1.4;">
+              <strong>💡 Travel Note:</strong> ${data.travelAdvice}
+            </div>` : ''}
           `;
         } else {
           container.innerHTML = `<span style="color:#64748b; font-size:11px;">Live information unavailable. Ideal season: check destination guide above.</span>`;
         }
       } catch (err) {
         container.innerHTML = `<span style="color:#64748b; font-size:11px;">Live information unavailable.</span>`;
-      }
-    }
-
-    function askAIAboutDestination(name) {
-      if (window.AIChat) {
-        window.AIChat.open();
-        window.AIChat.send(`What should I visit in ${name}? Give me top attractions, activities, authentic food and travel tips.`);
       }
     }
 
@@ -489,8 +478,5 @@
       }
     }
   </script>
-
-  <!-- AI Chat Assistant -->
-  <script src="js/ai-chat.js"></script>
 </body>
 </html>

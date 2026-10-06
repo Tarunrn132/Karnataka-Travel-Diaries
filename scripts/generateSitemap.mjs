@@ -40,8 +40,7 @@ const today = new Date().toISOString().split('T')[0];
 const staticRoutes = [
   { url: '/', priority: '1.0', changefreq: 'weekly' },
   { url: '/explore.html', priority: '0.9', changefreq: 'weekly' },
-  { url: '/map.html', priority: '0.8', changefreq: 'monthly' },
-  { url: '/ai-planner.html', priority: '0.8', changefreq: 'monthly' }
+  { url: '/map.html', priority: '0.8', changefreq: 'monthly' }
 ];
 
 const destinationRoutes = (karnatakaDestinations || []).map(dest => ({

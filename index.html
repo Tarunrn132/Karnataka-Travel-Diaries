@@ -56,7 +56,6 @@
   <!-- Core Styles -->
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/components.css">
-  <link rel="stylesheet" href="css/ai.css">
   <link rel="stylesheet" href="css/responsive.css">
 
   <!-- Leaflet CSS for Map Preview -->
@@ -81,7 +80,6 @@
         <a href="index.html" class="nav-link active">Home</a>
         <a href="explore.html" class="nav-link">Explore</a>
         <a href="map.html" class="nav-link">Interactive Map</a>
-        <a href="ai-planner.html" class="nav-link">AI Planner ✨</a>
         <a href="trips.html" class="nav-link">Trips</a>
         <a href="diary.html" class="nav-link">Travel Diary</a>
       </nav>
@@ -112,7 +110,6 @@
         <a href="index.html" class="nav-link active">Home <span>🏠</span></a>
         <a href="explore.html" class="nav-link">Explore Destinations <span>🧭</span></a>
         <a href="map.html" class="nav-link">Interactive Map <span>🗺️</span></a>
-        <a href="ai-planner.html" class="nav-link">AI Travel Planner <span>✨</span></a>
         <a href="trips.html" class="nav-link">Trip Itineraries <span>📅</span></a>
         <a href="diary.html" class="nav-link">Travel Diary <span>📖</span></a>
         <a href="favorites.html" class="nav-link">Saved Places <span>❤️</span></a>
@@ -177,8 +174,8 @@
               <a href="explore.html" class="btn btn-primary btn-lg">
                 🧭 Explore Karnataka
               </a>
-              <a href="ai-planner.html" class="btn btn-ghost-white btn-lg">
-                ✨ Plan My Trip
+              <a href="trips.html" class="btn btn-ghost-white btn-lg">
+                📅 Plan My Trip
               </a>
             </div>
           </div>
@@ -267,39 +264,7 @@
       </div>
     </section>
 
-    <!-- 3.5. AI TRAVEL COPILOT HOMEPAGE SPOTLIGHT -->
-    <section style="padding: 30px 0 20px;">
-      <div class="container">
-        <div style="position:relative; background: linear-gradient(135deg, #1e1b4b 0%, #31104b 50%, #1e293b 100%); border-radius:var(--radius-xl); padding:40px 32px; color:white; overflow:hidden; box-shadow:var(--shadow-premium); border:1px solid rgba(255,255,255,0.12);">
-          <div style="position:absolute; right:-40px; top:-40px; width:260px; height:260px; background:radial-gradient(circle, rgba(147, 51, 234, 0.25) 0%, transparent 70%); pointer-events:none;"></div>
-          
-          <div style="max-width:680px; position:relative; z-index:2;">
-            <div style="display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,0.15); padding:4px 12px; border-radius:14px; font-size:11px; font-weight:700; color:#c4b5fd; margin-bottom:12px; letter-spacing:0.5px;">
-              <span>✨</span>
-              <span>INTRODUCING</span>
-            </div>
 
-            <h2 style="font-size:32px; font-weight:800; line-height:1.2; margin-bottom:12px; color:#ffffff;">
-              Karnataka AI Travel Copilot
-            </h2>
-
-            <p style="font-size:15px; color:#cbd5e1; line-height:1.6; margin-bottom:16px;">
-              Tell us your budget, available days and interests. We'll help create a personalized Karnataka journey.
-            </p>
-
-            <div style="background:rgba(255,255,255,0.1); border-left:3px solid #fde047; padding:10px 14px; border-radius:8px; font-size:13px; font-style:italic; color:#f1f5f9; margin-bottom:24px;">
-              &ldquo;I have 3 days, ₹7,000 and love waterfalls.&rdquo;
-            </div>
-
-            <div style="display:flex; gap:12px; flex-wrap:wrap;">
-              <a href="ai-planner.html" class="btn btn-primary" style="padding:12px 24px; font-size:14px;">
-                ✨ Plan With AI
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <!-- 4. FEATURED DESTINATIONS (8 Destinations from data.js) -->
     <section style="padding: 40px 0;">
@@ -483,7 +448,7 @@
           <ul>
             <li><a href="explore.html">Explore</a></li>
             <li><a href="explore.html">Destinations</a></li>
-            <li><a href="ai-planner.html">AI Planner</a></li>
+            <li><a href="trips.html">Trip Planner</a></li>
             <li><a href="map.html">Interactive Map</a></li>
           </ul>
         </div>
@@ -526,9 +491,9 @@
       <span>🧭</span>
       <span>Explore</span>
     </a>
-    <a href="ai-planner.html" class="bottom-nav-item">
-      <span>✨</span>
-      <span>AI Planner</span>
+    <a href="trips.html" class="bottom-nav-item">
+      <span>📅</span>
+      <span>Trips</span>
     </a>
     <a href="map.html" class="bottom-nav-item">
       <span>🗺️</span>
@@ -552,8 +517,6 @@
   <script src="js/trips.js"></script>
   <script src="js/diary.js"></script>
   <script src="js/reviews.js"></script>
-  <script src="js/ai-chat.js"></script>
-  <script src="js/ai-search.js"></script>
   <script src="js/app.js"></script>
 
   <!-- Homepage Dynamic Data Loader Script -->

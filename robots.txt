@@ -7,7 +7,6 @@ Allow: /index.html
 Allow: /explore.html
 Allow: /destination.html
 Allow: /map.html
-Allow: /ai-planner.html
 Allow: /images/
 Allow: /css/
 Allow: /js/

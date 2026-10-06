@@ -43,7 +43,6 @@
 
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/components.css">
-  <link rel="stylesheet" href="css/ai.css">
   <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
@@ -63,7 +62,6 @@
         <a href="index.html" class="nav-link">Home</a>
         <a href="explore.html" class="nav-link active">Explore</a>
         <a href="map.html" class="nav-link">Interactive Map</a>
-        <a href="ai-planner.html" class="nav-link">AI Planner ✨</a>
         <a href="trips.html" class="nav-link">Trips</a>
         <a href="diary.html" class="nav-link">Travel Diary</a>
       </nav>
@@ -93,7 +91,6 @@
         <a href="index.html" class="nav-link">Home <span>🏠</span></a>
         <a href="explore.html" class="nav-link active">Explore Destinations <span>🧭</span></a>
         <a href="map.html" class="nav-link">Interactive Map <span>🗺️</span></a>
-        <a href="ai-planner.html" class="nav-link">AI Travel Planner <span>✨</span></a>
         <a href="trips.html" class="nav-link">Trip Itineraries <span>📅</span></a>
         <a href="diary.html" class="nav-link">Travel Diary <span>📖</span></a>
         <a href="favorites.html" class="nav-link">Saved Places <span>❤️</span></a>
@@ -135,8 +132,8 @@
               />
               <span style="position:absolute; left:14px; top:50%; transform:translateY(-50%); color:var(--text-muted); font-size:14px;">🔍</span>
             </div>
-            <button type="button" id="btnAiSearch" onclick="triggerAISearch()" class="btn btn-primary btn-sm" style="border-radius:12px; padding:8px 16px; font-weight:700;" title="Search with AI">
-              ✨ Search
+            <button type="button" id="btnSearch" onclick="filterAndRender()" class="btn btn-primary btn-sm" style="border-radius:12px; padding:8px 16px; font-weight:700;">
+              Search
             </button>
           </div>
 
@@ -225,9 +222,9 @@
       <span>🧭</span>
       <span>Explore</span>
     </a>
-    <a href="ai-planner.html" class="bottom-nav-item">
-      <span>✨</span>
-      <span>AI Planner</span>
+    <a href="trips.html" class="bottom-nav-item">
+      <span>📅</span>
+      <span>Trips</span>
     </a>
     <a href="map.html" class="bottom-nav-item">
       <span>🗺️</span>
@@ -244,8 +241,6 @@
   <script src="js/auth.js"></script>
   <script src="js/favorites.js"></script>
   <script src="js/destinations.js"></script>
-  <script src="js/ai-search.js"></script>
-  <script src="js/ai-chat.js"></script>
   <script src="js/app.js"></script>
 
   <script>
@@ -282,26 +277,23 @@
       // Filter events
       const searchInput = document.getElementById("exploreSearchInput");
       searchInput.addEventListener("input", (e) => {
-        aiSearchResults = null;
         filterAndRender();
       });
       searchInput.addEventListener("keydown", (e) => {
         if (e.key === "Enter") {
           e.preventDefault();
-          triggerAISearch();
+          filterAndRender();
         }
       });
 
       document.getElementById("districtSelect").addEventListener("change", (e) => {
         activeDistrict = e.target.value;
-        aiSearchResults = null;
         filterAndRender();
       });
       const talukEl = document.getElementById("talukSelect");
       if (talukEl) {
         talukEl.addEventListener("change", (e) => {
           activeTaluk = e.target.value;
-          aiSearchResults = null;
           filterAndRender();
         });
       }
@@ -312,47 +304,6 @@
 
       filterAndRender();
     });
-
-    async function triggerAISearch() {
-      const q = document.getElementById("exploreSearchInput").value.trim();
-      if (!q) return;
-
-      if (AISearch.isComplexQuery(q)) {
-        await AISearch.executeSearch(q, (result) => {
-          if (result.isAI && result.destinations && result.destinations.length > 0) {
-            aiSearchResults = result;
-            renderAISearchResults(result);
-          } else {
-            aiSearchResults = null;
-            filterAndRender();
-          }
-        });
-      } else {
-        aiSearchResults = null;
-        filterAndRender();
-      }
-    }
-
-    function renderAISearchResults(result) {
-      const container = document.getElementById("exploreGridContainer");
-      const countText = document.getElementById("resultsCountText");
-      if (countText) {
-        countText.innerHTML = `
-          <span style="color:var(--primary-green); font-weight:700;">
-            ✨ ${result.explanation}
-          </span>
-        `;
-      }
-
-      container.innerHTML = result.destinations.map(d => {
-        const standardCard = Destinations.renderCard(d);
-        if (d.reasons && d.reasons.length > 0) {
-          const reasonTag = `<div style="background:var(--green-tint); color:var(--primary-green); font-size:11px; font-weight:700; padding:6px 10px; border-radius:8px; margin-bottom:10px; line-height:1.4; border-left:3px solid var(--primary-green);">✨ AI Match: ${d.reasons[0]}</div>`;
-          return standardCard.replace('<div class="card-body">', `<div class="card-body">${reasonTag}`);
-        }
-        return standardCard;
-      }).join("");
-    }
 
     function updatePillUI(catName) {
       document.querySelectorAll(".category-pill").forEach(p => {
