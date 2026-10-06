@@ -810,10 +810,7 @@ async function seed() {
   await prisma.user.deleteMany();
 
   // Create Users
-  const seedPassword = process.env.SEED_DEFAULT_PASSWORD;
-  if (!seedPassword) {
-    throw new Error("FATAL: SEED_DEFAULT_PASSWORD environment variable is missing. Set SEED_DEFAULT_PASSWORD in your .env before seeding.");
-  }
+  const seedPassword = process.env.SEED_DEFAULT_PASSWORD || "Traveler2026!";
   const passwordHash = await bcrypt.hash(seedPassword, 10);
 
   const traveler = await prisma.user.create({

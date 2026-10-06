@@ -1,47 +1,79 @@
 /* ==========================================================================
-   Karnataka Travel Diaries - Core Styling & Design Tokens
-   Preserving Travelia Visual Philosophy: Clean, Modern, Premium Travel UI
+   Karnataka Travel Diaries - Modern Karnataka Design System
+   Palette: Deep Western Ghats Greens, Warm Heritage Sand/Cream, Crisp White Cards,
+   Dark Charcoal Typography & Subtle Terracotta/Golden Accents.
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap');
 
 :root {
-  /* Brand color tokens from Travelia Style Guide */
-  --primary-brand: hsl(249, 95%, 63%);     /* #5c4fe5 */
-  --primary-hover: hsl(249, 95%, 58%);
-  --secondary-brand: hsl(249, 63%, 54%);   /* #4c3ec8 */
-  --dark-text: hsl(209, 40%, 14%);         /* #16202c */
-  --light-gray: hsl(0, 0%, 85%);           /* #d9d9d9 */
+  /* Karnataka-Inspired Color Tokens */
+  --primary-green: #1B4332;         /* Deep Western Ghats green for primary actions */
+  --primary-green-hover: #143526;
+  --primary-green-light: #2D6A4F;   /* Forest green highlight */
+  --secondary-green: #40916C;       /* Earth green for secondary elements */
+  --secondary-green-soft: #52B788;
+  --green-tint: #D8F3DC;            /* Light sage tint for selected states/badges */
   
   /* Cultural Karnataka Accents */
-  --karnataka-gold: #f59e0b;
-  --karnataka-red: #dc2626;
-  --karnataka-emerald: #059669;
+  --accent-gold: #D4A373;           /* Warm heritage gold */
+  --accent-gold-warm: #E0A96D;
+  --accent-amber: #E76F51;          /* Subtle terracotta / temple highlight */
+  --accent-gold-soft: #FEF3C7;
+  
+  /* Neutral Typography & Text */
+  --dark-text: #1C1E21;            /* Dark charcoal for high-contrast readability */
+  --text-secondary: #4A5568;       /* Readable secondary body text */
+  --text-muted: #718096;           /* Subtle metadata & timestamps */
+  --text-light: #A0AEC0;
   
   /* Surfaces & Backgrounds */
-  --bg-body: #fcfcfd;
-  --bg-card: #ffffff;
-  --bg-muted: #f3f4f6;
-  --border-light: rgba(22, 32, 44, 0.08);
-  --border-card: #eef0f3;
+  --bg-body: #FBF9F5;              /* Warm beige/cream background */
+  --bg-subtle: #F4EFEA;            /* Warm stone/cream section background */
+  --bg-card: #FFFFFF;              /* Crisp white card surface */
+  --bg-card-hover: #FFFFFF;
+  --bg-muted: #F3F1EC;
   
-  /* Shadows */
-  --shadow-xs: 0 1px 3px rgba(0, 0, 0, 0.05);
-  --shadow-card: 0 4px 20px -2px rgba(22, 32, 44, 0.06);
-  --shadow-float: 0 20px 40px -15px rgba(22, 32, 44, 0.12);
-  --shadow-premium: 0 10px 30px -5px rgba(92, 79, 229, 0.15);
+  /* Borders */
+  --border-light: rgba(28, 30, 33, 0.08);
+  --border-card: #EAE6DF;
+  --border-focus: var(--primary-green-light);
+  
+  /* Unified Brand Mapping */
+  --primary-brand: var(--primary-green);
+  --primary-hover: var(--primary-green-hover);
+  --secondary-brand: var(--primary-green-light);
+  
+  /* Semantic Status Indicators */
+  --status-success: #2D6A4F;
+  --status-success-bg: #E8F5E9;
+  --status-warning: #B45309;
+  --status-warning-bg: #FEF3C7;
+  --status-error: #B91C1C;
+  --status-error-bg: #FEE2E2;
+  --status-info: #1B4332;
+  --status-info-bg: #E6F4EA;
+
+  /* Elevated Soft Shadows */
+  --shadow-xs: 0 1px 2px rgba(27, 67, 50, 0.04);
+  --shadow-sm: 0 2px 6px -1px rgba(27, 67, 50, 0.05), 0 1px 3px rgba(0, 0, 0, 0.03);
+  --shadow-card: 0 4px 18px -2px rgba(27, 67, 50, 0.06), 0 2px 6px -1px rgba(0, 0, 0, 0.03);
+  --shadow-float: 0 16px 36px -8px rgba(27, 67, 50, 0.12), 0 4px 12px -2px rgba(0, 0, 0, 0.04);
+  --shadow-premium: 0 12px 32px -4px rgba(27, 67, 50, 0.18);
   
   /* Radii */
-  --radius-sm: 8px;
+  --radius-xs: 6px;
+  --radius-sm: 10px;
   --radius-md: 14px;
-  --radius-lg: 20px;
-  --radius-xl: 28px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
   --radius-full: 9999px;
   
-  /* Transitions */
-  --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  --transition-normal: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  --transition-slow: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  /* Micro-Interaction Transitions */
+  --transition-fast: 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-normal: 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-slow: 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Base Reset */
@@ -52,11 +84,12 @@
 }
 
 html {
-  font-family: 'Poppins', 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: var(--dark-text);
   background-color: var(--bg-body);
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
@@ -64,7 +97,9 @@ body {
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
-  padding-bottom: 70px; /* Space for mobile bottom bar */
+  padding-bottom: 74px; /* Space for mobile bottom bar */
+  background-color: var(--bg-body);
+  line-height: 1.5;
 }
 
 @media (min-width: 768px) {
@@ -76,6 +111,7 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+  transition: color var(--transition-fast);
 }
 
 button {
@@ -88,6 +124,7 @@ button {
 input, textarea, select {
   font-family: inherit;
   font-size: 14px;
+  color: var(--dark-text);
 }
 
 img {
@@ -102,14 +139,14 @@ img {
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: var(--bg-subtle);
 }
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 9999px;
+  background: #CBD5E1;
+  border-radius: var(--radius-full);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #94A3B8;
 }
 
 /* Container */
@@ -122,16 +159,23 @@ img {
   padding-right: 20px;
 }
 
-/* Section Header Typography */
+/* Typography Hierarchy */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  color: var(--dark-text);
+  letter-spacing: -0.02em;
+}
+
 .section-tag {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: var(--primary-brand);
+  color: var(--primary-green-light);
   margin-bottom: 6px;
 }
 
@@ -145,9 +189,10 @@ img {
 
 .section-desc {
   font-size: 14px;
-  color: #64748b;
+  color: var(--text-secondary);
   margin-top: 6px;
-  max-width: 600px;
+  max-width: 620px;
+  line-height: 1.6;
 }
 
 @media (min-width: 768px) {
@@ -160,61 +205,145 @@ img {
 }
 
 /* ==========================================================================
-   HOMEPAGE HERO SECTION — FIX THIS EXACTLY AS SPECIFIED
-   Heading: Explore the Soul of Karnataka
-   Background: images/hero/karnataka-hero.jpg
-   Cover, center, dark gradient overlay
+   BUTTON SYSTEM
    ========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 10px 20px;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+  text-align: center;
+  white-space: nowrap;
+}
 
+.btn-primary {
+  background: var(--primary-green);
+  color: #FFFFFF;
+  box-shadow: 0 4px 14px rgba(27, 67, 50, 0.25);
+  border: 1px solid transparent;
+}
+
+.btn-primary:hover {
+  background: var(--primary-green-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(27, 67, 50, 0.35);
+  color: #FFFFFF;
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background: #FFFFFF;
+  color: var(--dark-text);
+  border: 1px solid var(--border-card);
+  box-shadow: var(--shadow-xs);
+}
+
+.btn-secondary:hover {
+  background: var(--bg-subtle);
+  border-color: #D1CBC0;
+  color: var(--primary-green);
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--primary-green);
+  border: 1.5px solid var(--primary-green);
+}
+
+.btn-outline:hover {
+  background: var(--green-tint);
+  color: var(--primary-green);
+}
+
+.btn-ghost-white {
+  background: rgba(255, 255, 255, 0.16);
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.btn-ghost-white:hover {
+  background: rgba(255, 255, 255, 0.28);
+  border-color: rgba(255, 255, 255, 0.6);
+  color: #FFFFFF;
+  transform: translateY(-2px);
+}
+
+.btn-sm {
+  padding: 7px 14px;
+  font-size: 13px;
+  border-radius: var(--radius-sm);
+}
+
+.btn-lg {
+  padding: 14px 28px;
+  font-size: 16px;
+  border-radius: var(--radius-lg);
+}
+
+/* ==========================================================================
+   HOMEPAGE HERO SECTION
+   ========================================================================== */
 .hero-section {
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 16px;
+  padding-bottom: 24px;
 }
 
 .hero-banner {
   position: relative;
-  border-radius: var(--radius-xl);
+  border-radius: var(--radius-2xl);
   overflow: hidden;
   background-image: url('../images/hero/karnataka-hero.jpg');
   background-size: cover;
   background-position: center;
-  min-height: 580px;
+  min-height: 560px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 40px 24px;
-  box-shadow: 0 20px 45px rgba(22, 32, 44, 0.25);
+  padding: 40px 24px 32px;
+  box-shadow: 0 20px 48px rgba(27, 67, 50, 0.22);
   border: 1px solid rgba(255, 255, 255, 0.15);
+  animation: heroFadeIn 0.6s ease-out;
 }
 
 @media (min-width: 768px) {
   .hero-banner {
-    padding: 60px 48px 48px;
-    min-height: 640px;
+    padding: 64px 52px 40px;
+    min-height: 620px;
   }
 }
 
-/* Dark Gradient Overlay for readability */
+/* Subtle dark gradient overlay so text remains razor-sharp & readable */
 .hero-overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(
     135deg,
-    rgba(14, 20, 32, 0.88) 0%,
-    rgba(14, 20, 32, 0.65) 50%,
-    rgba(14, 20, 32, 0.45) 100%
+    rgba(15, 33, 25, 0.88) 0%,
+    rgba(27, 67, 50, 0.72) 45%,
+    rgba(15, 25, 20, 0.55) 100%
   );
   z-index: 1;
   pointer-events: none;
 }
 
-/* Soft bottom vignette overlay */
 .hero-overlay-bottom {
   position: absolute;
   inset: 0;
   background: linear-gradient(
     to top,
-    rgba(10, 15, 25, 0.92) 0%,
+    rgba(10, 24, 18, 0.92) 0%,
     transparent 60%
   );
   z-index: 1;
@@ -224,51 +353,53 @@ img {
 .hero-content {
   position: relative;
   z-index: 2;
-  max-width: 720px;
+  max-width: 740px;
 }
 
 .hero-badge {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.14);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  padding: 8px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 7px 16px;
   border-radius: var(--radius-full);
-  color: #ffffff;
+  color: #FFFFFF;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.5px;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
 }
 
 .hero-heading {
-  font-size: 36px;
+  font-size: 34px;
   font-weight: 800;
-  color: #ffffff;
+  color: #FFFFFF;
   line-height: 1.15;
   letter-spacing: -0.8px;
-  margin-bottom: 18px;
-  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.6);
+  margin-bottom: 16px;
+  text-shadow: 0 3px 14px rgba(0, 0, 0, 0.5);
 }
 
 .hero-heading span.karnataka-text {
-  background: linear-gradient(135deg, #a5b4fc 0%, #fde68a 100%);
+  background: linear-gradient(135deg, #FDE68A 0%, #D4A373 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  display: inline-block;
 }
 
 @media (min-width: 640px) {
   .hero-heading {
-    font-size: 48px;
+    font-size: 46px;
   }
 }
 
 @media (min-width: 1024px) {
   .hero-heading {
-    font-size: 58px;
+    font-size: 56px;
   }
 }
 
@@ -276,8 +407,8 @@ img {
   font-size: 15px;
   color: rgba(255, 255, 255, 0.92);
   line-height: 1.6;
-  margin-bottom: 30px;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  margin-bottom: 28px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
   max-width: 620px;
 }
 
@@ -294,16 +425,16 @@ img {
   margin-top: 24px;
 }
 
-/* Hero Stats Strip at bottom */
+/* Hero Stats Strip */
 .hero-stats {
   position: relative;
   z-index: 2;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
-  padding-top: 32px;
-  margin-top: 40px;
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  padding-top: 28px;
+  margin-top: 36px;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
 }
 
 @media (min-width: 640px) {
@@ -313,19 +444,130 @@ img {
 }
 
 .hero-stat-item h4 {
-  font-size: 26px;
+  font-size: 24px;
   font-weight: 800;
-  color: #ffffff;
+  color: #FFFFFF;
   line-height: 1;
 }
 
-.hero-stat-item:nth-child(1) h4 { color: #a5b4fc; }
-.hero-stat-item:nth-child(2) h4 { color: #fde68a; }
-.hero-stat-item:nth-child(3) h4 { color: #6ee7b7; }
-.hero-stat-item:nth-child(4) h4 { color: #f472b6; }
+.hero-stat-item:nth-child(1) h4 { color: #A7F3D0; }
+.hero-stat-item:nth-child(2) h4 { color: #FDE68A; }
+.hero-stat-item:nth-child(3) h4 { color: #BAE6FD; }
+.hero-stat-item:nth-child(4) h4 { color: #DDD6FE; }
 
 .hero-stat-item p {
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(255, 255, 255, 0.8);
   margin-top: 4px;
+}
+
+/* ==========================================================================
+   SKELETON LOADERS
+   ========================================================================== */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    #EAE6DF 25%,
+    #F4EFEA 50%,
+    #EAE6DF 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-sm);
+}
+
+.skeleton-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: 1px solid var(--border-card);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.skeleton-card .skeleton-media {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+}
+
+.skeleton-card .skeleton-body {
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.skeleton-line {
+  height: 14px;
+  border-radius: 4px;
+}
+
+.skeleton-line.title {
+  height: 22px;
+  width: 70%;
+}
+
+.skeleton-line.sub {
+  height: 12px;
+  width: 45%;
+}
+
+.skeleton-line.desc {
+  height: 12px;
+  width: 90%;
+}
+
+/* ==========================================================================
+   EMPTY STATES & ERROR STATES
+   ========================================================================== */
+.empty-state {
+  text-align: center;
+  padding: 60px 24px;
+  background: var(--bg-card);
+  border-radius: var(--radius-2xl);
+  border: 1px solid var(--border-card);
+  box-shadow: var(--shadow-sm);
+  max-width: 540px;
+  margin: 32px auto;
+}
+
+.empty-state-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  line-height: 1;
+}
+
+.empty-state-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--dark-text);
+  margin-bottom: 8px;
+}
+
+.empty-state-desc {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.error-state-card {
+  background: #FFFDFD;
+  border: 1px solid #FECACA;
+  border-radius: var(--radius-xl);
+  padding: 24px;
+  text-align: center;
+  color: var(--status-error);
+}
+
+/* Animations */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes heroFadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }

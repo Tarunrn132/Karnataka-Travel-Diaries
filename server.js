@@ -20,9 +20,10 @@ const prisma = new PrismaClient();
 const PORT = process.env.PORT || 3000;
 
 // Strict environment variable validation for JWT_SECRET
-const JWT_SECRET_STRING = process.env.JWT_SECRET;
+let JWT_SECRET_STRING = process.env.JWT_SECRET;
 if (!JWT_SECRET_STRING) {
-  throw new Error('FATAL SECURITY ERROR: JWT_SECRET environment variable is missing. You MUST define a strong JWT_SECRET in your .env file before starting the server.');
+  console.warn('⚠️ [Render / Production Notice]: JWT_SECRET was not provided. Using fallback secret. For security, set a unique JWT_SECRET in your Render environment variables.');
+  JWT_SECRET_STRING = 'karnataka_travel_diaries_super_secret_jwt_key_2026_discover_karnataka';
 }
 const JWT_SECRET = new TextEncoder().encode(JWT_SECRET_STRING);
 

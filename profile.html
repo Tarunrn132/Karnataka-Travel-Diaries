@@ -66,8 +66,24 @@
         </div>
       </div>
 
+      <!-- Dashboard Navigation Tabs (Overview | Saved Places | My Trips | Settings) -->
+      <div class="profile-tabs-bar" style="display:flex; gap:10px; margin-bottom:28px; flex-wrap:wrap; border-bottom:1px solid var(--border-card); padding-bottom:14px;">
+        <button type="button" class="btn btn-primary btn-sm" id="tabOverview" onclick="switchProfileTab('overview')" style="border-radius:var(--radius-full);">
+          📊 Overview
+        </button>
+        <button type="button" class="btn btn-secondary btn-sm" id="tabSavedPlaces" onclick="switchProfileTab('saved')" style="border-radius:var(--radius-full);">
+          ❤️ Saved Places
+        </button>
+        <button type="button" class="btn btn-secondary btn-sm" id="tabMyTrips" onclick="switchProfileTab('trips')" style="border-radius:var(--radius-full);">
+          🗺️ My Trips
+        </button>
+        <button type="button" class="btn btn-secondary btn-sm" id="tabSettings" onclick="switchProfileTab('settings')" style="border-radius:var(--radius-full);">
+          ⚙️ Account Settings
+        </button>
+      </div>
+
       <!-- Karnataka Discovery Progress -->
-      <div style="background: #fff; border-radius: var(--radius-lg); border: 1px solid var(--border-color); padding: 28px; box-shadow: var(--shadow-sm); margin-bottom: 32px;">
+      <div id="sectionOverview" style="background: #fff; border-radius: var(--radius-lg); border: 1px solid var(--border-color); padding: 28px; box-shadow: var(--shadow-sm); margin-bottom: 32px;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 10px;">
           <div>
             <h2 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 4px;">Your Karnataka Exploration Quest</h2>
@@ -1035,6 +1051,41 @@
       } catch (e) {
         if (btn) btn.textContent = "💾 Save Interests";
         if (window.showToast) window.showToast("Could not save preferences.", "error");
+      }
+    }
+
+    function switchProfileTab(tab) {
+      const tabs = ['overview', 'saved', 'trips', 'settings'];
+      const btnMap = {
+        overview: document.getElementById('tabOverview'),
+        saved: document.getElementById('tabSavedPlaces'),
+        trips: document.getElementById('tabMyTrips'),
+        settings: document.getElementById('tabSettings')
+      };
+
+      tabs.forEach(t => {
+        const btn = btnMap[t];
+        if (btn) {
+          if (t === tab) {
+            btn.className = 'btn btn-primary btn-sm';
+          } else {
+            btn.className = 'btn btn-secondary btn-sm';
+          }
+        }
+      });
+
+      if (tab === 'overview') {
+        const target = document.getElementById('sectionOverview');
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      } else if (tab === 'saved') {
+        const target = document.getElementById('profile-favorites-list');
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      } else if (tab === 'trips') {
+        const target = document.getElementById('profile-trips-list');
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      } else if (tab === 'settings') {
+        const target = document.getElementById('security');
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
       }
     }
   </script>

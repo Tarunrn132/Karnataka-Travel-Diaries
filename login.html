@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sign In | Karnataka Travel Diaries</title>
-  <meta name="description" content="Sign in to your Karnataka Travel Diaries account to access saved itineraries, wishlists, and travel diaries.">
+  <meta name="description"
+    content="Sign in to your Karnataka Travel Diaries account to access saved itineraries, wishlists, and travel diaries.">
   <link rel="icon" href="images/hero/karnataka-fallback.jpg">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/auth.css">
   <link rel="stylesheet" href="css/responsive.css">
 </head>
+
 <body class="auth-page">
   <!-- Minimal Header -->
   <header class="auth-header">
@@ -25,7 +28,7 @@
 
   <main class="auth-wrapper">
     <div class="auth-card" id="authCard">
-      
+
       <div style="text-align: center; margin-bottom: 24px;">
         <span class="auth-badge">Welcome Back</span>
         <h1 class="auth-title">Explore Karnataka</h1>
@@ -40,9 +43,7 @@
         <button type="button" class="auth-tab-btn" id="tabPhone" onclick="switchLoginMethod('phone')">
           📱 Phone OTP
         </button>
-        <button type="button" class="auth-tab-btn" id="tabWhatsApp" onclick="switchLoginMethod('whatsapp')">
-          💬 WhatsApp
-        </button>
+
       </div>
 
       <!-- Status Alerts -->
@@ -63,12 +64,16 @@
         <div class="auth-form-group">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
             <label class="auth-label" for="loginPassword" style="margin-bottom: 0;">Password</label>
-            <a href="reset-password.html" style="font-size: 0.82rem; color: var(--primary-brand); text-decoration: none; font-weight: 600;">Forgot Password?</a>
+            <a href="reset-password.html"
+              style="font-size: 0.82rem; color: var(--primary-brand); text-decoration: none; font-weight: 600;">Forgot
+              Password?</a>
           </div>
           <div class="auth-input-wrapper">
             <span class="auth-input-icon">🔒</span>
-            <input type="password" id="loginPassword" class="auth-input" placeholder="••••••••" required autocomplete="current-password">
-            <button type="button" class="auth-toggle-pwd" onclick="togglePasswordVisibility('loginPassword', this)" aria-label="Toggle password view">👁️</button>
+            <input type="password" id="loginPassword" class="auth-input" placeholder="" required
+              autocomplete="current-password">
+            <button type="button" class="auth-toggle-pwd" onclick="togglePasswordVisibility('loginPassword', this)"
+              aria-label="Toggle password view">👁️</button>
           </div>
         </div>
 
@@ -89,7 +94,8 @@
               <span class="auth-input-icon">🇮🇳</span>
               <input type="tel" id="phoneLoginInput" class="auth-input" placeholder="" autocomplete="tel">
             </div>
-            <p style="font-size: 0.8rem; color: #64748b; margin-top: 6px;">Enter your registered Indian phone number for instant OTP sign-in.</p>
+            <p style="font-size: 0.8rem; color: #64748b; margin-top: 6px;">Enter your registered Indian phone number for
+              instant OTP sign-in.</p>
           </div>
 
           <div id="phoneLoginRecaptcha" style="margin: 12px 0;"></div>
@@ -102,7 +108,8 @@
         <!-- Step 2: Verify Phone OTP -->
         <div id="phoneLoginStep2" style="display: none;">
           <div style="text-align: center; margin-bottom: 16px;">
-            <p style="font-size: 0.9rem; color: #475569;">Enter the 6-digit code sent to <strong id="phoneLoginDisplayTarget"></strong></p>
+            <p style="font-size: 0.9rem; color: #475569;">Enter the 6-digit code sent to <strong
+                id="phoneLoginDisplayTarget"></strong></p>
           </div>
 
           <div class="otp-container" id="phoneLoginOtpDigits">
@@ -114,18 +121,21 @@
             <input type="text" maxlength="1" class="otp-digit" data-idx="5" inputmode="numeric">
           </div>
 
-          <button type="button" id="btnVerifyPhoneLoginOtp" class="auth-submit-btn" onclick="handleVerifyPhoneLoginOtp()">
+          <button type="button" id="btnVerifyPhoneLoginOtp" class="auth-submit-btn"
+            onclick="handleVerifyPhoneLoginOtp()">
             Verify OTP & Sign In
           </button>
 
           <div class="otp-resend-wrap">
-            <button type="button" class="otp-resend-btn" id="btnResendPhoneLoginOtp" onclick="handleSendPhoneLoginOtp()" disabled>
+            <button type="button" class="otp-resend-btn" id="btnResendPhoneLoginOtp" onclick="handleSendPhoneLoginOtp()"
+              disabled>
               Resend OTP
             </button>
             <span id="phoneLoginCooldownTimer" style="font-size: 0.8rem; color: #94a3b8;"></span>
           </div>
           <div style="text-align: center; margin-top: 12px;">
-            <a href="#" onclick="backToPhoneLogin(); return false;" style="font-size: 0.82rem; color: #64748b;">← Change mobile number</a>
+            <a href="#" onclick="backToPhoneLogin(); return false;" style="font-size: 0.82rem; color: #64748b;">← Change
+              mobile number</a>
           </div>
         </div>
       </div>
@@ -142,10 +152,12 @@
               <span class="auth-input-icon">💬</span>
               <input type="tel" id="waLoginInput" class="auth-input" placeholder="" autocomplete="tel">
             </div>
-            <p style="font-size: 0.8rem; color: #64748b; margin-top: 6px;">Sign in securely with a one-time verification code sent to your WhatsApp.</p>
+            <p style="font-size: 0.8rem; color: #64748b; margin-top: 6px;">Sign in securely with a one-time verification
+              code sent to your WhatsApp.</p>
           </div>
 
-          <button type="button" id="btnSendWaLoginOtp" class="auth-submit-btn" style="background: #25D366; color: #ffffff;" onclick="handleSendWaLoginOtp()">
+          <button type="button" id="btnSendWaLoginOtp" class="auth-submit-btn"
+            style="background: #25D366; color: #ffffff;" onclick="handleSendWaLoginOtp()">
             Send WhatsApp Code
           </button>
         </div>
@@ -153,7 +165,8 @@
         <!-- Step 2: Verify WhatsApp OTP -->
         <div id="waLoginStep2" style="display: none;">
           <div style="text-align: center; margin-bottom: 16px;">
-            <p style="font-size: 0.9rem; color: #475569;">Enter the 6-digit WhatsApp code sent to <strong id="waLoginDisplayTarget"></strong></p>
+            <p style="font-size: 0.9rem; color: #475569;">Enter the 6-digit WhatsApp code sent to <strong
+                id="waLoginDisplayTarget"></strong></p>
           </div>
 
           <div class="otp-container" id="waLoginOtpDigits">
@@ -165,18 +178,21 @@
             <input type="text" maxlength="1" class="otp-digit" data-idx="5" inputmode="numeric">
           </div>
 
-          <button type="button" id="btnVerifyWaLoginOtp" class="auth-submit-btn" style="background: #25D366; color: #ffffff;" onclick="handleVerifyWaLoginOtp()">
+          <button type="button" id="btnVerifyWaLoginOtp" class="auth-submit-btn"
+            style="background: #25D366; color: #ffffff;" onclick="handleVerifyWaLoginOtp()">
             Verify & Sign In
           </button>
 
           <div class="otp-resend-wrap">
-            <button type="button" class="otp-resend-btn" id="btnResendWaLoginOtp" onclick="handleSendWaLoginOtp()" disabled>
+            <button type="button" class="otp-resend-btn" id="btnResendWaLoginOtp" onclick="handleSendWaLoginOtp()"
+              disabled>
               Resend WhatsApp Code
             </button>
             <span id="waLoginCooldownTimer" style="font-size: 0.8rem; color: #94a3b8;"></span>
           </div>
           <div style="text-align: center; margin-top: 12px;">
-            <a href="#" onclick="backToWaLogin(); return false;" style="font-size: 0.82rem; color: #64748b;">← Change WhatsApp number</a>
+            <a href="#" onclick="backToWaLogin(); return false;" style="font-size: 0.82rem; color: #64748b;">← Change
+              WhatsApp number</a>
           </div>
         </div>
       </div>
@@ -186,37 +202,30 @@
 
       <!-- Alternative Login Buttons -->
       <div class="auth-alt-buttons">
-        <button type="button" class="auth-alt-btn google-btn" id="btnContinueGoogle" onclick="handleGoogleLogin()">
+        <button type="button" class="auth-submit-btn" id="btnContinueGoogle" onclick="handleGoogleLogin()">
+
+
           <svg width="18" height="18" viewBox="0 0 24 24">
-            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
-            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            <path fill="#4285F4"
+              d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+            <path fill="#34A853"
+              d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+            <path fill="#FBBC05"
+              d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" />
+            <path fill="#EA4335"
+              d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
           </svg>
           Continue with Google
         </button>
 
-        <button type="button" class="auth-alt-btn phone-btn" onclick="switchLoginMethod('phone')">
+        <button type="button" class="auth-submit-btn" onclick="switchLoginMethod('phone')">
           <span>📱</span> Login with Phone
         </button>
 
-        <button type="button" class="auth-alt-btn whatsapp-btn" onclick="switchLoginMethod('whatsapp')">
-          <span>💬</span> Login with WhatsApp
-        </button>
+
       </div>
 
-      <!-- Quick Demo Login Pill -->
-      <div class="auth-demo-box">
-        <div class="auth-demo-label">Quick Demo Access (Test Accounts):</div>
-        <div class="auth-demo-actions">
-          <button type="button" class="auth-demo-btn" onclick="runDemoLogin('traveler')">
-            👤 Traveler Demo
-          </button>
-          <button type="button" class="auth-demo-btn" onclick="runDemoLogin('admin')">
-            👑 Admin Demo
-          </button>
-        </div>
-      </div>
+
 
       <div class="auth-footer">
         Don't have an account? <a href="register.html">Create Account</a>
@@ -247,11 +256,9 @@
       clearAlert();
       document.getElementById('tabEmail').classList.toggle('active', method === 'email');
       document.getElementById('tabPhone').classList.toggle('active', method === 'phone');
-      document.getElementById('tabWhatsApp').classList.toggle('active', method === 'whatsapp');
 
       document.getElementById('emailLoginForm').style.display = method === 'email' ? 'block' : 'none';
       document.getElementById('phoneLoginView').style.display = method === 'phone' ? 'block' : 'none';
-      document.getElementById('waLoginView').style.display = method === 'whatsapp' ? 'block' : 'none';
     }
 
     function togglePasswordVisibility(fieldId, btn) {
@@ -417,71 +424,8 @@
       document.getElementById('btnSendPhoneLoginOtp').innerText = 'Send Login OTP';
     }
 
-    // ==========================================
-    // WHATSAPP LOGIN HANDLERS
-    // ==========================================
-    async function handleSendWaLoginOtp() {
-      clearAlert();
-      const waInput = document.getElementById('waLoginInput');
-      const whatsappNumber = waInput.value.trim();
-      const btn = document.getElementById('btnSendWaLoginOtp');
 
-      if (!whatsappNumber) {
-        showAlert('Please enter your WhatsApp mobile number.', 'error');
-        return;
-      }
 
-      btn.disabled = true;
-      btn.innerText = 'Sending WhatsApp Code...';
-
-      const result = await Auth.sendWhatsAppOtp(whatsappNumber);
-      if (result.success) {
-        showAlert('✓ Verification code sent to WhatsApp: ' + whatsappNumber, 'success');
-        document.getElementById('waLoginStep1').style.display = 'none';
-        document.getElementById('waLoginStep2').style.display = 'block';
-        document.getElementById('waLoginDisplayTarget').innerText = whatsappNumber;
-        startCooldown('wa', result.cooldownSeconds || 60);
-      } else {
-        showAlert(result.error || 'Failed to send WhatsApp code.', 'error');
-        btn.disabled = false;
-        btn.innerText = 'Send WhatsApp Code';
-      }
-    }
-
-    async function handleVerifyWaLoginOtp() {
-      clearAlert();
-      const whatsappNumber = document.getElementById('waLoginInput').value.trim();
-      const otp = getOtpCode('waLoginOtpDigits');
-      const btn = document.getElementById('btnVerifyWaLoginOtp');
-
-      if (otp.length < 6) {
-        showAlert('Please enter the complete 6-digit WhatsApp code.', 'error');
-        return;
-      }
-
-      btn.disabled = true;
-      btn.innerText = 'Verifying WhatsApp Code...';
-
-      const result = await Auth.verifyWhatsAppOtp({ whatsappNumber, otp });
-      if (result.success) {
-        showAlert('✓ WhatsApp sign-in successful! Redirecting...', 'success');
-        setTimeout(() => {
-          const redirect = new URLSearchParams(window.location.search).get('redirect') || 'profile.html';
-          window.location.href = redirect;
-        }, 700);
-      } else {
-        showAlert(result.error || 'WhatsApp verification failed.', 'error');
-        btn.disabled = false;
-        btn.innerText = 'Verify & Sign In';
-      }
-    }
-
-    function backToWaLogin() {
-      document.getElementById('waLoginStep1').style.display = 'block';
-      document.getElementById('waLoginStep2').style.display = 'none';
-      document.getElementById('btnSendWaLoginOtp').disabled = false;
-      document.getElementById('btnSendWaLoginOtp').innerText = 'Send WhatsApp Code';
-    }
 
     function startCooldown(type, seconds) {
       let remaining = seconds;
@@ -506,21 +450,7 @@
       else waLoginCooldownInterval = interval;
     }
 
-    // Demo Login Helper
-    async function runDemoLogin(role) {
-      clearAlert();
-      showAlert(`Signing in with demo ${role} account...`, 'info');
-      const result = await Auth.demoLogin(role);
-      if (result.success) {
-        showAlert(`✓ Signed in as ${result.user.name}! Redirecting...`, 'success');
-        setTimeout(() => {
-          const redirect = new URLSearchParams(window.location.search).get('redirect') || 'profile.html';
-          window.location.href = redirect;
-        }, 600);
-      } else {
-        showAlert(result.error || 'Demo login failed.', 'error');
-      }
-    }
+
 
     // Check OAuth Error parameters
     document.addEventListener('DOMContentLoaded', () => {
@@ -543,4 +473,5 @@
     });
   </script>
 </body>
+
 </html>

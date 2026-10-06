@@ -79,23 +79,47 @@ Configure these environment variables in your hosting dashboard (e.g., Render, R
      DATABASE_URL="your_postgresql_url" node scripts/seed.mjs
      ```
 
-### Step 4.2: Backend Deployment (e.g. Render / Railway)
-1. Push your repository to GitHub or GitLab.
-2. In **Render** (or **Railway**), create a new **Web Service**.
-3. Connect your repository.
-4. Set:
-   - **Environment**: `Node`
-   - **Build Command**: `npm run build`
+### Step 4.2: Render Deployment
+
+You can deploy using either the **Render Blueprint (1-Click)** or manually via the **Render Web Dashboard**:
+
+#### Method 1: Render Blueprint (Recommended - 1 Click)
+1. Push your repository to GitHub.
+2. In [Render Dashboard](https://dashboard.render.com/), click **New +** &rarr; **Blueprint**.
+3. Connect your GitHub repository.
+4. Render will read `render.yaml`, configure the Web Service, generate secure secrets (`JWT_SECRET`, `SEED_DEFAULT_PASSWORD`), set up node environment, and deploy automatically!
+
+#### Method 2: Manual Web Service Setup
+1. In [Render Dashboard](https://dashboard.render.com/), click **New +** &rarr; **Web Service**.
+2. Connect your GitHub repository.
+3. Configure the settings:
+   - **Name**: `karnataka-travel-diaries`
+   - **Region**: `Singapore` (or nearest to your audience)
+   - **Branch**: `main`
+   - **Runtime**: `Node`
+   - **Build Command**: `npm install && npm run build:render`
    - **Start Command**: `npm start`
-5. Under **Environment Variables**, add all required variables from the table above.
-6. Trigger the deployment.
-7. Once deployed, verify your service by opening `https://YOUR-BACKEND-URL/health`. It will return:
+   - **Plan**: `Free`
+4. Expand **Advanced** &rarr; **Add Environment Variables**:
+   - `NODE_ENV`: `production`
+   - `DATABASE_URL`: `file:./dev.db`
+   - `JWT_SECRET`: *(Click 'Generate' or enter a 32+ character random string)*
+   - `SEED_DEFAULT_PASSWORD`: *(Random password or custom admin password)*
+   - `ENABLE_DEMO_LOGIN`: `true` (or `false` for strictly personal use)
+   - `FIREBASE_API_KEY`: *(From your .env)*
+   - `FIREBASE_AUTH_DOMAIN`: `karnatakatraveldiaries-a513e.firebaseapp.com`
+   - `FIREBASE_PROJECT_ID`: `karnatakatraveldiaries-a513e`
+   - `FIREBASE_STORAGE_BUCKET`: `karnatakatraveldiaries-a513e.firebasestorage.app`
+   - `FIREBASE_MESSAGING_SENDER_ID`: `989877596600`
+   - `FIREBASE_APP_ID`: `1:989877596600:web:c108fc94c64e77a61d5f4d`
+5. Click **Create Web Service**.
+6. Once deployed, verify your service by opening `https://YOUR-BACKEND-URL/health`. It will return:
    ```json
    {
      "status": "ok",
      "service": "karnataka-travel-diaries",
      "uptime": 120,
-     "timestamp": "2026-09-27T..."
+     "timestamp": "2026-09-30T..."
    }
    ```
 

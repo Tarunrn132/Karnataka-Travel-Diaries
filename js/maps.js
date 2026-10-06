@@ -123,14 +123,14 @@ const KarnatakaMap = {
         className: 'custom-map-pin',
         html: `
           <div style="
-            background: linear-gradient(135deg, #5c4fe5 0%, #3d27a4 100%);
+            background: linear-gradient(135deg, #1B4332 0%, #2D6A4F 100%);
             color: #ffffff;
-            padding: 5px 9px;
+            padding: 5px 10px;
             border-radius: 9999px;
             font-size: 11px;
             font-weight: 700;
             white-space: nowrap;
-            box-shadow: 0 4px 12px rgba(92, 79, 229, 0.4);
+            box-shadow: 0 4px 12px rgba(27, 67, 50, 0.35);
             border: 2px solid #ffffff;
             cursor: pointer;
             transform: translate(-50%, -100%);
@@ -148,9 +148,9 @@ const KarnatakaMap = {
 
       const marker = L.marker([lat, lng], { icon: customIcon }).addTo(this.map);
 
-      // Popup Content meeting Requirement 13
+      // Popup Content meeting Modern Design System
       const popupHtml = `
-        <div style="width: 230px; font-family: 'Poppins', sans-serif;">
+        <div style="width: 230px; font-family: 'Plus Jakarta Sans', sans-serif;">
           <div style="position: relative; width: 100%; height: 115px; border-radius: 12px; overflow: hidden; margin-bottom: 8px; background: #e2e8f0;">
             <img 
               src="${dest.image || 'images/hero/karnataka-hero.jpg'}" 
@@ -158,24 +158,24 @@ const KarnatakaMap = {
               style="width: 100%; height: 100%; object-fit: cover;"
               onerror="this.onerror=null; this.src='images/hero/karnataka-hero.jpg';"
             />
-            <span style="position: absolute; top: 6px; left: 6px; background: rgba(255,255,255,0.95); font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 6px; color:#5c4fe5; box-shadow:0 2px 4px rgba(0,0,0,0.1);">
+            <span style="position: absolute; top: 6px; left: 6px; background: rgba(255,255,255,0.95); font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 6px; color:#1B4332; box-shadow:0 2px 4px rgba(0,0,0,0.1);">
               ${dest.category}
             </span>
           </div>
-          <h4 style="font-size: 14px; font-weight: 800; color: #16202c; margin-bottom: 2px; line-height: 1.3;">
+          <h4 style="font-size: 14px; font-weight: 800; color: #1C1E21; margin-bottom: 2px; line-height: 1.3;">
             ${dest.name}
           </h4>
-          <p style="font-size: 11px; color: #64748b; margin-bottom: 4px; font-weight: 600;">
+          <p style="font-size: 11px; color: #5A6472; margin-bottom: 4px; font-weight: 600;">
             📍 ${dest.district}${dest.taluk ? ` (${dest.taluk})` : ''} • ★ ${(dest.averageRating || 4.8).toFixed(1)}
           </p>
-          <p style="font-size: 11px; color: #475569; line-height: 1.4; margin-bottom: 10px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+          <p style="font-size: 11px; color: #4A5568; line-height: 1.4; margin-bottom: 10px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
             ${dest.shortDescription || dest.description || ''}
           </p>
           <div style="display: flex; gap: 6px;">
-            <a href="destination.html?id=${dest.slug || dest.id}" style="flex:1; text-align:center; padding: 6px 10px; background: #16202c; color: white; border-radius: 8px; font-size: 11px; font-weight: 600; text-decoration: none;">
+            <a href="destination.html?id=${dest.slug || dest.id}" style="flex:1; text-align:center; padding: 7px 10px; background: #1B4332; color: white; border-radius: 8px; font-size: 11px; font-weight: 700; text-decoration: none;">
               Explore
             </a>
-            <button onclick="Destinations.getDirections(${lat}, ${lng}, '${safeName}')" style="flex:1; text-align:center; padding: 6px 10px; background: #5c4fe5; color: white; border-radius: 8px; font-size: 11px; font-weight: 600; border: none; cursor: pointer;">
+            <button onclick="Destinations.getDirections(${lat}, ${lng}, '${safeName}')" style="flex:1; text-align:center; padding: 7px 10px; background: #F4EFEA; color: #1B4332; border-radius: 8px; font-size: 11px; font-weight: 700; border: 1px solid #EAE6DF; cursor: pointer;">
               Directions
             </button>
           </div>
@@ -248,14 +248,14 @@ const KarnatakaMap = {
         className: 'custom-map-pin',
         html: `
           <div style="
-            background: linear-gradient(135deg, #5c4fe5 0%, #3d27a4 100%);
+            background: linear-gradient(135deg, #1B4332 0%, #2D6A4F 100%);
             color: #ffffff;
-            padding: 5px 9px;
+            padding: 5px 10px;
             border-radius: 9999px;
             font-size: 11px;
             font-weight: 700;
             white-space: nowrap;
-            box-shadow: 0 4px 12px rgba(92, 79, 229, 0.4);
+            box-shadow: 0 4px 12px rgba(27, 67, 50, 0.35);
             border: 2px solid #ffffff;
             cursor: pointer;
             transform: translate(-50%, -100%);
@@ -274,7 +274,7 @@ const KarnatakaMap = {
       const marker = L.marker([lat, lng], { icon: customIcon }).addTo(instanceMap);
 
       const popupHtml = `
-        <div style="width: 220px; font-family: 'Poppins', sans-serif;">
+        <div style="width: 220px; font-family: 'Plus Jakarta Sans', sans-serif;">
           <div style="position: relative; width: 100%; height: 110px; border-radius: 12px; overflow: hidden; margin-bottom: 8px; background: #e2e8f0;">
             <img 
               src="${dest.image || 'images/hero/karnataka-hero.jpg'}" 
@@ -282,21 +282,21 @@ const KarnatakaMap = {
               style="width: 100%; height: 100%; object-fit: cover;"
               onerror="this.onerror=null; this.src='images/hero/karnataka-hero.jpg';"
             />
-            <span style="position: absolute; top: 6px; left: 6px; background: rgba(255,255,255,0.95); font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 4px; color:#5c4fe5;">
+            <span style="position: absolute; top: 6px; left: 6px; background: rgba(255,255,255,0.95); font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 6px; color:#1B4332;">
               ${dest.category}
             </span>
           </div>
-          <h4 style="font-size: 14px; font-weight: 800; color: #16202c; margin-bottom: 2px;">
+          <h4 style="font-size: 14px; font-weight: 800; color: #1C1E21; margin-bottom: 2px;">
             ${dest.name}
           </h4>
-          <p style="font-size: 11px; color: #64748b; margin-bottom: 4px; font-weight: 600;">
+          <p style="font-size: 11px; color: #5A6472; margin-bottom: 4px; font-weight: 600;">
             📍 ${dest.district}${dest.taluk ? ` (${dest.taluk})` : ''} • ★ ${(dest.averageRating || 4.8).toFixed(1)}
           </p>
           <div style="display: flex; gap: 6px; margin-top: 6px;">
-            <a href="destination.html?id=${dest.slug || dest.id}" style="flex:1; text-align:center; padding: 6px 10px; background: #16202c; color: white; border-radius: 8px; font-size: 11px; font-weight: 600; text-decoration: none;">
+            <a href="destination.html?id=${dest.slug || dest.id}" style="flex:1; text-align:center; padding: 6px 10px; background: #1B4332; color: white; border-radius: 8px; font-size: 11px; font-weight: 700; text-decoration: none;">
               Explore
             </a>
-            <button onclick="Destinations.getDirections(${lat}, ${lng}, '${safeName}')" style="flex:1; text-align:center; padding: 6px 10px; background: #5c4fe5; color: white; border-radius: 8px; font-size: 11px; font-weight: 600; border: none; cursor: pointer;">
+            <button onclick="Destinations.getDirections(${lat}, ${lng}, '${safeName}')" style="flex:1; text-align:center; padding: 6px 10px; background: #F4EFEA; color: #1B4332; border-radius: 8px; font-size: 11px; font-weight: 700; border: 1px solid #EAE6DF; cursor: pointer;">
               Directions
             </button>
           </div>

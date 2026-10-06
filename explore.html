@@ -122,26 +122,26 @@
 
       <!-- Filter Controls Bar -->
       <div style="background:#ffffff; border-radius:var(--radius-lg); padding:20px; box-shadow:var(--shadow-card); border:1px solid var(--border-card); margin-bottom:28px;">
-        <!-- Search, District & Sort -->
+        <!-- Search, District, Taluk & Sort -->
         <div style="display:flex; flex-wrap:wrap; gap:12px; margin-bottom:16px;">
-          <!-- Keyword & Natural Language Input -->
+          <!-- Keyword Search Input -->
           <div style="flex:1; min-width:280px; position:relative; display:flex; gap:6px;">
             <div style="position:relative; flex:1;">
               <input 
                 type="text" 
                 id="exploreSearchInput" 
-                placeholder="Search destination, or ask AI (e.g. peaceful hill station within 300 km of BLR)..."
-                style="width:100%; padding:10px 14px 10px 38px; border-radius:12px; border:1px solid #cbd5e1; background:#f8fafc; outline:none; font-size:13px;"
+                placeholder="Search destinations, temples, beaches, waterfalls..."
+                style="width:100%; padding:11px 14px 11px 40px; border-radius:12px; border:1px solid var(--border-card); background:var(--bg-body); outline:none; font-size:13px; font-weight:500;"
               />
-              <span style="position:absolute; left:12px; top:50%; transform:translateY(-50%); color:#94a3b8;">🔍</span>
+              <span style="position:absolute; left:14px; top:50%; transform:translateY(-50%); color:var(--text-muted); font-size:14px;">🔍</span>
             </div>
-            <button type="button" id="btnAiSearch" onclick="triggerAISearch()" class="btn btn-primary btn-sm" style="border-radius:12px; padding:8px 14px; font-weight:700;" title="Search with AI">
+            <button type="button" id="btnAiSearch" onclick="triggerAISearch()" class="btn btn-primary btn-sm" style="border-radius:12px; padding:8px 16px; font-weight:700;" title="Search with AI">
               ✨ Search
             </button>
           </div>
 
           <!-- District filter -->
-          <select id="districtSelect" style="padding:10px 14px; border-radius:12px; border:1px solid #cbd5e1; background:#f8fafc; font-weight:600; color:#475569; outline:none; cursor:pointer;">
+          <select id="districtSelect" style="padding:10px 14px; border-radius:12px; border:1px solid var(--border-card); background:var(--bg-body); font-weight:600; color:var(--dark-text); outline:none; cursor:pointer;">
             <option value="All">All Districts</option>
             <option value="Kodagu">Kodagu</option>
             <option value="Mysuru">Mysuru</option>
@@ -159,9 +159,22 @@
             <option value="Chikkaballapur">Chikkaballapur</option>
           </select>
 
+          <!-- Taluk filter -->
+          <select id="talukSelect" style="padding:10px 14px; border-radius:12px; border:1px solid var(--border-card); background:var(--bg-body); font-weight:600; color:var(--dark-text); outline:none; cursor:pointer;">
+            <option value="All">All Taluks</option>
+            <option value="Madikeri">Madikeri</option>
+            <option value="Hosapete">Hosapete</option>
+            <option value="Kumta">Kumta</option>
+            <option value="Mudigere">Mudigere</option>
+            <option value="Sakleshpur">Sakleshpur</option>
+            <option value="Kundapura">Kundapura</option>
+            <option value="Gundlupet">Gundlupet</option>
+            <option value="Badami">Badami</option>
+          </select>
+
           <!-- Sort filter -->
-          <select id="sortSelect" style="padding:10px 14px; border-radius:12px; border:1px solid #cbd5e1; background:#f8fafc; font-weight:600; color:#475569; outline:none; cursor:pointer;">
-            <option value="rating">Top Rated</option>
+          <select id="sortSelect" style="padding:10px 14px; border-radius:12px; border:1px solid var(--border-card); background:var(--bg-body); font-weight:600; color:var(--dark-text); outline:none; cursor:pointer;">
+            <option value="rating">Popularity &amp; Top Rated</option>
             <option value="name">Alphabetical (A–Z)</option>
             <option value="distance">Nearest to You</option>
           </select>
@@ -172,19 +185,18 @@
           </button>
         </div>
 
-        <!-- Category Horizontal Filter Pills -->
-        <div style="display:flex; gap:8px; overflow-x:auto; padding-bottom:4px;" id="categoryFilterPills">
-          <button type="button" class="btn btn-primary btn-sm category-pill active" data-cat="All">All</button>
-          <button type="button" class="btn btn-secondary btn-sm category-pill" data-cat="Hill Stations">Hill Stations</button>
-          <button type="button" class="btn btn-secondary btn-sm category-pill" data-cat="Beaches">Beaches</button>
-          <button type="button" class="btn btn-secondary btn-sm category-pill" data-cat="Heritage">Heritage</button>
-          <button type="button" class="btn btn-secondary btn-sm category-pill" data-cat="Wildlife">Wildlife</button>
-          <button type="button" class="btn btn-secondary btn-sm category-pill" data-cat="Waterfalls">Waterfalls</button>
-          <button type="button" class="btn btn-secondary btn-sm category-pill" data-cat="Religious">Religious</button>
-          <button type="button" class="btn btn-secondary btn-sm category-pill" data-cat="Adventure">Adventure</button>
-          <button type="button" class="btn btn-secondary btn-sm category-pill" data-cat="Nature">Nature</button>
-          <button type="button" class="btn btn-secondary btn-sm category-pill" data-cat="Cities">Cities</button>
-          <button type="button" class="btn btn-secondary btn-sm category-pill" data-cat="Hidden Gems">Hidden Gems</button>
+        <!-- Category Modern Filter Chips -->
+        <div class="filter-chips-container" id="categoryFilterPills">
+          <button type="button" class="category-pill active" data-cat="All">All</button>
+          <button type="button" class="category-pill" data-cat="Temples">🛕 Temples</button>
+          <button type="button" class="category-pill" data-cat="Beaches">🏖️ Beaches</button>
+          <button type="button" class="category-pill" data-cat="Waterfalls">🌊 Waterfalls</button>
+          <button type="button" class="category-pill" data-cat="Hill Stations">⛰️ Hill Stations</button>
+          <button type="button" class="category-pill" data-cat="Wildlife">🐅 Wildlife</button>
+          <button type="button" class="category-pill" data-cat="Heritage">🏛️ Heritage</button>
+          <button type="button" class="category-pill" data-cat="Adventure">🧗 Adventure</button>
+          <button type="button" class="category-pill" data-cat="Food">🍲 Food</button>
+          <button type="button" class="category-pill" data-cat="Hidden Gems">💎 Hidden Gems</button>
         </div>
       </div>
 
@@ -239,6 +251,7 @@
   <script>
     let activeCategory = "All";
     let activeDistrict = "All";
+    let activeTaluk = "All";
     let activeSort = "rating";
     let userCoords = null;
     let aiSearchResults = null;
@@ -284,6 +297,14 @@
         aiSearchResults = null;
         filterAndRender();
       });
+      const talukEl = document.getElementById("talukSelect");
+      if (talukEl) {
+        talukEl.addEventListener("change", (e) => {
+          activeTaluk = e.target.value;
+          aiSearchResults = null;
+          filterAndRender();
+        });
+      }
       document.getElementById("sortSelect").addEventListener("change", (e) => {
         activeSort = e.target.value;
         filterAndRender();
@@ -317,7 +338,7 @@
       const countText = document.getElementById("resultsCountText");
       if (countText) {
         countText.innerHTML = `
-          <span style="color:var(--primary-brand); font-weight:700;">
+          <span style="color:var(--primary-green); font-weight:700;">
             ✨ ${result.explanation}
           </span>
         `;
@@ -325,9 +346,8 @@
 
       container.innerHTML = result.destinations.map(d => {
         const standardCard = Destinations.renderCard(d);
-        // Inject explainable AI badge into the card
         if (d.reasons && d.reasons.length > 0) {
-          const reasonTag = `<div style="background:#ede9fe; color:var(--primary-brand); font-size:11px; font-weight:700; padding:6px 10px; border-radius:8px; margin-bottom:10px; line-height:1.4; border-left:3px solid var(--primary-brand);">✨ AI Match: ${d.reasons[0]}</div>`;
+          const reasonTag = `<div style="background:var(--green-tint); color:var(--primary-green); font-size:11px; font-weight:700; padding:6px 10px; border-radius:8px; margin-bottom:10px; line-height:1.4; border-left:3px solid var(--primary-green);">✨ AI Match: ${d.reasons[0]}</div>`;
           return standardCard.replace('<div class="card-body">', `<div class="card-body">${reasonTag}`);
         }
         return standardCard;
@@ -336,14 +356,27 @@
 
     function updatePillUI(catName) {
       document.querySelectorAll(".category-pill").forEach(p => {
-        if (p.getAttribute("data-cat") === catName) {
-          p.classList.remove("btn-secondary");
-          p.classList.add("btn-primary");
+        if (p.getAttribute("data-cat").toLowerCase() === catName.toLowerCase() || (catName === 'Temples' && p.getAttribute("data-cat") === 'Temples')) {
+          p.classList.add("active");
         } else {
-          p.classList.remove("btn-primary");
-          p.classList.add("btn-secondary");
+          p.classList.remove("active");
         }
       });
+    }
+
+    function renderSkeletonLoaders() {
+      const container = document.getElementById("exploreGridContainer");
+      if (!container) return;
+      container.innerHTML = Array(6).fill(0).map(() => `
+        <div class="skeleton-card">
+          <div class="skeleton skeleton-media"></div>
+          <div class="skeleton-body">
+            <div class="skeleton skeleton-line title"></div>
+            <div class="skeleton skeleton-line sub"></div>
+            <div class="skeleton skeleton-line desc"></div>
+          </div>
+        </div>
+      `).join("");
     }
 
     function filterAndRender() {
@@ -354,14 +387,7 @@
       try {
         const rawDestinations = window.karnatakaDestinations || [];
         if (!Array.isArray(rawDestinations) || rawDestinations.length === 0) {
-          container.innerHTML = `
-            <div style="grid-column: 1 / -1; background:#ffffff; border-radius:24px; padding:60px 20px; text-align:center; border:1px solid #eef0f3;">
-              <div style="font-size:40px; margin-bottom:12px;">🧭</div>
-              <h3 style="font-size:20px; font-weight:800; color:var(--dark-text); margin-bottom:6px;">Loading Karnataka Destinations...</h3>
-              <p style="font-size:13px; color:#64748b; margin-bottom:20px;">Fetching verified travel spots and routes.</p>
-              <button type="button" onclick="location.reload()" class="btn btn-primary btn-sm">Refresh Page</button>
-            </div>
-          `;
+          renderSkeletonLoaders();
           if (countText) countText.textContent = "Loading destinations...";
           return;
         }
@@ -371,11 +397,19 @@
 
         // Filter by Category
         if (activeCategory !== "All") {
-          list = list.filter(d => 
-            d.category === activeCategory || 
-            (Array.isArray(d.categories) && d.categories.includes(activeCategory)) ||
-            (typeof d.tags === "string" && d.tags.toLowerCase().includes(activeCategory.toLowerCase()))
-          );
+          list = list.filter(d => {
+            const cat = (d.category || "").toLowerCase();
+            const target = activeCategory.toLowerCase();
+            if (target === "temples" || target === "religious") {
+              return cat.includes("temple") || cat.includes("religious") || (d.tags && d.tags.toLowerCase().includes("temple"));
+            }
+            if (target === "food") {
+              return cat.includes("food") || (d.description && d.description.toLowerCase().includes("cuisine")) || (d.shortDescription && d.shortDescription.toLowerCase().includes("cuisine"));
+            }
+            return cat.includes(target) || 
+              (Array.isArray(d.categories) && d.categories.some(c => c.toLowerCase().includes(target))) ||
+              (typeof d.tags === "string" && d.tags.toLowerCase().includes(target));
+          });
         }
 
         // Filter by District
@@ -383,6 +417,14 @@
           list = list.filter(d => 
             d.district === activeDistrict || 
             (d.district && d.district.toLowerCase().includes(activeDistrict.toLowerCase()))
+          );
+        }
+
+        // Filter by Taluk
+        if (activeTaluk !== "All") {
+          list = list.filter(d => 
+            d.taluk === activeTaluk || 
+            (d.taluk && d.taluk.toLowerCase().includes(activeTaluk.toLowerCase()))
           );
         }
 
@@ -420,13 +462,13 @@
         // Render Grid
         if (list.length === 0) {
           container.innerHTML = `
-            <div style="grid-column: 1 / -1; background:#ffffff; border-radius:24px; padding:60px 20px; text-align:center; border:1px solid #eef0f3;">
-              <div style="font-size:40px; margin-bottom:12px;">🔍</div>
-              <h3 style="font-size:20px; font-weight:800; color:var(--dark-text); margin-bottom:6px;">No Destinations Found</h3>
-              <p style="font-size:13px; color:#64748b; margin-bottom:20px;">
-                No places matched your filter criteria. Try adjusting the search or resetting your filters.
-              </p>
-              <button type="button" onclick="resetFilters()" class="btn btn-primary btn-sm">Clear All Filters</button>
+            <div style="grid-column: 1 / -1;">
+              <div class="empty-state">
+                <div class="empty-state-icon">🧭</div>
+                <h3 class="empty-state-title">No destinations found</h3>
+                <p class="empty-state-desc">Try changing your filters or search for another destination.</p>
+                <button type="button" onclick="resetFilters()" class="btn btn-primary">Clear Filters</button>
+              </div>
             </div>
           `;
         } else {
@@ -435,11 +477,13 @@
       } catch (err) {
         console.error("Error rendering destinations:", err);
         container.innerHTML = `
-          <div style="grid-column: 1 / -1; background:#ffffff; border-radius:24px; padding:60px 20px; text-align:center; border:1px solid #fee2e2;">
-            <div style="font-size:40px; margin-bottom:12px;">⚠️</div>
-            <h3 style="font-size:20px; font-weight:800; color:#b91c1c; margin-bottom:6px;">Unable to load destinations.</h3>
-            <p style="font-size:13px; color:#64748b; margin-bottom:20px;">An error occurred while loading places. Please click retry.</p>
-            <button type="button" onclick="filterAndRender()" class="btn btn-primary btn-sm">Retry</button>
+          <div style="grid-column: 1 / -1;">
+            <div class="empty-state" style="border-color:#FECACA;">
+              <div class="empty-state-icon">⚠️</div>
+              <h3 class="empty-state-title" style="color:var(--status-error);">Unable to load destinations</h3>
+              <p class="empty-state-desc">Please check your connection and try again.</p>
+              <button type="button" onclick="filterAndRender()" class="btn btn-primary">Try Again</button>
+            </div>
           </div>
         `;
       }
@@ -448,11 +492,14 @@
     function resetFilters() {
       activeCategory = "All";
       activeDistrict = "All";
+      activeTaluk = "All";
       activeSort = "rating";
       document.getElementById("exploreSearchInput").value = "";
       document.getElementById("districtSelect").value = "All";
+      if (document.getElementById("talukSelect")) document.getElementById("talukSelect").value = "All";
       document.getElementById("sortSelect").value = "rating";
       updatePillUI("All");
+      aiSearchResults = null;
       filterAndRender();
     }
 
