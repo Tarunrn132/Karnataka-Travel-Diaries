@@ -1,4 +1,4 @@
-# Karnataka Travel Diaries — "Explore the Soul of Karnataka" 🌸
+# Karnataka Travel Diaries — "Explore the Soul of Karnataka" 
 
 > **Karnataka Travel Diaries is a full-stack, AI-powered travel platform for discovering, exploring, and planning journeys across Karnataka. It features an intelligent, distance-aware AI Trip Planner, natural-language search, 25 curated destination guides with live weather, interactive mapping, turn-by-turn Google Maps navigation, an AI travel diary writer, and anonymous local favorites.**
 
